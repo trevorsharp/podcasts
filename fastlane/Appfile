@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-app_identifier 'au.com.shiftyjelly.podcasts' # The bundle identifier of your app
+app_identifier 'trevorsharp.podcasts' # The bundle identifier of your app
 
 team_id 'PZYM8XX95Q' # Developer Portal Team ID
 
