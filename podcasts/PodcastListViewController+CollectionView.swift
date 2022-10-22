@@ -4,14 +4,18 @@ import UIKit
 
 extension PodcastListViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     private static let podcastSquareCellId = "PodcastGridCell"
+    private static let podcastSquareCellLargeId = "PodcastGridCellLarge"
     private static let podcastListCellId = "PodcastListCell"
     private static let folderSquareCellId = "FolderGridCell"
+    private static let folderSquareCellLargeId = "FolderGridCellLarge"
     private static let folderListCellId = "FolderListCell"
 
     func registerCells() {
         podcastsCollectionView.register(UINib(nibName: "PodcastGridCell", bundle: nil), forCellWithReuseIdentifier: PodcastListViewController.podcastSquareCellId)
+        podcastsCollectionView.register(UINib(nibName: "PodcastGridCellLarge", bundle: nil), forCellWithReuseIdentifier: PodcastListViewController.podcastSquareCellLargeId)
         podcastsCollectionView.register(UINib(nibName: "PodcastListCell", bundle: nil), forCellWithReuseIdentifier: PodcastListViewController.podcastListCellId)
         podcastsCollectionView.register(UINib(nibName: "FolderGridCell", bundle: nil), forCellWithReuseIdentifier: PodcastListViewController.folderSquareCellId)
+        podcastsCollectionView.register(UINib(nibName: "FolderGridCellLarge", bundle: nil), forCellWithReuseIdentifier: PodcastListViewController.folderSquareCellLargeId)
         podcastsCollectionView.register(UINib(nibName: "FolderListCell", bundle: nil), forCellWithReuseIdentifier: PodcastListViewController.folderListCellId)
     }
 
@@ -33,11 +37,18 @@ extension PodcastListViewController: UICollectionViewDelegate, UICollectionViewD
             } else {
                 return collectionView.dequeueReusableCell(withReuseIdentifier: PodcastListViewController.folderListCellId, for: indexPath)
             }
-        }
-        if item?.podcast != nil {
-            return collectionView.dequeueReusableCell(withReuseIdentifier: PodcastListViewController.podcastSquareCellId, for: indexPath)
+        } else if libraryType == .threeByThree {
+            if item?.podcast != nil {
+                return collectionView.dequeueReusableCell(withReuseIdentifier: PodcastListViewController.podcastSquareCellLargeId, for: indexPath)
+            } else {
+                return collectionView.dequeueReusableCell(withReuseIdentifier: PodcastListViewController.folderSquareCellLargeId, for: indexPath)
+            }
         } else {
-            return collectionView.dequeueReusableCell(withReuseIdentifier: PodcastListViewController.folderSquareCellId, for: indexPath)
+            if item?.podcast != nil {
+                return collectionView.dequeueReusableCell(withReuseIdentifier: PodcastListViewController.podcastSquareCellId, for: indexPath)
+            } else {
+                return collectionView.dequeueReusableCell(withReuseIdentifier: PodcastListViewController.folderSquareCellId, for: indexPath)
+            }
         }
     }
 
@@ -54,6 +65,14 @@ extension PodcastListViewController: UICollectionViewDelegate, UICollectionViewD
             } else if let folder = item.folder {
                 let castCell = cell as! FolderListCell
                 castCell.populateFrom(folder: folder, badgeType: badgeType)
+            }
+        } else if libraryType == .threeByThree {
+            if let podcast = item.podcast {
+                let castCell = cell as! PodcastGridCellLarge
+                castCell.populateFrom(podcast: podcast, badgeType: badgeType, libraryType: libraryType)
+            } else if let folder = item.folder {
+                let castCell = cell as! FolderGridCellLarge
+                castCell.populateFrom(folder: folder, badgeType: badgeType, libraryType: libraryType)
             }
         } else {
             if let podcast = item.podcast {

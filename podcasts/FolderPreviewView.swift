@@ -2,6 +2,9 @@ import PocketCastsDataModel
 import UIKit
 
 class FolderPreviewView: UIView {
+    var withGradient = false
+    var withBlanks = false
+
     private let previewCount = 4
     private let interPreviewPadding: CGFloat = 4
 
@@ -17,9 +20,9 @@ class FolderPreviewView: UIView {
     private var nameLabel: UILabel?
     private var nameLabelBottomConstraint: NSLayoutConstraint?
 
-    func populateFrom(folder: Folder) {
+    func populateFrom(folder: Folder, withoutFolderName: Bool = false) {
         let podcastUuids = DataManager.sharedManager.allPodcastsInFolder(folder: folder).map(\.uuid)
-        setup(folderName: folder.name, folderColor: folder.color, topPodcastUuids: podcastUuids)
+        setup(folderName: withoutFolderName ? "" : folder.name, folderColor: folder.color, topPodcastUuids: podcastUuids)
     }
 
     func populateFrom(model: FolderModel) {
@@ -34,6 +37,7 @@ class FolderPreviewView: UIView {
         isAccessibilityElement = true
 
         backgroundColor = AppTheme.folderColor(colorInt: folderColor)
+        self.layer.cornerRadius = 10
 
         if folderName.isEmpty { showFolderName = false }
 
@@ -42,7 +46,7 @@ class FolderPreviewView: UIView {
 
             if let uuid = topPodcastUuids[safe: i] {
                 setImage(in: imageView, for: uuid)
-            } else {
+            } else if withBlanks {
                 imageView.setTransparentNoArtwork(size: .list)
             }
 
@@ -101,6 +105,7 @@ class FolderPreviewView: UIView {
     }
 
     private func configureGradient() {
+        if !withGradient { return }
         if gradientLayer != nil { return }
 
         let gradient = CAGradientLayer()

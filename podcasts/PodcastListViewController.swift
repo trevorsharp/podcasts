@@ -307,7 +307,7 @@ class PodcastListViewController: PCViewController, UIGestureRecognizerDelegate, 
         let folderAction = OptionAction(label: L10n.folderCreateNew, icon: "folder-create") {
             self.createFolderTapped(nil)
         }
-        optionsPicker.addAction(action: folderAction)
+//        optionsPicker.addAction(action: folderAction)
 
         let accountAction = OptionAction(label: SyncManager.isUserLoggedIn() ? L10n.accountTitle : L10n.signIn, icon: "profile-account") {
             let accountViewController = SyncManager.isUserLoggedIn() ? AccountViewController() : SyncSigninViewController()
@@ -357,6 +357,7 @@ class PodcastListViewController: PCViewController, UIGestureRecognizerDelegate, 
 
     func gridTypeChanged() {
         podcastsCollectionView.reloadData()
+        gridHelper.configureLayout(collectionView: podcastsCollectionView)
     }
 
     private func showBadgeOptions() {

@@ -1,6 +1,12 @@
 import Foundation
 
 class GridHelper {
+    var gridSpacing: CGFloat = 20
+    var defaultTargetWidth: CGFloat = 180
+
+    var listSpacing: CGFloat = 2
+    var targetListWidth: CGFloat = 400
+
     private static let bigDevicePortraitWidth: CGFloat = 600
     private static let bigDeviceLandscapeWidth: CGFloat = 900
 
@@ -28,12 +34,54 @@ class GridHelper {
         flowLayout.growScale = GridHelper.moveScale
         flowLayout.alphaOnPickup = GridHelper.moveAlpha
         flowLayout.growOffset = 0
+
+        let gridType = Settings.libraryType()
+
+        if gridType == .list {
+            flowLayout.sectionInset = UIEdgeInsets(top: listSpacing, left: listSpacing, bottom: listSpacing, right: listSpacing)
+        } else {
+            flowLayout.sectionInset = UIEdgeInsets(top: gridSpacing + 5, left: gridSpacing, bottom: gridSpacing + 5, right: gridSpacing)
+        }
+
+        flowLayout.minimumLineSpacing = gridType == .list ? listSpacing : gridSpacing
+        flowLayout.minimumInteritemSpacing = gridType == .list ? listSpacing : gridSpacing
     }
 
     func collectionView(_ collectionView: UICollectionView, sizeForItemAt indexPath: IndexPath, itemCount: Int) -> CGSize {
         let gridType = Settings.libraryType()
         let viewWidth = collectionView.bounds.width
         let viewHeight = collectionView.bounds.height
+
+        // CUSTOM LOGIC STARTS HERE
+
+        if gridType == .list {
+            let targetWidth = targetListWidth
+
+            var numberOfColumns: CGFloat = 1
+
+            while viewWidth - ((numberOfColumns + 1) * (targetWidth + listSpacing) + listSpacing) > 0 && numberOfColumns < 3 {
+                numberOfColumns += 1
+            }
+
+            let calculatedWidth = (viewWidth - (numberOfColumns + 1) * listSpacing) / numberOfColumns
+
+            return CGSize(width: floor(calculatedWidth), height: 92)
+        }
+
+        let targetWidth = defaultTargetWidth * (gridType == .fourByFour ? 0.66 : 1)
+
+        var numberOfColumns: CGFloat = gridType == .fourByFour ? 3 : 2
+
+        while viewWidth - ((numberOfColumns + 1) * (targetWidth + gridSpacing) + gridSpacing) > 0 && numberOfColumns < 10 {
+            numberOfColumns += 1
+        }
+
+        let calculatedWidth = (viewWidth - (numberOfColumns + 1) * gridSpacing) / numberOfColumns
+        let heightMultiplier = gridType == .threeByThree ? 1.2 : 1
+
+        return CGSize(width: floor(calculatedWidth), height: floor(calculatedWidth * heightMultiplier))
+
+        // CUSTOM LOGIC ENDS HERE
 
         if gridType == .list {
             return CGSize(width: viewWidth, height: 65)
@@ -92,7 +140,7 @@ class GridHelper {
             }
         } else if gesture.state == .changed {
             if isList {
-                location = CGPoint(x: containerView.bounds.width / 2, y: location.y)
+//                location = CGPoint(x: containerView.bounds.width / 2, y: location.y)
             }
             collectionView.updateInteractiveMovementTargetPosition(location)
         } else if gesture.state == .ended {

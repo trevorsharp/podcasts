@@ -2,6 +2,8 @@ import PocketCastsDataModel
 import UIKit
 
 class UnplayedSashOverlayView: UIView {
+    var withBadgeCount = false
+
     private let bgImage = UIImageView()
     private let badgeLabel = UILabel()
 
@@ -39,6 +41,9 @@ class UnplayedSashOverlayView: UIView {
         if badgeType == .latestEpisode || badgeType == .allUnplayed, count > 0 {
             bgImage.isHidden = false
             badgeLabel.isHidden = false
+
+            if !withBadgeCount { return }
+
             if badgeType == .latestEpisode {
                 badgeLabel.text = "●"
             } else {
@@ -62,6 +67,10 @@ class UnplayedSashOverlayView: UIView {
 
     private func setup() {
         translatesAutoresizingMaskIntoConstraints = false
+
+        bgImage.layer.cornerRadius = 10
+        bgImage.layer.maskedCorners = [.layerMaxXMinYCorner]
+        bgImage.layer.masksToBounds = true
 
         bgImage.translatesAutoresizingMaskIntoConstraints = false
         addSubview(bgImage)

@@ -1,9 +1,9 @@
 import PocketCastsDataModel
 import UIKit
 
-class PodcastGridCell: UICollectionViewCell {
+class PodcastGridCellLarge: UICollectionViewCell {
     @IBOutlet var podcastImage: PodcastImageView!
-    @IBOutlet var podcastName: UILabel!
+    @IBOutlet var podcastName: ThemeableLabel!
 
     @IBOutlet var unplayedSashView: UnplayedSashOverlayView!
     @IBOutlet var supporterHeart: PodcastHeartView!
@@ -61,6 +61,9 @@ class PodcastGridCell: UICollectionViewCell {
 
     private func setColors(podcast: Podcast) {
         podcastName.text = podcast.title
+        podcastName.textColor = ThemeColor.primaryText01()
+        podcastName.font = UIFont.systemFont(ofSize: 19, weight: .semibold)
+
         let bgColor = ColorManager.backgroundColorForPodcast(podcast)
         backgroundColor = bgColor
         podcastName.backgroundColor = bgColor

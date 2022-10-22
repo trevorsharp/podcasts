@@ -45,7 +45,9 @@ class SearchResultsModel: ObservableObject {
             isSearchingForPodcasts = true
             do {
                 let results = try await podcastSearch.search(term: term)
-                show(podcastResults: results)
+                if results.count > 0 {
+                    show(podcastResults: results)
+                }
             } catch {
                 analyticsHelper.trackFailed(error)
             }

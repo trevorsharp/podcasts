@@ -4,10 +4,12 @@ import PocketCastsUtils
 
 extension FolderViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     private static let podcastCellId = "PodcastGridCell"
+    private static let podcastCellLargeId = "PodcastGridCellLarge"
     private static let podcastListCellId = "PodcastListCell"
 
     func registerCells() {
         mainGrid.register(UINib(nibName: "PodcastGridCell", bundle: nil), forCellWithReuseIdentifier: FolderViewController.podcastCellId)
+        mainGrid.register(UINib(nibName: "PodcastGridCellLarge", bundle: nil), forCellWithReuseIdentifier: FolderViewController.podcastCellLargeId)
         mainGrid.register(UINib(nibName: "PodcastListCell", bundle: nil), forCellWithReuseIdentifier: FolderViewController.podcastListCellId)
     }
 
@@ -24,6 +26,10 @@ extension FolderViewController: UICollectionViewDelegate, UICollectionViewDataSo
             return collectionView.dequeueReusableCell(withReuseIdentifier: FolderViewController.podcastListCellId, for: indexPath)
         }
 
+        if Settings.libraryType() == .threeByThree {
+            return collectionView.dequeueReusableCell(withReuseIdentifier: FolderViewController.podcastCellLargeId, for: indexPath)
+        }
+
         return collectionView.dequeueReusableCell(withReuseIdentifier: FolderViewController.podcastCellId, for: indexPath)
     }
 
@@ -36,6 +42,9 @@ extension FolderViewController: UICollectionViewDelegate, UICollectionViewDataSo
         if libraryType == .list {
             let castCell = cell as! PodcastListCell
             castCell.populateFrom(podcast, badgeType: badgeType)
+        } else if libraryType == .threeByThree {
+            let castCell = cell as! PodcastGridCellLarge
+            castCell.populateFrom(podcast: podcast, badgeType: badgeType, libraryType: libraryType)
         } else {
             let castCell = cell as! PodcastGridCell
             castCell.populateFrom(podcast: podcast, badgeType: badgeType, libraryType: libraryType)

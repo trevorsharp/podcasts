@@ -2,6 +2,8 @@ import PocketCastsDataModel
 import UIKit
 
 class FolderListCell: ThemeableCollectionCell {
+    var withBadgeNumbers = false
+
     @IBOutlet var folderPreview: FolderPreviewView! {
         didSet {
             folderPreview.showFolderName = false
@@ -33,14 +35,14 @@ class FolderListCell: ThemeableCollectionCell {
         let count = DataManager.sharedManager.countOfPodcastsInFolder(folder: folder)
         folderInfo.text = L10n.podcastCount(count)
 
-        if badgeType == .allUnplayed {
+        if badgeType == .allUnplayed && withBadgeNumbers {
             unplayedHeight.constant = 28
             unplayedBadge.layoutIfNeeded()
 
             unplayedBadge.showsNumber = true
             unplayedBadge.unplayedCount = folder.cachedUnreadCount > 99 ? 99 : folder.cachedUnreadCount
             unplayedBadge.isHidden = folder.cachedUnreadCount == 0
-        } else if badgeType == .latestEpisode {
+        } else if badgeType == .latestEpisode || badgeType == .allUnplayed {
             unplayedHeight.constant = 12
             unplayedBadge.layoutIfNeeded()
 

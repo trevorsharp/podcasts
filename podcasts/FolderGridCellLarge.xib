@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="gTV-IL-0wX" customClass="FolderGridCellLarge" customModule="podcasts" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="125" height="150"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="125" height="150"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lEk-hS-0Dg" customClass="FolderPreviewView" customModule="podcasts" customModuleProvider="target">
+                        <rect key="frame" x="0.0" y="0.0" width="125" height="125"/>
+                        <accessibility key="accessibilityConfiguration">
+                            <accessibilityTraits key="traits" button="YES"/>
+                            <bool key="isElement" value="YES"/>
+                        </accessibility>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="lEk-hS-0Dg" secondAttribute="height" multiplier="1:1" id="llm-NH-cwe"/>
+                        </constraints>
+                    </view>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6TF-v3-9Cy" customClass="UnplayedSashOverlayView" customModule="podcasts" customModuleProvider="target">
+                        <rect key="frame" x="83" y="0.0" width="42" height="42"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="42" id="gZl-iv-HAx"/>
+                            <constraint firstAttribute="width" constant="42" id="vIj-WN-Sgr"/>
+                        </constraints>
+                    </view>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="The Greatest Podcast In the world with the longest name in the world" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="549-IG-prb" userLabel="Folder Name" customClass="ThemeableLabel" customModule="podcasts" customModuleProvider="target">
+                        <rect key="frame" x="2" y="130" width="121" height="19"/>
+                        <accessibility key="accessibilityConfiguration">
+                            <accessibilityTraits key="traits" button="YES"/>
+                            <bool key="isElement" value="YES"/>
+                        </accessibility>
+                        <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="19"/>
+                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstItem="lEk-hS-0Dg" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="ICc-pY-nG1"/>
+                <constraint firstItem="549-IG-prb" firstAttribute="top" secondItem="lEk-hS-0Dg" secondAttribute="bottom" constant="5" id="M56-4L-YZ7"/>
+                <constraint firstAttribute="trailing" secondItem="lEk-hS-0Dg" secondAttribute="trailing" id="UBv-pk-5rW"/>
+                <constraint firstItem="lEk-hS-0Dg" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="UX6-Th-mZD"/>
+                <constraint firstItem="6TF-v3-9Cy" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="gaS-Fv-AIt"/>
+                <constraint firstAttribute="trailing" secondItem="549-IG-prb" secondAttribute="trailing" constant="2" id="tpO-tj-K2x"/>
+                <constraint firstAttribute="bottom" secondItem="549-IG-prb" secondAttribute="bottom" constant="1" id="xa0-UE-4y6"/>
+                <constraint firstItem="549-IG-prb" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="2" id="yK7-i6-zTl"/>
+                <constraint firstAttribute="trailing" secondItem="6TF-v3-9Cy" secondAttribute="trailing" id="yRm-md-wUv"/>
+            </constraints>
+            <size key="customSize" width="125" height="150"/>
+            <connections>
+                <outlet property="folderName" destination="549-IG-prb" id="v9V-1O-qFn"/>
+                <outlet property="folderPreview" destination="lEk-hS-0Dg" id="XsM-rm-9lQ"/>
+                <outlet property="unplayedSashView" destination="6TF-v3-9Cy" id="gcv-6n-nUs"/>
+            </connections>
+            <point key="canvasLocation" x="-294.92753623188406" y="-3.3482142857142856"/>
+        </collectionViewCell>
+    </objects>
+</document>

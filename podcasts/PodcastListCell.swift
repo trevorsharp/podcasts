@@ -1,7 +1,10 @@
 import PocketCastsDataModel
+import PocketCastsUtils
 import UIKit
 
 class PodcastListCell: ThemeableCollectionCell {
+    var withBadgeNumbers = false
+
     @IBOutlet var podcastImage: PodcastImageView!
     @IBOutlet var podcastTitle: ThemeableLabel!
     @IBOutlet var podcastInfo: ThemeableLabel! {
@@ -23,17 +26,18 @@ class PodcastListCell: ThemeableCollectionCell {
         podcastImage.setPodcast(uuid: podcast.uuid, size: .list)
         podcastTitle.text = podcast.title
         podcastInfo.text = podcast.author
+        podcastInfo.text = podcast.latestEpisodeDate == nil ? "" : TimeFormatter.shared.appleStyleElapsedString(date: podcast.latestEpisodeDate!)
 
         accessibilityLabel = podcast.title
 
-        if badgeType == .allUnplayed {
+        if badgeType == .allUnplayed && withBadgeNumbers {
             unplayedHeight.constant = 28
             unplayedBadge.layoutIfNeeded()
 
             unplayedBadge.showsNumber = true
             unplayedBadge.unplayedCount = podcast.cachedUnreadCount > 99 ? 99 : podcast.cachedUnreadCount
             unplayedBadge.isHidden = podcast.cachedUnreadCount == 0
-        } else if badgeType == .latestEpisode {
+        } else if badgeType == .latestEpisode || badgeType == .allUnplayed {
             unplayedHeight.constant = 12
             unplayedBadge.layoutIfNeeded()
 

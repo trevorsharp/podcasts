@@ -101,6 +101,21 @@ class PodcastImageView: UIView {
 
             imageView?.layer.cornerRadius = 4
         }
+
+        shadowView?.layer.shadowRadius = 6
+        shadowView?.layer.cornerRadius = 6
+        imageView?.layer.cornerRadius = 6
+
+        if size == .page {
+            shadowView?.layer.shadowColor = UIColor.black.cgColor
+            shadowView?.layer.shadowOffset = CGSize(width: 0, height: 1)
+            shadowView?.layer.shadowOpacity = 0.3
+            imageView?.layer.cornerRadius = 16
+        }
+
+        if size == .grid {
+            imageView?.layer.cornerRadius = 10
+        }
     }
 
     override func layoutSubviews() {
