@@ -144,7 +144,7 @@ internal enum L10n {
   internal static var accountSignedOutAlertTitle: String { return L10n.tr("Localizable", "account_signed_out_alert_title") }
   /// Sign in failed. Please try again.
   internal static var accountSsoFailed: String { return L10n.tr("Localizable", "account_sso_failed") }
-  /// Pocket Casts Account
+  /// Account
   internal static var accountTitle: String { return L10n.tr("Localizable", "account_title") }
   /// Account Upgraded
   internal static var accountUpgraded: String { return L10n.tr("Localizable", "account_upgraded") }

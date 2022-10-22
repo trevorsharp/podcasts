@@ -23,6 +23,7 @@ extension PodcastListViewController: UIScrollViewDelegate, PCSearchBarDelegate {
     func setupSearchBar() {
         searchController = PCSearchBarController()
 
+        searchController.placeholderText = "Search or Enter URL"
         searchController.view.translatesAutoresizingMaskIntoConstraints = false
         addChild(searchController)
         view.addSubview(searchController.view)

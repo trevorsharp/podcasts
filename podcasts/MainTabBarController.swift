@@ -30,7 +30,7 @@ class MainTabBarController: UITabBarController, NavigationProtocol {
         podcastsController.tabBarItem = UITabBarItem(title: L10n.podcastsPlural, image: UIImage(named: "podcasts_tab"), tag: tabs.firstIndex(of: .podcasts)!)
 
         let filtersViewController = PlaylistsViewController()
-        filtersViewController.tabBarItem = UITabBarItem(title: L10n.filters, image: UIImage(named: "filters_tab"), tag: tabs.firstIndex(of: .filter)!)
+        filtersViewController.tabBarItem = UITabBarItem(title: L10n.filters, image: UIImage(named: "icon-upnext"), tag: tabs.firstIndex(of: .filter)!)
 
         let discoverViewController = DiscoverViewController(coordinator: DiscoverCoordinator())
         discoverViewController.tabBarItem = UITabBarItem(title: L10n.discover, image: UIImage(named: "discover_tab"), tag: tabs.firstIndex(of: .discover)!)
@@ -41,6 +41,7 @@ class MainTabBarController: UITabBarController, NavigationProtocol {
         displayEndOfYearBadgeIfNeeded()
 
         viewControllers = [podcastsController, filtersViewController, discoverViewController, profileViewController].map { SJUIUtils.navController(for: $0) }
+        viewControllers = [podcastsController, filtersViewController].map { SJUIUtils.navController(for: $0) }
         selectedIndex = UserDefaults.standard.integer(forKey: Constants.UserDefaults.lastTabOpened)
 
         // Track the initial tab opened event

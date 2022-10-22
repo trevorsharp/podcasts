@@ -54,9 +54,18 @@ class AccountViewController: UIViewController, ChangeEmailDelegate {
         NotificationCenter.default.addObserver(self, selector: #selector(iapProductsUpdated), name: ServerNotifications.iapProductsUpdated, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(iapProductsFailed), name: ServerNotifications.iapProductsFailed, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(subscriptionStatusChanged), name: ServerNotifications.subscriptionStatusChanged, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(themeDidChange), name: Constants.Notifications.themeChanged, object: nil)
-
+        NotificationCenter.default.addObserver(self, selector: #selector(handleThemeChange), name: Constants.Notifications.themeChanged, object: nil)
         tableView.tableHeaderView = updatedHeaderContentView
+
+        NSLayoutConstraint.activate([
+            updatedHeaderContentView.leadingAnchor.constraint(equalTo: tableView.leadingAnchor),
+            updatedHeaderContentView.trailingAnchor.constraint(equalTo: tableView.trailingAnchor),
+            updatedHeaderContentView.centerXAnchor.constraint(equalTo: tableView.centerXAnchor)
+        ])
+
+        let closeButton = UIBarButtonItem(image: UIImage(named: "cancel"), style: .done, target: self, action: #selector(closeTapped))
+        closeButton.accessibilityLabel = L10n.accessibilityCloseDialog
+        navigationItem.leftBarButtonItem = closeButton
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -81,6 +90,10 @@ class AccountViewController: UIViewController, ChangeEmailDelegate {
         AppTheme.defaultStatusBarStyle()
     }
 
+    @objc private func closeTapped() {
+        self.dismiss(animated: true)
+    }
+
     @objc private func subscriptionStatusChanged() {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
@@ -91,6 +104,10 @@ class AccountViewController: UIViewController, ChangeEmailDelegate {
 
     private func updateDisplayedData() {
         headerViewModel.update()
+
+        var newTableRows: [[TableRow]] = [[.logout]]
+        updateTableRows(newRows: newTableRows)
+        return
 
         // Show the upsell if the users subscription is expiring in the next 30 days
         let isExpiring = (SubscriptionHelper.timeToSubscriptionExpiry() ?? .infinity) < Constants.Limits.maxSubscriptionExpirySeconds
@@ -161,7 +178,7 @@ class AccountViewController: UIViewController, ChangeEmailDelegate {
         NavigationManager.sharedManager.navigateTo(NavigationManager.showPlusMarketingPageKey, data: nil)
     }
 
-    @objc func themeDidChange() {
+    @objc func handleThemeChange() {
         updateDisplayedData() // in case the expiry text color neds updating
     }
 

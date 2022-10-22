@@ -206,6 +206,7 @@ extension AccountViewController: UITableViewDataSource, UITableViewDelegate {
         let signOutAction = OptionAction(label: L10n.accountSignOut, icon: "signout") { [weak self] in
             SignOutHelper.signout()
             self?.navigationController?.popViewController(animated: true)
+            self?.navigationController?.dismiss(animated: true)
         }
         signOutAction.destructive = true
 

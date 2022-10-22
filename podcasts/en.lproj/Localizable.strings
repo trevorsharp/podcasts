@@ -128,7 +128,7 @@
 "account_sso_failed" = "Sign in failed. Please try again.";
 
 /* Title for the account screen for the user's Pocket Casts Account. 'Pocket Casts' refers to the app name and is treated as a proper noun so it shouldn't be localized. */
-"account_title" = "Pocket Casts Account";
+"account_title" = "Account";
 
 /* Title informing the user that their account has been successfully upgraded to Pocket Casts Plus */
 "account_upgraded" = "Account Upgraded";

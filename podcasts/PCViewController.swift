@@ -1,6 +1,8 @@
 import UIKit
 
 class PCViewController: SimpleNotificationsViewController {
+    var dismissOnCancel = false
+
     var supportsGoogleCast = false
 
     var googleCastBtn: UIBarButtonItem?
@@ -29,7 +31,7 @@ class PCViewController: SimpleNotificationsViewController {
             castButton.addTarget(self, action: #selector(castButtonTapped), for: .touchUpInside)
 
             refreshRightButtons()
-        } else if let _ = customRightBtn {
+        } else if customRightBtn != nil || dismissOnCancel {
             refreshRightButtons()
         }
         setupNavBar(animated: false)
@@ -77,6 +79,11 @@ class PCViewController: SimpleNotificationsViewController {
             navigationItem.rightBarButtonItems = nil
             navigationItem.rightBarButtonItem = nil
         }
+
+        if dismissOnCancel {
+            navigationItem.leftBarButtonItems = nil
+            navigationItem.leftBarButtonItem = nil
+        }
     }
 
     override func viewDidDisappear(_ animated: Bool) {
@@ -106,6 +113,18 @@ class PCViewController: SimpleNotificationsViewController {
             navigationItem.rightBarButtonItems = nil
             navigationItem.rightBarButtonItem = customRightBtn
         }
+
+        if dismissOnCancel {
+            var customLeftBtn = UIBarButtonItem(image: UIImage(named: "close"), style: .plain, target: self, action: #selector(closeView(_:)))
+            customLeftBtn.accessibilityLabel = L10n.close
+
+            navigationItem.leftBarButtonItem = nil
+            navigationItem.leftBarButtonItem = customLeftBtn
+        }
+    }
+
+    @objc private func closeView(_ sender: UIBarButtonItem) {
+        dismiss(animated: true)
     }
 
     func changeNavTint(titleColor: UIColor?, iconsColor: UIColor?, backgroundColor: UIColor? = nil) {

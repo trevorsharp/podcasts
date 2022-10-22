@@ -54,10 +54,12 @@ class MultipleActionView: UIView {
         let segmentedControl = CustomSegmentedControl()
         var segmentedActions = [SegmentedAction]()
         for (index, action) in actions.enumerated() {
-            guard let icon = action.icon, let image = UIImage(named: icon) else { continue }
-
             if action.selected { segmentedControl.selectedIndex = index }
-            segmentedActions.append(SegmentedAction(icon: image, accessibilityLabel: action.label))
+            if let icon = action.icon, let image = UIImage(named: icon) {
+                segmentedActions.append(SegmentedAction(icon: image, accessibilityLabel: action.label))
+            } else {
+                segmentedActions.append(SegmentedAction(title: action.label))
+            }
         }
         segmentedControl.setActions(segmentedActions)
         segmentedControl.lineColor = ThemeColor.primaryInteractive01(for: themeOverride)

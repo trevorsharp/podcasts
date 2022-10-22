@@ -170,6 +170,7 @@ class PodcastListViewController: PCViewController, UIGestureRecognizerDelegate, 
         let leftButton = UIBarButtonItem(image: folderImage, style: .plain, target: self, action: #selector(createFolderTapped(_:)))
         leftButton.accessibilityLabel = L10n.folderCreateNew
         navigationItem.leftBarButtonItem = leftButton
+        navigationItem.leftBarButtonItem = nil
     }
 
     @objc private func checkForScrollTap(_ notification: Notification) {
@@ -217,7 +218,7 @@ class PodcastListViewController: PCViewController, UIGestureRecognizerDelegate, 
         }
     }
 
-    @objc private func createFolderTapped(_ sender: UIBarButtonItem) {
+    @objc private func createFolderTapped(_ sender: UIBarButtonItem?) {
         if !SubscriptionHelper.hasActiveSubscription() {
             NavigationManager.sharedManager.showUpsellView(from: self, source: .folders)
             return
@@ -270,20 +271,58 @@ class PodcastListViewController: PCViewController, UIGestureRecognizerDelegate, 
         optionsPicker.addSegmentedAction(name: L10n.podcastsLayout, icon: "podcastlist_largegrid", actions: [largeGridAction, smallGridAction, listGridAction])
 
         let badgeType = Settings.podcastBadgeType()
+
+        let badgeOffAction = OptionAction(label: L10n.off, icon: "", selected: badgeType == .off) { [weak self] in
+            guard let strongSelf = self else { return }
+
+            Settings.setPodcastBadgeType(.off)
+            strongSelf.refreshGridItems()
+            Analytics.track(.podcastsListBadgesChanged, properties: ["type": BadgeType.off])
+        }
+
+        let badgeOnAction = OptionAction(label: "On", icon: "", selected: badgeType != .off) { [weak self] in
+            guard let strongSelf = self else { return }
+
+            Settings.setPodcastBadgeType(.allUnplayed)
+            strongSelf.refreshGridItems()
+            Analytics.track(.podcastsListBadgesChanged, properties: ["type": BadgeType.allUnplayed])
+        }
+        optionsPicker.addSegmentedAction(name: L10n.podcastsBadges, icon: "badges", actions: [badgeOffAction, badgeOnAction])
+
         let badgesAction = OptionAction(label: L10n.podcastsBadges, secondaryLabel: badgeType.description, icon: "badges") { [weak self] in
             self?.showBadgeOptions()
             Analytics.track(.podcastsListModalOptionTapped, properties: ["option": "badges"])
         }
-        optionsPicker.addAction(action: badgesAction)
+//        optionsPicker.addAction(action: badgesAction)
 
         let shareAction = OptionAction(label: L10n.podcastsShare, icon: "podcast-share") {
-            let shareController = SharePodcastsViewController()
-            shareController.delegate = self
-            let navController = SJUIUtils.navController(for: shareController)
-            self.present(navController, animated: true, completion: nil)
-            Analytics.track(.podcastsListModalOptionTapped, properties: ["option": "share"])
+           let shareController = SharePodcastsViewController()
+           shareController.delegate = self
+           let navController = SJUIUtils.navController(for: shareController)
+           self.present(navController, animated: true, completion: nil)
+           Analytics.track(.podcastsListModalOptionTapped, properties: ["option": "share"])
+       }
+//        optionsPicker.addAction(action: shareAction)
+
+        let folderAction = OptionAction(label: L10n.folderCreateNew, icon: "folder-create") {
+            self.createFolderTapped(nil)
         }
-        optionsPicker.addAction(action: shareAction)
+        optionsPicker.addAction(action: folderAction)
+
+        let accountAction = OptionAction(label: SyncManager.isUserLoggedIn() ? L10n.accountTitle : L10n.signIn, icon: "profile-account") {
+            let accountViewController = SyncManager.isUserLoggedIn() ? AccountViewController() : SyncSigninViewController()
+            let navController = SJUIUtils.navController(for: accountViewController)
+            self.present(navController, animated: true, completion: nil)
+        }
+        optionsPicker.addAction(action: accountAction)
+
+        let settingsAction = OptionAction(label: L10n.settings, icon: "profile-settings") {
+            let settingsViewController = SettingsViewController()
+            settingsViewController.dismissOnCancel = true
+            let navController = SJUIUtils.navController(for: settingsViewController)
+            self.present(navController, animated: true, completion: nil)
+        }
+        optionsPicker.addAction(action: settingsAction)
 
         optionsPicker.show(statusBarStyle: preferredStatusBarStyle)
 
