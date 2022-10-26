@@ -222,7 +222,7 @@ struct Constants {
             static let maxCarplayItems = 100
             static let maxBulkDownloads = 100
             static let maxSubscriptionExpirySeconds: TimeInterval = 30.days
-            static let maxShelfActions = 4
+            static let maxShelfActions = 5
         #endif
     }
 

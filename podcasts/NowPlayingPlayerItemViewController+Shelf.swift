@@ -178,6 +178,7 @@ extension NowPlayingPlayerItemViewController: NowPlayingActionsDelegate {
     }
 
     func goToTapped() {
+        self.parent?.dismiss(animated: true)
         if PlaybackManager.shared.currentEpisode() is Episode {
             goToPodcast()
         } else if PlaybackManager.shared.currentEpisode() is UserEpisode {

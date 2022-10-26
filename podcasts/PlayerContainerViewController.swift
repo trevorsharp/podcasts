@@ -99,6 +99,8 @@ class PlayerContainerViewController: SimpleNotificationsViewController, PlayerTa
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
+        adjustHeaderConstraintIfNeeded()
+
         if !FeatureFlag.newPlayerTransition.enabled {
             Analytics.track(.playerShown)
         }
@@ -221,10 +223,14 @@ class PlayerContainerViewController: SimpleNotificationsViewController, PlayerTa
         tabsView.tabs = [.nowPlaying]
     }
 
+    var statusBarHeight: CGFloat?
+
     private func adjustHeaderConstraintIfNeeded() {
         guard let window = view.window else { return }
 
-        let requiredHeight = 45 + UIUtil.statusBarHeight(in: window)
+        statusBarHeight = statusBarHeight ?? UIUtil.statusBarHeight(in: window)
+
+        let requiredHeight = 45 + statusBarHeight!
 
         if headerHeightConstraint.constant != requiredHeight {
             headerHeightConstraint.constant = requiredHeight

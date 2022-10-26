@@ -7,7 +7,7 @@ class EffectsViewController: SimpleNotificationsViewController {
     @IBOutlet var headingLbl: ThemeableLabel! {
         didSet {
             headingLbl.style = .playerContrast02
-            headingLbl.text = L10n.playbackEffects.localizedUppercase
+            headingLbl.text = L10n.carplayPlaybackSpeed.localizedUppercase
         }
     }
 
@@ -140,9 +140,9 @@ class EffectsViewController: SimpleNotificationsViewController {
         }
     }
 
-    @IBOutlet var customEffectsToVolumeBoostConstraint: NSLayoutConstraint! {
+    @IBOutlet var customEffectsToVolumeBoostConstraint: NSLayoutConstraint? {
         didSet {
-            customEffectsToVolumeBoostConstraint.isActive = false
+            customEffectsToVolumeBoostConstraint?.isActive = false
         }
     }
 
@@ -183,6 +183,8 @@ class EffectsViewController: SimpleNotificationsViewController {
         } else {
             preferredContentSize = computedSize
         }
+
+        preferredContentSize = CGSize(width: min(computedSize.width, 500), height: computedSize.height)
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -280,12 +282,12 @@ class EffectsViewController: SimpleNotificationsViewController {
     private func updateClearView() {
         guard let episode = PlaybackManager.shared.currentEpisode() as? Episode, let podcast = episode.parentPodcast() else {
             clearForPodcastView.isHidden = true
-            customEffectsToVolumeBoostConstraint.isActive = false
+            customEffectsToVolumeBoostConstraint?.isActive = false
 
             return
         }
 
-        customEffectsToVolumeBoostConstraint.isActive = podcast.isEffectsOverridden
+        customEffectsToVolumeBoostConstraint?.isActive = podcast.isEffectsOverridden
         clearForPodcastView.isHidden = !podcast.isEffectsOverridden
     }
 

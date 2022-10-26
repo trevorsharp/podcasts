@@ -10,6 +10,7 @@ class MiniPlayerViewController: SimpleNotificationsViewController {
 
     var playerOpenState = PlayerOpenState.closed
 
+    @IBOutlet var episodeTitle: ThemeableLabel!
     @IBOutlet var playPauseBtn: PlayPauseButton!
     @IBOutlet var skipBackBtn: UIButton!
     @IBOutlet var skipFwdBtn: UIButton!
@@ -200,6 +201,7 @@ class MiniPlayerViewController: SimpleNotificationsViewController {
         if lastEpisodeUuidImageLoaded != episode.uuid {
             lastEpisodeUuidImageLoaded = episode.uuid
             podcastArtwork.setBaseEpisode(episode: episode, size: .list)
+            episodeTitle.text = episode.title
         }
     }
 
@@ -299,6 +301,11 @@ class MiniPlayerViewController: SimpleNotificationsViewController {
         upNextBtn.iconColor = iconColor
 
         playPauseBtn.isPlaying = PlaybackManager.shared.playing()
+
+        episodeTitle.textColor = ThemeColor.podcastIcon03(podcastColor: actionColor)
+        episodeTitle.font = UIFont.systemFont(ofSize: 16, weight: .medium)
+        upNextBtn.isHidden = true
+        skipBackBtn.isHidden = true
     }
 
     private func podcastForEpisode(_ episode: BaseEpisode?) -> Podcast? {

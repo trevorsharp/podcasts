@@ -759,6 +759,8 @@ class Settings: NSObject {
 
     fileprivate static let playerActionsKey = "PlayerActions"
     class func playerActions() -> [PlayerAction] {
+        return [.effects, .sleepTimer, .routePicker, .goToPodcast, .markPlayed]
+
         let defaultActions = PlayerAction.defaultActions.filter { $0.isAvailable }
 
         let playerActions: [PlayerAction]

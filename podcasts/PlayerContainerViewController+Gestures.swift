@@ -52,7 +52,7 @@ extension PlayerContainerViewController: UIGestureRecognizerDelegate {
         }
 
     func oldTransitionPanGestureRecognizerHandler(_ sender: UIPanGestureRecognizer) {
-        guard let miniPlayer = appDelegate()?.miniPlayer(), !(miniPlayer.playerOpenState == .beingDragged || miniPlayer.playerOpenState == .animating) else { return }
+        guard let miniPlayer = appDelegate()?.miniPlayer() else { return }
 
         if nowPlayingItem.timeSlider.isScrubbing() { return }
 
@@ -72,7 +72,7 @@ extension PlayerContainerViewController: UIGestureRecognizerDelegate {
             } else {
                 UIView.animate(withDuration: Constants.Animation.defaultAnimationTime) {
                     self.view.moveTo(y: 0)
-                    miniPlayer.moveToHiddenTopPosition()
+//                    miniPlayer.moveToHiddenTopPosition()
                 }
             }
         default:
@@ -101,12 +101,12 @@ extension PlayerContainerViewController: UIGestureRecognizerDelegate {
 
         view.moveTo(y: yPosition)
 
-        if let window = view.window {
-            let bottomSafeAreaOffset = window.safeAreaInsets.bottom
-            let deviceSpecificPadding = bottomSafeAreaOffset > 0 ? (bottomSafeAreaOffset / 2) : -UIUtil.statusBarHeight(in: window)
-            let offset = view.frame.minY - view.frame.size.height + miniPlayer.view.bounds.height + deviceSpecificPadding
-            miniPlayer.moveWhileDragging(offsetFromTop: offset)
-        }
+//        if let window = view.window {
+//            let bottomSafeAreaOffset = window.safeAreaInsets.bottom
+//            let deviceSpecificPadding = bottomSafeAreaOffset > 0 ? (bottomSafeAreaOffset / 2) : -UIUtil.statusBarHeight(in: window)
+//            let offset = view.frame.minY - view.frame.size.height + miniPlayer.view.bounds.height + deviceSpecificPadding
+//            miniPlayer.moveWhileDragging(offsetFromTop: offset)
+//        }
 
         if yPosition > PlayerContainerViewController.pullDownThreshold {
             miniPlayer.closeFullScreenPlayer()

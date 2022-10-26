@@ -72,12 +72,13 @@ class FloatingVideoView: UIView {
         addSubview(videoView)
 
         videoHeightConstraint = videoView.heightAnchor.constraint(equalToConstant: bounds.height)
-        NSLayoutConstraint.activate([
-            videoView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            videoView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            videoView.centerYAnchor.constraint(equalTo: centerYAnchor),
-            videoHeightConstraint
-        ])
+//        NSLayoutConstraint.activate([
+//            videoView.leadingAnchor.constraint(equalTo: leadingAnchor),
+//            videoView.trailingAnchor.constraint(equalTo: trailingAnchor),
+//            videoView.centerYAnchor.constraint(equalTo: centerYAnchor),
+//            videoHeightConstraint
+//        ])
+        videoView.anchorToAllSidesOf(view: self)
         shadowView.anchorToAllSidesOf(view: videoView)
     }
 }

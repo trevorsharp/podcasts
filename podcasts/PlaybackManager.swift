@@ -447,7 +447,7 @@ class PlaybackManager: ServerPlaybackDelegate {
     func currentTime() -> TimeInterval {
         guard let episode = currentEpisode() else { return -1 }
 
-        if seekingTo >= 0, seekingTo <= duration(), !playing() { return seekingTo }
+        if seekingTo >= 0, seekingTo <= duration() { return seekingTo }
 
         let playerTime = !aboutToPlay.value ? player?.currentTime() ?? 0 : 0
 

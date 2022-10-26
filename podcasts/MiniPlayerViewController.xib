@@ -10,10 +10,11 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MiniPlayerViewController" customModule="podcasts" customModuleProvider="target">
             <connections>
+                <outlet property="episodeTitle" destination="QPI-vq-LyV" id="6qV-S3-vOw"/>
                 <outlet property="mainView" destination="rTj-uk-yNW" id="ZLL-0J-RYU"/>
                 <outlet property="playPauseBtn" destination="CjL-4C-tuh" id="Y8g-6z-ZoN"/>
                 <outlet property="playbackProgressView" destination="aWD-bx-vF2" id="vpI-fM-bgO"/>
-                <outlet property="podcastArtwork" destination="tJx-CO-hRe" id="Kzl-ZM-bdq"/>
+                <outlet property="podcastArtwork" destination="Bqa-eT-t3r" id="0jo-Hj-HdS"/>
                 <outlet property="skipBackBtn" destination="92g-6h-Yd9" id="i61-v9-wgd"/>
                 <outlet property="skipFwdBtn" destination="JHq-wc-GDV" id="Pkp-0D-lfF"/>
                 <outlet property="upNextBtn" destination="nTH-nm-IG6" id="QNQ-hP-BL6"/>
@@ -28,34 +29,19 @@
                 <view clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rTj-uk-yNW" userLabel="Main View" customClass="MiniPlayerBackingView" customModule="podcasts" customModuleProvider="target">
                     <rect key="frame" x="0.0" y="0.0" width="325" height="65"/>
                     <subviews>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bqa-eT-t3r">
-                            <rect key="frame" x="8" y="2.5" width="58" height="58"/>
-                            <subviews>
-                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tJx-CO-hRe" customClass="PodcastImageView" customModule="podcasts" customModuleProvider="target">
-                                    <rect key="frame" x="3" y="3" width="52" height="52"/>
-                                    <accessibility key="accessibilityConfiguration" hint="Tap to open full size player" label="Player">
-                                        <accessibilityTraits key="traits" button="YES"/>
-                                        <bool key="isElement" value="YES"/>
-                                    </accessibility>
-                                    <constraints>
-                                        <constraint firstAttribute="height" constant="52" id="dnA-Im-DKw"/>
-                                        <constraint firstAttribute="width" constant="52" id="nch-ve-CD6"/>
-                                    </constraints>
-                                </view>
-                            </subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bqa-eT-t3r" customClass="PodcastImageView" customModule="podcasts" customModuleProvider="target">
+                            <rect key="frame" x="14" y="2.5" width="58" height="58"/>
                             <accessibility key="accessibilityConfiguration" hint="Tap to open full size player" label="Player">
                                 <accessibilityTraits key="traits" button="YES"/>
                                 <bool key="isElement" value="YES"/>
                             </accessibility>
                             <constraints>
                                 <constraint firstAttribute="height" constant="58" id="2cu-pH-twC"/>
-                                <constraint firstItem="tJx-CO-hRe" firstAttribute="centerY" secondItem="Bqa-eT-t3r" secondAttribute="centerY" id="WJ7-YG-L41"/>
-                                <constraint firstItem="tJx-CO-hRe" firstAttribute="centerX" secondItem="Bqa-eT-t3r" secondAttribute="centerX" id="gaR-1g-5bG"/>
                                 <constraint firstAttribute="width" constant="58" id="hQL-XX-9K1"/>
                             </constraints>
                         </view>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" pointerInteraction="YES" translatesAutoresizingMaskIntoConstraints="NO" id="92g-6h-Yd9" userLabel="Skip Back">
-                            <rect key="frame" x="80.5" y="9.5" width="44" height="44"/>
+                            <rect key="frame" x="163" y="9.5" width="44" height="44"/>
                             <accessibility key="accessibilityConfiguration" label="Skip Back"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="44" id="Woi-QS-Vfx"/>
@@ -67,26 +53,14 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CjL-4C-tuh" userLabel="Play Pause Button" customClass="PlayPauseButton" customModule="podcasts" customModuleProvider="target">
-                            <rect key="frame" x="138.5" y="7.5" width="48" height="48"/>
+                            <rect key="frame" x="217" y="11.5" width="40" height="40"/>
                             <accessibility key="accessibilityConfiguration" label="Play/Pause"/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="48" id="Q9t-vc-8fw"/>
-                                <constraint firstAttribute="height" constant="48" id="UGD-jw-hmp"/>
+                                <constraint firstAttribute="width" constant="40" id="Q9t-vc-8fw"/>
+                                <constraint firstAttribute="height" constant="40" id="UGD-jw-hmp"/>
                             </constraints>
                             <connections>
                                 <action selector="playPauseTapped:" destination="-1" eventType="touchUpInside" id="MHK-aa-QTy"/>
-                            </connections>
-                        </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" pointerInteraction="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JHq-wc-GDV" userLabel="Skip Forward">
-                            <rect key="frame" x="200.5" y="9.5" width="44" height="44"/>
-                            <accessibility key="accessibilityConfiguration" label="Skip Forward"/>
-                            <constraints>
-                                <constraint firstAttribute="width" constant="44" id="lSC-b9-3WW"/>
-                                <constraint firstAttribute="height" constant="44" id="n5h-Xf-4jI"/>
-                            </constraints>
-                            <state key="normal" image="miniplayer-skip-forward"/>
-                            <connections>
-                                <action selector="skipForwardTapped:" destination="-1" eventType="touchUpInside" id="m0K-67-M01"/>
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" pointerInteraction="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nTH-nm-IG6" userLabel="Up Next Button" customClass="UpNextButton" customModule="podcasts" customModuleProvider="target">
@@ -107,6 +81,24 @@
                                 <constraint firstAttribute="height" constant="3" id="WcE-ar-iIK"/>
                             </constraints>
                         </view>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QPI-vq-LyV" customClass="ThemeableLabel" customModule="podcasts" customModuleProvider="target">
+                            <rect key="frame" x="88" y="22" width="115" height="21"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" pointerInteraction="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JHq-wc-GDV" userLabel="Skip Forward">
+                            <rect key="frame" x="267" y="9.5" width="44" height="44"/>
+                            <accessibility key="accessibilityConfiguration" label="Skip Forward"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="44" id="lSC-b9-3WW"/>
+                                <constraint firstAttribute="height" constant="44" id="n5h-Xf-4jI"/>
+                            </constraints>
+                            <state key="normal" image="miniplayer-skip-forward"/>
+                            <connections>
+                                <action selector="skipForwardTapped:" destination="-1" eventType="touchUpInside" id="m0K-67-M01"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <viewLayoutGuide key="safeArea" id="AxG-ti-suk"/>
                     <accessibility key="accessibilityConfiguration">
@@ -114,18 +106,22 @@
                         <bool key="isElement" value="NO"/>
                     </accessibility>
                     <constraints>
-                        <constraint firstItem="Bqa-eT-t3r" firstAttribute="leading" secondItem="AxG-ti-suk" secondAttribute="leading" constant="8" id="1bY-32-Orr"/>
+                        <constraint firstItem="Bqa-eT-t3r" firstAttribute="leading" secondItem="AxG-ti-suk" secondAttribute="leading" constant="14" id="1bY-32-Orr"/>
                         <constraint firstItem="aWD-bx-vF2" firstAttribute="bottom" secondItem="rTj-uk-yNW" secondAttribute="bottom" id="3o7-NK-mt2"/>
                         <constraint firstItem="aWD-bx-vF2" firstAttribute="trailing" secondItem="rTj-uk-yNW" secondAttribute="trailing" id="7jR-Np-bxm"/>
-                        <constraint firstItem="CjL-4C-tuh" firstAttribute="leading" secondItem="92g-6h-Yd9" secondAttribute="trailing" constant="14" id="Hpx-DY-ja8"/>
+                        <constraint firstItem="QPI-vq-LyV" firstAttribute="leading" secondItem="Bqa-eT-t3r" secondAttribute="trailing" constant="16" id="9OH-By-5cI"/>
+                        <constraint firstItem="QPI-vq-LyV" firstAttribute="centerY" secondItem="rTj-uk-yNW" secondAttribute="centerY" id="E87-5S-RZL"/>
+                        <constraint firstItem="CjL-4C-tuh" firstAttribute="leading" secondItem="92g-6h-Yd9" secondAttribute="trailing" constant="10" id="Hpx-DY-ja8"/>
                         <constraint firstItem="Bqa-eT-t3r" firstAttribute="centerY" secondItem="rTj-uk-yNW" secondAttribute="centerY" constant="-1" id="Lbg-0F-tuy"/>
-                        <constraint firstItem="CjL-4C-tuh" firstAttribute="centerX" secondItem="AxG-ti-suk" secondAttribute="centerX" id="QrQ-7f-Rhl"/>
                         <constraint firstItem="92g-6h-Yd9" firstAttribute="centerY" secondItem="CjL-4C-tuh" secondAttribute="centerY" id="ROp-c6-jc0"/>
                         <constraint firstItem="AxG-ti-suk" firstAttribute="trailing" secondItem="nTH-nm-IG6" secondAttribute="trailing" constant="4" id="Rz8-a5-0NK"/>
-                        <constraint firstItem="JHq-wc-GDV" firstAttribute="leading" secondItem="CjL-4C-tuh" secondAttribute="trailing" constant="14" id="VlI-G2-BRC"/>
+                        <constraint firstItem="nTH-nm-IG6" firstAttribute="leading" secondItem="rTj-uk-yNW" secondAttribute="trailing" constant="-48" id="V9n-nG-c2W"/>
+                        <constraint firstItem="JHq-wc-GDV" firstAttribute="leading" secondItem="CjL-4C-tuh" secondAttribute="trailing" constant="10" id="VlI-G2-BRC"/>
                         <constraint firstItem="JHq-wc-GDV" firstAttribute="centerY" secondItem="CjL-4C-tuh" secondAttribute="centerY" id="Wjy-z8-CWj"/>
                         <constraint firstItem="nTH-nm-IG6" firstAttribute="centerY" secondItem="CjL-4C-tuh" secondAttribute="centerY" id="f40-dR-nqk"/>
                         <constraint firstItem="CjL-4C-tuh" firstAttribute="centerY" secondItem="Bqa-eT-t3r" secondAttribute="centerY" id="hcs-EK-GcX"/>
+                        <constraint firstItem="CjL-4C-tuh" firstAttribute="leading" secondItem="QPI-vq-LyV" secondAttribute="trailing" constant="14" id="q3G-jA-kXB"/>
+                        <constraint firstItem="AxG-ti-suk" firstAttribute="trailing" secondItem="JHq-wc-GDV" secondAttribute="trailing" constant="14" id="srw-m9-A7i"/>
                         <constraint firstItem="aWD-bx-vF2" firstAttribute="leading" secondItem="rTj-uk-yNW" secondAttribute="leading" id="yRh-2G-2xp"/>
                     </constraints>
                 </view>

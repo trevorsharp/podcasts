@@ -7,15 +7,15 @@ extension MiniPlayerViewController: UIGestureRecognizerDelegate {
     func addGestureRecognizers() {
         longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(miniPlayerLongPressed(_:)))
         longPressRecognizer.delegate = self
-        view.addGestureRecognizer(longPressRecognizer)
+//        view.addGestureRecognizer(longPressRecognizer)
 
         panUpRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handlePullingUpGesture(_:)))
         panUpRecognizer.delegate = self
-        view.addGestureRecognizer(panUpRecognizer)
+//        view.addGestureRecognizer(panUpRecognizer)
 
         let miniPlayerTap = UITapGestureRecognizer(target: self, action: #selector(miniPlayerTapped))
-        miniPlayerTap.require(toFail: panUpRecognizer)
-        miniPlayerTap.require(toFail: longPressRecognizer)
+//        miniPlayerTap.require(toFail: panUpRecognizer)
+//        miniPlayerTap.require(toFail: longPressRecognizer)
         view.addGestureRecognizer(miniPlayerTap)
     }
 

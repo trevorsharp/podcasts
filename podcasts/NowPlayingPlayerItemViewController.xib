@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22155" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22131"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -59,19 +59,19 @@
                             </userDefinedRuntimeAttributes>
                         </imageView>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Sme-fz-BDA" userLabel="Title Info">
-                            <rect key="frame" x="20" y="354" width="374" height="105"/>
+                            <rect key="frame" x="30" y="354" width="354" height="105"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t3O-EF-0h2">
-                                    <rect key="frame" x="0.0" y="0.0" width="374" height="105"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="354" height="105"/>
                                     <subviews>
                                         <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Chapter label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="15" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tKZ-O9-o9V" customClass="ThemeableLabel" customModule="podcasts" customModuleProvider="target">
-                                            <rect key="frame" x="36" y="30.5" width="302" height="21.5"/>
+                                            <rect key="frame" x="36" y="30.5" width="282" height="21.5"/>
                                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yay-j0-zTY">
-                                            <rect key="frame" x="344" y="26" width="30" height="30"/>
+                                            <rect key="frame" x="324" y="26" width="30" height="30"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="30" id="2dB-Uf-svq"/>
                                                 <constraint firstAttribute="height" constant="30" id="rO2-dA-rUa"/>
@@ -82,7 +82,7 @@
                                             </connections>
                                         </button>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="29min." textAlignment="center" lineBreakMode="clip" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="chV-ej-gos">
-                                            <rect key="frame" x="340" y="62" width="38" height="14"/>
+                                            <rect key="frame" x="320" y="62" width="38" height="14"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="14" id="MFA-uu-mBC"/>
                                             </constraints>
@@ -102,7 +102,7 @@
                                             </connections>
                                         </button>
                                         <view autoresizesSubviews="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gIg-29-bKj" customClass="ProgressCircleView" customModule="podcasts" customModuleProvider="target">
-                                            <rect key="frame" x="344" y="26" width="30" height="30"/>
+                                            <rect key="frame" x="324" y="26" width="30" height="30"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="30" id="V4G-3N-rqu"/>
@@ -110,7 +110,7 @@
                                             </constraints>
                                         </view>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" text="4 of 10" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="98m-xR-mw0" customClass="ThemeableLabel" customModule="podcasts" customModuleProvider="target">
-                                            <rect key="frame" x="167" y="58" width="40.5" height="13"/>
+                                            <rect key="frame" x="157" y="58" width="40.5" height="13"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="13" id="crQ-di-aPO"/>
                                             </constraints>
@@ -139,19 +139,19 @@
                                     </constraints>
                                 </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MLe-7y-U6n">
-                                    <rect key="frame" x="0.0" y="0.0" width="374" height="105"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="354" height="105"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MRc-dE-Q3s">
-                                            <rect key="frame" x="0.0" y="8.5" width="374" height="88"/>
+                                            <rect key="frame" x="0.0" y="8.5" width="354" height="88"/>
                                             <subviews>
                                                 <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" placeholderIntrinsicWidth="335" placeholderIntrinsicHeight="64.666666666666671" text="Episode Name Really Really Really Really Really Long Long Long  yyyyyyyyyyyyy" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="15" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ool-HF-az4" customClass="ThemeableLabel" customModule="podcasts" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="0.0" width="374" height="65"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="354" height="65"/>
                                                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
                                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Podcast name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aMx-eC-OGM" customClass="ThemeableLabel" customModule="podcasts" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="71" width="374" height="17"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Podcast name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aMx-eC-OGM" customClass="ThemeableLabel" customModule="podcasts" customModuleProvider="target">
+                                                    <rect key="frame" x="0.0" y="71" width="354" height="17"/>
                                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
                                                     <color key="textColor" white="1" alpha="0.5" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
@@ -189,6 +189,7 @@
                                 <constraint firstAttribute="bottom" secondItem="t3O-EF-0h2" secondAttribute="bottom" id="Hlf-eL-ECd"/>
                                 <constraint firstAttribute="height" constant="105" id="VRH-1Z-1v7"/>
                                 <constraint firstItem="t3O-EF-0h2" firstAttribute="top" secondItem="Sme-fz-BDA" secondAttribute="top" id="jI0-Sw-LYH"/>
+                                <constraint firstAttribute="width" relation="lessThanOrEqual" constant="700" id="oi3-dr-29e"/>
                                 <constraint firstAttribute="trailing" secondItem="t3O-EF-0h2" secondAttribute="trailing" id="teO-fZ-khZ"/>
                                 <constraint firstAttribute="bottom" secondItem="MLe-7y-U6n" secondAttribute="bottom" id="uLj-5x-y5r"/>
                                 <constraint firstItem="MLe-7y-U6n" firstAttribute="leading" secondItem="Sme-fz-BDA" secondAttribute="leading" id="ygZ-bt-S0i"/>
@@ -317,6 +318,7 @@
                                 <constraint firstAttribute="leadingMargin" secondItem="T2E-0H-hwM" secondAttribute="leading" id="1Z8-ad-hGh"/>
                                 <constraint firstAttribute="trailingMargin" secondItem="T2E-0H-hwM" secondAttribute="trailing" id="RGN-RB-quD"/>
                                 <constraint firstItem="0FS-5h-EyM" firstAttribute="leading" secondItem="UmO-Rc-jIG" secondAttribute="leading" constant="10" id="Wii-fP-hWR"/>
+                                <constraint firstAttribute="width" relation="lessThanOrEqual" constant="700" id="XWL-AM-huK"/>
                                 <constraint firstAttribute="trailing" secondItem="0FS-5h-EyM" secondAttribute="trailing" constant="10" id="df4-5V-UV4"/>
                                 <constraint firstItem="IM8-JJ-Wfy" firstAttribute="leading" secondItem="UmO-Rc-jIG" secondAttribute="leadingMargin" constant="20" id="fk9-cO-vqf"/>
                                 <constraint firstAttribute="trailingMargin" secondItem="IM8-JJ-Wfy" secondAttribute="trailing" constant="20" id="ypy-IS-p0q"/>
@@ -324,14 +326,13 @@
                         </stackView>
                     </subviews>
                     <constraints>
-                        <constraint firstAttribute="trailing" secondItem="Sme-fz-BDA" secondAttribute="trailing" constant="20" id="9GS-az-gTh"/>
-                        <constraint firstAttribute="trailing" secondItem="UmO-Rc-jIG" secondAttribute="trailing" id="Lgo-ja-KKq"/>
+                        <constraint firstAttribute="trailing" secondItem="UmO-Rc-jIG" secondAttribute="trailing" priority="999" id="Lgo-ja-KKq"/>
                         <constraint firstItem="Sme-fz-BDA" firstAttribute="leading" secondItem="dXr-Zd-0wP" secondAttribute="leading" priority="750" id="X7s-hz-x0i"/>
-                        <constraint firstItem="Sme-fz-BDA" firstAttribute="leading" secondItem="WxQ-7h-0WZ" secondAttribute="leading" constant="20" id="ca5-oA-ORc"/>
                         <constraint firstItem="dXr-Zd-0wP" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="WxQ-7h-0WZ" secondAttribute="leading" constant="30" id="cfA-YR-3im"/>
                         <constraint firstItem="Sme-fz-BDA" firstAttribute="trailing" secondItem="dXr-Zd-0wP" secondAttribute="trailing" priority="750" id="hHY-F0-ErL"/>
                         <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="dXr-Zd-0wP" secondAttribute="trailing" constant="30" id="uAH-Bi-SGO"/>
-                        <constraint firstItem="UmO-Rc-jIG" firstAttribute="leading" secondItem="WxQ-7h-0WZ" secondAttribute="leading" id="vV8-VJ-Gx4"/>
+                        <constraint firstItem="UmO-Rc-jIG" firstAttribute="leading" secondItem="WxQ-7h-0WZ" secondAttribute="leading" priority="999" id="vV8-VJ-Gx4"/>
+                        <constraint firstItem="Sme-fz-BDA" firstAttribute="centerX" secondItem="WxQ-7h-0WZ" secondAttribute="centerX" id="zGb-DM-iUg"/>
                     </constraints>
                 </stackView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sam-0S-73x">
@@ -362,10 +363,11 @@
                     </userDefinedRuntimeAttributes>
                 </view>
                 <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="auM-3f-elA" userLabel="Floating Video View" customClass="FloatingVideoView" customModule="podcasts" customModuleProvider="target">
-                    <rect key="frame" x="30" y="8" width="354" height="354"/>
+                    <rect key="frame" x="30" y="75.5" width="354" height="199"/>
                     <color key="backgroundColor" red="0.45803546909999998" green="0.83982247109999997" blue="0.28705134989999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     <constraints>
-                        <constraint firstAttribute="width" secondItem="auM-3f-elA" secondAttribute="height" multiplier="1:1" id="r9y-4s-XLM"/>
+                        <constraint firstAttribute="height" priority="999" constant="1000" id="A7S-GK-7gu"/>
+                        <constraint firstAttribute="width" secondItem="auM-3f-elA" secondAttribute="height" multiplier="16:9" id="r9y-4s-XLM"/>
                     </constraints>
                 </view>
             </subviews>
@@ -378,11 +380,13 @@
                 <constraint firstItem="sam-0S-73x" firstAttribute="trailing" secondItem="dXr-Zd-0wP" secondAttribute="trailing" constant="-10" id="2fE-dE-Tel"/>
                 <constraint firstItem="auM-3f-elA" firstAttribute="centerX" secondItem="dXr-Zd-0wP" secondAttribute="centerX" id="3QC-yl-rk2"/>
                 <constraint firstAttribute="trailing" secondItem="WxQ-7h-0WZ" secondAttribute="trailing" id="4fc-om-1OZ"/>
-                <constraint firstItem="auM-3f-elA" firstAttribute="centerY" secondItem="dXr-Zd-0wP" secondAttribute="centerY" id="P1f-xu-Ze5"/>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="auM-3f-elA" secondAttribute="trailing" constant="30" id="66Z-8Z-tlv"/>
+                <constraint firstItem="auM-3f-elA" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Dsl-xJ-ho3" secondAttribute="leading" constant="30" id="JTA-Kr-DTl"/>
+                <constraint firstItem="auM-3f-elA" firstAttribute="centerY" secondItem="dXr-Zd-0wP" secondAttribute="centerY" constant="-10" id="P1f-xu-Ze5"/>
+                <constraint firstItem="auM-3f-elA" firstAttribute="height" relation="lessThanOrEqual" secondItem="dXr-Zd-0wP" secondAttribute="height" constant="-50" id="Yyg-j4-cs5"/>
                 <constraint firstItem="sam-0S-73x" firstAttribute="top" secondItem="WxQ-7h-0WZ" secondAttribute="top" constant="10" id="fgs-F6-NzZ"/>
                 <constraint firstItem="WxQ-7h-0WZ" firstAttribute="top" secondItem="Dsl-xJ-ho3" secondAttribute="top" constant="8" id="hS4-XE-bck"/>
                 <constraint firstItem="WxQ-7h-0WZ" firstAttribute="leading" secondItem="Dsl-xJ-ho3" secondAttribute="leading" id="wSN-3z-fOR"/>
-                <constraint firstItem="auM-3f-elA" firstAttribute="height" secondItem="dXr-Zd-0wP" secondAttribute="height" id="ycO-kv-OEO"/>
                 <constraint firstAttribute="bottom" secondItem="WxQ-7h-0WZ" secondAttribute="bottom" constant="30" id="zFk-ce-kom"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>

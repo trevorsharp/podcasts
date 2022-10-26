@@ -169,7 +169,7 @@ class NowPlayingPlayerItemViewController: PlayerItemViewController {
 
         let upNextPan = UIPanGestureRecognizer(target: self, action: #selector(panGestureRecognizerHandler(_:)))
         upNextPan.delegate = self
-        view.addGestureRecognizer(upNextPan)
+//        view.addGestureRecognizer(upNextPan)
 
         chromecastBtn.inactiveTintColor = ThemeColor.playerContrast02()
         chromecastBtn.addTarget(self, action: #selector(googleCastTapped), for: .touchUpInside)
@@ -180,6 +180,8 @@ class NowPlayingPlayerItemViewController: PlayerItemViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+
+        floatingVideoView.player = PlaybackManager.shared.internalPlayerForVideoPlayback()
 
         // Show the overflow menu
         if AnnouncementFlow.current == .bookmarksPlayer {
@@ -299,6 +301,7 @@ class NowPlayingPlayerItemViewController: PlayerItemViewController {
     }
 
     private func skipForwardLongPressed() {
+        return
         guard let episode = PlaybackManager.shared.currentEpisode() else { return }
 
         let options = OptionsPicker(title: nil, themeOverride: .dark)

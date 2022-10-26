@@ -90,7 +90,7 @@ class VideoViewController: SimpleNotificationsViewController, AVPictureInPicture
     @IBOutlet var pipButton: UIButton!
 
     @IBOutlet var airplayButton: UIButton!
-    @IBOutlet var castButton: PCGoogleCastButton!
+    // @IBOutlet var castButton: PCGoogleCastButton!
 
     private var pipController: AVPictureInPictureController?
     @IBOutlet var controlsOverlay: UIView! {
@@ -192,6 +192,7 @@ class VideoViewController: SimpleNotificationsViewController, AVPictureInPicture
     }
 
     private func skipForwardLongPressed() {
+        return
         guard let episode = PlaybackManager.shared.currentEpisode() else { return }
 
         let options = OptionsPicker(title: nil, themeOverride: .dark, portraitOnly: false)

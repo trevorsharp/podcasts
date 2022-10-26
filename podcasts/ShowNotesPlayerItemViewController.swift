@@ -236,10 +236,10 @@ class ShowNotesPlayerItemViewController: PlayerItemViewController, SFSafariViewC
         showNotesWebView.evaluateJavaScript("document.readyState", completionHandler: { [weak self] complete, _ in
             guard let _ = complete else { return }
 
-            self?.showNotesWebView.evaluateJavaScript("document.body.offsetHeight", completionHandler: { [weak self] height, _ in
+            self?.showNotesWebView.evaluateJavaScript("document.body.scrollHeight", completionHandler: { [weak self] height, _ in
                 guard let strongSelf = self, let cgHeight = height as? CGFloat else { return }
 
-                strongSelf.showNotesViewHeight.constant = CGFloat(cgHeight) + Constants.Values.extraShowNotesVerticalSpacing
+                strongSelf.showNotesViewHeight.constant = CGFloat(cgHeight) // + Constants.Values.extraShowNotesVerticalSpacing
                 strongSelf.view.layoutIfNeeded()
 
                 if strongSelf.showNotesViewHeight.constant + strongSelf.showNotesHolderView.frame.origin.y < strongSelf.view.frame.height {
