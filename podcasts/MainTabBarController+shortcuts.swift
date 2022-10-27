@@ -5,10 +5,16 @@ extension MainTabBarController {
         // playback
         addKeyCommand(playPauseCommand)
 
-        let skipBackCommand = UIKeyCommand(title: L10n.skipBack, action: #selector(handleSkipBack), input: UIKeyCommand.inputLeftArrow, modifierFlags: [.command])
+        let skipBackCommand = UIKeyCommand(title: L10n.skipBack, action: #selector(handleSkipBack), input: UIKeyCommand.inputLeftArrow, modifierFlags: [])
+        if #available(iOS 15.0, *) {
+            skipBackCommand.wantsPriorityOverSystemBehavior = true
+        }
         addKeyCommand(skipBackCommand)
 
-        let skipForwardCommand = UIKeyCommand(title: L10n.skipForward, action: #selector(handleSkipForward), input: UIKeyCommand.inputRightArrow, modifierFlags: [.command])
+        let skipForwardCommand = UIKeyCommand(title: L10n.skipForward, action: #selector(handleSkipForward), input: UIKeyCommand.inputRightArrow, modifierFlags: [])
+        if #available(iOS 15.0, *) {
+            skipForwardCommand.wantsPriorityOverSystemBehavior = true
+        }
         addKeyCommand(skipForwardCommand)
 
         let openPlayerCommand = UIKeyCommand(title: L10n.keycommandOpenPlayer, action: #selector(handleOpenPlayer), input: UIKeyCommand.inputUpArrow, modifierFlags: [.command])
@@ -17,27 +23,27 @@ extension MainTabBarController {
         let closePlayerCommand = UIKeyCommand(title: L10n.keycommandClosePlayer, action: #selector(handleClosePlayer), input: UIKeyCommand.inputDownArrow, modifierFlags: [.command])
         addKeyCommand(closePlayerCommand)
 
-        let decreaseSpeedCommand = UIKeyCommand(title: L10n.keycommandDecreaseSpeed, action: #selector(handleDecreaseSpeed), input: "[", modifierFlags: [.command])
+        let decreaseSpeedCommand = UIKeyCommand(title: L10n.keycommandDecreaseSpeed, action: #selector(handleDecreaseDefinedSpeed), input: ",", modifierFlags: [.shift])
         addKeyCommand(decreaseSpeedCommand)
 
-        let increaseSpeedCommand = UIKeyCommand(title: L10n.keycommandIncreaseSpeed, action: #selector(handleIncreaseSpeed), input: "]", modifierFlags: [.command])
+        let increaseSpeedCommand = UIKeyCommand(title: L10n.keycommandIncreaseSpeed, action: #selector(handleIncreaseDefinedSpeed), input: ".", modifierFlags: [.shift])
         addKeyCommand(increaseSpeedCommand)
 
         // navigation
         let podcastsCommand = UIKeyCommand(title: L10n.podcastsPlural, action: #selector(handlePodcasts), input: "1", modifierFlags: [.command])
-        addKeyCommand(podcastsCommand)
+//        addKeyCommand(podcastsCommand)
 
         let filtersCommand = UIKeyCommand(title: L10n.filters, action: #selector(handleFilters), input: "2", modifierFlags: [.command])
-        addKeyCommand(filtersCommand)
+//        addKeyCommand(filtersCommand)
 
         let discoverCommand = UIKeyCommand(title: L10n.discover, action: #selector(handleDiscover), input: "3", modifierFlags: [.command])
-        addKeyCommand(discoverCommand)
+//        addKeyCommand(discoverCommand)
 
         let profileCommand = UIKeyCommand(title: L10n.profile, action: #selector(handleProfile), input: "4", modifierFlags: [.command])
-        addKeyCommand(profileCommand)
+//        addKeyCommand(profileCommand)
 
         let searchCommand = UIKeyCommand(title: L10n.search, action: #selector(handleSearch), input: "f", modifierFlags: [.command])
-        addKeyCommand(searchCommand)
+//        addKeyCommand(searchCommand)
     }
 
     @objc func handleSearch() {
@@ -78,6 +84,14 @@ extension MainTabBarController {
 
     @objc private func handleIncreaseSpeed() {
         PlaybackManager.shared.increasePlaybackSpeed()
+    }
+
+    @objc private func handleDecreaseDefinedSpeed() {
+        PlaybackManager.shared.decreaseDefinedPlaybackSpeed()
+    }
+
+    @objc private func handleIncreaseDefinedSpeed() {
+        PlaybackManager.shared.increaseDefinedPlaybackSpeed()
     }
 
     @objc private func handleOpenPlayer() {

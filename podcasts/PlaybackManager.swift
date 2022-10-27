@@ -767,6 +767,19 @@ class PlaybackManager: ServerPlaybackDelegate {
         handlePlaybackEffectsChanged(effects: effects)
     }
 
+    func decreaseDefinedPlaybackSpeed() {
+        let playbackEffects = effects()
+        if playbackEffects.playbackSpeed <= 1 {
+            return
+        } else if playbackEffects.playbackSpeed <= 1.25 {
+            playbackEffects.playbackSpeed = 1
+        } else {
+            playbackEffects.playbackSpeed = 1.25
+        }
+
+        changeEffects(playbackEffects)
+    }
+
     func decreasePlaybackSpeed() {
         let playbackEffects = effects()
         if playbackEffects.playbackSpeed < 0.6 { return }
@@ -778,6 +791,19 @@ class PlaybackManager: ServerPlaybackDelegate {
     func toggleDefinedPlaybackSpeed() {
         let playbackEffects = effects()
         playbackEffects.toggleDefinedSpeedInterval()
+
+        changeEffects(playbackEffects)
+    }
+
+    func increaseDefinedPlaybackSpeed() {
+        let playbackEffects = effects()
+        if playbackEffects.playbackSpeed >= 2 {
+            return
+        } else if playbackEffects.playbackSpeed >= 1.25 {
+            playbackEffects.playbackSpeed = 2
+        } else {
+            playbackEffects.playbackSpeed = 1.25
+        }
 
         changeEffects(playbackEffects)
     }
