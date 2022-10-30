@@ -53,9 +53,9 @@ extension PodcastEffectsViewController: UITableViewDataSource, UITableViewDelega
             cell.configureWithImage(imageName: "player_speed", tintColor: podcast.iconTintColor())
 
             cell.timeStepper.tintColor = podcast.iconTintColor()
-            cell.timeStepper.minimumValue = 0.5
+            cell.timeStepper.minimumValue = 1
             cell.timeStepper.maximumValue = 3
-            cell.timeStepper.smallIncrements = 0.1
+            cell.timeStepper.smallIncrements = 0.25
             cell.timeStepper.smallIncrementThreshold = TimeInterval.greatestFiniteMagnitude
             if FeatureFlag.newSettingsStorage.enabled {
                 cell.timeStepper.currentValue = podcast.settings.playbackSpeed
@@ -170,7 +170,7 @@ extension PodcastEffectsViewController: UITableViewDataSource, UITableViewDelega
 
     private func playbackSpeedChanged(_ speed: TimeInterval) {
         // round it to the nearest 0.1, so we end up with 1.5 not 1.53667346262
-        let roundedSpeed = round(speed * 10.0) / 10.0
+        let roundedSpeed = round(speed * 4) / 4
         if FeatureFlag.newSettingsStorage.enabled {
             podcast.settings.playbackSpeed = roundedSpeed
             podcast.syncStatus = SyncStatus.notSynced.rawValue
