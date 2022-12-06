@@ -1621,6 +1621,7 @@ class PlaybackManager: ServerPlaybackDelegate {
         }
 
         commandCenter.changePlaybackRateCommand.supportedPlaybackRates = [0.5, 1.0, 1.5, 2.0, 2.5, 3.0]
+        commandCenter.changePlaybackRateCommand.supportedPlaybackRates = [1.0, 1.25, 2.0]
         commandCenter.changePlaybackRateCommand.addTarget { [weak self] event -> MPRemoteCommandHandlerStatus in
             guard let strongSelf = self, let _ = strongSelf.currentEpisode() else { return .noActionableNowPlayingItem }
 

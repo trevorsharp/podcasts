@@ -15,7 +15,7 @@ class CarPlaySceneDelegate: CustomObserver, CPTemplateApplicationSceneDelegate, 
         self.interfaceController = interfaceController
         interfaceController.delegate = self
 
-        let tabTemplate = CPTabBarTemplate(templates: [createPodcastsTab(), createFiltersTab(), createDownloadsTab(), createMoreTab()])
+        let tabTemplate = CPTabBarTemplate(templates: [createPodcastsTab(), createFiltersTab()])
         interfaceController.setRootTemplate(tabTemplate)
 
         self.visibleTemplate = tabTemplate.selectedTemplate
@@ -113,6 +113,7 @@ class CarPlaySceneDelegate: CustomObserver, CPTemplateApplicationSceneDelegate, 
     private func setupNowPlaying() {
         let nowPlayingTemplate = CPNowPlayingTemplate.shared
         nowPlayingTemplate.isUpNextButtonEnabled = true
+        nowPlayingTemplate.isUpNextButtonEnabled = false
         nowPlayingTemplate.isAlbumArtistButtonEnabled = true
         nowPlayingTemplate.add(self)
 
