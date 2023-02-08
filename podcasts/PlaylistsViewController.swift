@@ -37,7 +37,7 @@ class PlaylistsViewController: PCViewController, FilterCreatedDelegate {
             navigationController?.pushViewController(playlistViewController, animated: false)
         }
 
-        setupNewFilterButton()
+        // setupNewFilterButton()
         handleThemeChanged()
     }
 
@@ -76,6 +76,9 @@ class PlaylistsViewController: PCViewController, FilterCreatedDelegate {
         filtersTable.reloadData() // this is needed to ensure the cell re-arrange controls are tinted correctly
         customRightBtn = UIBarButtonItem(barButtonSystemItem: filtersTable.isEditing ? .done : .edit, target: self, action: #selector(editTapped))
         refreshRightButtons()
+
+        var customLeftBtn = filtersTable.isEditing ? UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNewFilter)) : nil
+        navigationItem.leftBarButtonItem = customLeftBtn
 
         Analytics.track(.filterListEditButtonToggled, properties: ["editing": filtersTable.isEditing])
     }

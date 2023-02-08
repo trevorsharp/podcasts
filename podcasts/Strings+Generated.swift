@@ -278,9 +278,9 @@ internal enum L10n {
   internal static var autoAddToUpNextTopOnlyShort: String { return L10n.tr("Localizable", "auto_add_to_up_next_top_only_short") }
   /// Auto Download First
   internal static var autoDownloadFirst: String { return L10n.tr("Localizable", "auto_download_first") }
-  /// Enable to auto download episodes in this filter
+  /// Enable to auto download episodes in this playlist
   internal static var autoDownloadOffSubtitle: String { return L10n.tr("Localizable", "auto_download_off_subtitle") }
-  /// The first %1$@ episodes in this filter will be automatically downloaded
+  /// The first %1$@ episodes in this playlist will be automatically downloaded
   internal static func autoDownloadOnPluralFormat(_ p1: Any) -> String {
     return L10n.tr("Localizable", "auto_download_on_plural_format", String(describing: p1))
   }
@@ -458,7 +458,7 @@ internal enum L10n {
   internal static var createAccountFreePrice: String { return L10n.tr("Localizable", "create_account_free_price") }
   /// Everything unlocked
   internal static var createAccountPlusDetails: String { return L10n.tr("Localizable", "create_account_plus_details") }
-  /// Create Filter
+  /// Create Playlist
   internal static var createFilter: String { return L10n.tr("Localizable", "create_filter") }
   /// Current Email
   internal static var currentEmailPrompt: String { return L10n.tr("Localizable", "current_email_prompt") }
@@ -1084,7 +1084,7 @@ internal enum L10n {
   }
   /// Yes, But No
   internal static var filterOptionEpisodeDurationErrorTitle: String { return L10n.tr("Localizable", "filter_option_episode_duration_error_title") }
-  /// Filter Options
+  /// Playlist Options
   internal static var filterOptions: String { return L10n.tr("Localizable", "filter_options") }
   /// Release Date
   internal static var filterReleaseDate: String { return L10n.tr("Localizable", "filter_release_date") }
@@ -1102,17 +1102,17 @@ internal enum L10n {
   internal static var filterReleaseDateLastWeek: String { return L10n.tr("Localizable", "filter_release_date_last_week") }
   /// Shorter than
   internal static var filterShorterThanLabel: String { return L10n.tr("Localizable", "filter_shorter_than_label") }
-  /// Update Filter
+  /// Update Playlist
   internal static var filterUpdate: String { return L10n.tr("Localizable", "filter_update") }
   /// All
   internal static var filterValueAll: String { return L10n.tr("Localizable", "filter_value_all") }
-  /// Filters
+  /// Playlists
   internal static var filters: String { return L10n.tr("Localizable", "filters") }
-  /// New Filter
+  /// New Playlist
   internal static var filtersDefaultNewFilter: String { return L10n.tr("Localizable", "filters_default_new_filter") }
   /// New Releases
   internal static var filtersDefaultNewReleases: String { return L10n.tr("Localizable", "filters_default_new_releases") }
-  /// + New Filter
+  /// + New Playlist
   internal static var filtersNewFilterButton: String { return L10n.tr("Localizable", "filters_new_filter_button") }
   /// Folder
   internal static var folder: String { return L10n.tr("Localizable", "folder") }
@@ -2348,7 +2348,7 @@ internal enum L10n {
   }
   /// 1 filter selected
   internal static var settingsAutoDownloadsFiltersSelectedSingular: String { return L10n.tr("Localizable", "settings_auto_downloads_filters_selected_singular") }
-  /// No Filters Selected
+  /// No Playlists Selected
   internal static var settingsAutoDownloadsNoFiltersSelected: String { return L10n.tr("Localizable", "settings_auto_downloads_no_filters_selected") }
   /// No Podcasts Selected
   internal static var settingsAutoDownloadsNoPodcastsSelected: String { return L10n.tr("Localizable", "settings_auto_downloads_no_podcasts_selected") }
@@ -2534,11 +2534,11 @@ internal enum L10n {
   internal static var settingsHelp: String { return L10n.tr("Localizable", "settings_help") }
   /// Import / Export
   internal static var settingsImportExport: String { return L10n.tr("Localizable", "settings_import_export") }
-  /// Included In %1$@ Filters
+  /// Included In %1$@ Playlists
   internal static func settingsInFiltersPluralFormat(_ p1: Any) -> String {
     return L10n.tr("Localizable", "settings_in_filters_plural_format", String(describing: p1))
   }
-  /// Included In 1 Filter
+  /// Included In 1 Playlist
   internal static var settingsInFiltersSingular: String { return L10n.tr("Localizable", "settings_in_filters_singular") }
   /// IN MENU
   internal static var settingsInMenu: String { return L10n.tr("Localizable", "settings_in_menu") }
@@ -2546,11 +2546,11 @@ internal enum L10n {
   internal static var settingsInactiveEpisodesMsg: String { return L10n.tr("Localizable", "settings_inactive_episodes_msg") }
   /// Next Action
   internal static var settingsNextAction: String { return L10n.tr("Localizable", "settings_next_action") }
-  /// Not Included In Any Filters
+  /// Not Included In Any Playlists
   internal static var settingsNotInFilters: String { return L10n.tr("Localizable", "settings_not_in_filters") }
   /// Notifications
   internal static var settingsNotifications: String { return L10n.tr("Localizable", "settings_notifications") }
-  /// Filter count
+  /// Playlist count
   internal static var settingsNotificationsFilterCount: String { return L10n.tr("Localizable", "settings_notifications_filter_count") }
   /// Notifies you when a new episode is available. Also useful for improving the reliability of auto downloads.
   internal static var settingsNotificationsSubtitle: String { return L10n.tr("Localizable", "settings_notifications_subtitle") }
@@ -2570,11 +2570,11 @@ internal enum L10n {
   internal static var settingsQueuePosition: String { return L10n.tr("Localizable", "settings_queue_position") }
   /// Read privacy policy
   internal static var settingsReadPrivacyPolicy: String { return L10n.tr("Localizable", "settings_read_privacy_policy") }
-  /// Select Filter
+  /// Select Playlist
   internal static var settingsSelectFilterSingular: String { return L10n.tr("Localizable", "settings_select_filter_singular") }
-  /// Select Filters
+  /// Select Playlists
   internal static var settingsSelectFiltersPlural: String { return L10n.tr("Localizable", "settings_select_filters_plural") }
-  /// Open Filter
+  /// Open Playlist
   internal static var settingsShortcutsFilterOpenFilter: String { return L10n.tr("Localizable", "settings_shortcuts_filter_open_filter") }
   /// Play all episodes
   internal static var settingsShortcutsFilterPlayAllEpisodes: String { return L10n.tr("Localizable", "settings_shortcuts_filter_play_all_episodes") }
@@ -3044,7 +3044,7 @@ internal enum L10n {
   internal static var watchMainMenu: String { return L10n.tr("Localizable", "watch_main_menu") }
   /// No Episodes
   internal static var watchNoEpisodes: String { return L10n.tr("Localizable", "watch_no_episodes") }
-  /// No Filters
+  /// No Playlists
   internal static var watchNoFilters: String { return L10n.tr("Localizable", "watch_no_filters") }
   /// No Podcasts
   internal static var watchNoPodcasts: String { return L10n.tr("Localizable", "watch_no_podcasts") }

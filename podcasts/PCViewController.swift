@@ -24,7 +24,7 @@ class PCViewController: SimpleNotificationsViewController {
 
         navigationItem.backButtonDisplayMode = .minimal
 
-        if supportsGoogleCast {
+        if false, supportsGoogleCast {
             let castButton = PCGoogleCastButton(frame: CGRect(x: 0, y: 0, width: 24, height: 24))
             castButton.tintColor = navIconsColor ?? AppTheme.navBarIconsColor()
             googleCastBtn = UIBarButtonItem(customView: castButton)

@@ -23,8 +23,8 @@ class PlaylistViewController: PCViewController, TitleButtonDelegate {
     @IBOutlet var tableView: UITableView! {
         didSet {
             registerCells()
-            registerLongPress()
-            tableView.allowsMultipleSelectionDuringEditing = true
+            // registerLongPress()
+            tableView.allowsMultipleSelectionDuringEditing = false
         }
     }
 
@@ -39,6 +39,7 @@ class PlaylistViewController: PCViewController, TitleButtonDelegate {
     @IBOutlet var noEpisodesView: ThemeableView! {
         didSet {
             noEpisodesView.style = .primaryUi02
+            noEpisodesView.backgroundColor = AppTheme.colorForStyle(.primaryUi04)
         }
     }
 
@@ -308,7 +309,7 @@ class PlaylistViewController: PCViewController, TitleButtonDelegate {
             Analytics.track(.filterOptionsModalOptionTapped, properties: ["option": "select_episodes"])
             self?.isMultiSelectEnabled = true
         }
-        optionsPicker.addAction(action: MultiSelectAction)
+        // optionsPicker.addAction(action: MultiSelectAction)
 
         let currentSort = PlaylistSort(rawValue: filter.sortType)?.description ?? ""
         let sortAction = OptionAction(label: L10n.sortBy, secondaryLabel: currentSort, icon: "podcastlist_sort") {
@@ -409,7 +410,8 @@ class PlaylistViewController: PCViewController, TitleButtonDelegate {
         filterCollectionView.reloadData()
         updateNavTintColor()
         noEpisodesScrollView.backgroundColor = AppTheme.colorForStyle(.primaryUi04)
-        noEpisodesIcon.tintColor = ThemeColor.primaryIcon02()
+        noEpisodesView.backgroundColor = AppTheme.colorForStyle(.primaryUi04)
+        noEpisodesIcon.tintColor = ThemeColor.filterIcon01(filterColor: filterColor)
     }
 
     private func updateNavTintColor() {
