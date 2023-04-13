@@ -359,6 +359,7 @@ class PodcastHeadingTableCell: ThemeableCell, SubscribeButtonDelegate, Expandabl
         scheduleView.isHidden = true
         linkView.isHidden = true
         roundedBorder.isHidden = true
+        podcastName.isHidden = true
     }
 
     private func setupButtons() {

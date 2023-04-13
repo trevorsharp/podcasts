@@ -9,22 +9,23 @@ extension PCSearchBarController {
     }
 
     func parentScrollViewDidScroll(_ scrollView: UIScrollView) {
-//        guard let searchControllerTopConstant = searchControllerTopConstant else { return }
-//
-//        let yPos = scrollView.contentOffset.y + (view.superview?.safeAreaInsets.top ?? 0)
-//
-//        let newValue: CGFloat
-//        if yPos < 0 {
-//            let offset = PCSearchBarController.defaultHeight + yPos
-//            newValue = min(0, -offset)
-//        } else {
-//            newValue = -PCSearchBarController.defaultHeight
-//        }
-//
-//        if searchControllerTopConstant.constant != newValue {
-//            searchControllerTopConstant.constant = newValue
-//            view.layoutIfNeeded()
-//        }
+        guard let searchControllerTopConstant = searchControllerTopConstant else { return }
+
+        let yPos = scrollView.contentOffset.y + (view.superview?.safeAreaInsets.top ?? 0)
+
+        let newValue: CGFloat
+        if yPos < 0 {
+            let offset = PCSearchBarController.defaultHeight + yPos
+            // newValue = min(0, -offset)
+            newValue = -offset
+        } else {
+            newValue = -PCSearchBarController.defaultHeight
+        }
+
+        if searchControllerTopConstant.constant != newValue {
+            searchControllerTopConstant.constant = newValue
+            view.layoutIfNeeded()
+        }
     }
 
     func parentScrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {

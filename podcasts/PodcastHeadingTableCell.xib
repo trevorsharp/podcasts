@@ -62,7 +62,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
                     <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5S4-8c-Ssa" userLabel="Top Section">
-                        <rect key="frame" x="20" y="0.0" width="354" height="82"/>
+                        <rect key="frame" x="20" y="0.0" width="354" height="156"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dq8-Kf-98T" customClass="PodcastImageView" customModule="podcasts" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="16" width="171" height="171"/>
@@ -149,7 +149,7 @@
                         </constraints>
                     </view>
                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="TeM-KI-UI1">
-                        <rect key="frame" x="20" y="82" width="354" height="424"/>
+                        <rect key="frame" x="20" y="156" width="354" height="350"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TCC-7i-Fyr" userLabel="Spacer">
                                 <rect key="frame" x="0.0" y="0.0" width="354" height="14"/>
@@ -158,25 +158,28 @@
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" text="Name Is really really really really looooong" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="YUN-pu-IO8" customClass="ThemeableLabel" customModule="podcasts" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="14" width="354" height="74"/>
+                                <rect key="frame" x="0.0" y="14" width="354" height="0.0"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" id="MCW-0z-gJ4"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="31"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CEi-4K-8eu" customClass="ThemeableLabel" customModule="podcasts" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="88" width="354" height="50"/>
+                                <rect key="frame" x="0.0" y="14" width="354" height="50"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
                                 <color key="textColor" red="0.5607843137254902" green="0.59215686274509804" blue="0.63921568627450975" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SGH-Lz-9LI" userLabel="Spacer">
-                                <rect key="frame" x="0.0" y="138" width="354" height="11"/>
+                                <rect key="frame" x="0.0" y="64" width="354" height="11"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="11" id="fcG-DT-YDl"/>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vgd-qp-dvs" customClass="ExpandableLabel" customModule="podcasts" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="149" width="354" height="0.0"/>
+                                <rect key="frame" x="0.0" y="75" width="354" height="0.0"/>
                                 <attributedString key="attributedText">
                                     <fragment content="...">
                                         <attributes>
@@ -189,13 +192,13 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nvw-qC-Dra" userLabel="Spacer">
-                                <rect key="frame" x="0.0" y="149" width="354" height="15"/>
+                                <rect key="frame" x="0.0" y="75" width="354" height="15"/>
                                 <constraints>
                                     <constraint firstAttribute="height" priority="750" constant="15" id="gZG-yc-I8w"/>
                                 </constraints>
                             </view>
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jvt-lK-ojm" userLabel="Support Details View" customClass="ThemeableView" customModule="podcasts" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="164" width="354" height="88"/>
+                                <rect key="frame" x="0.0" y="90" width="354" height="88"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="support-heart-outline" translatesAutoresizingMaskIntoConstraints="NO" id="8sQ-nU-7pj">
                                         <rect key="frame" x="12" y="12" width="24" height="24"/>
@@ -245,13 +248,13 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="enV-6h-bDJ" userLabel="Spacer">
-                                <rect key="frame" x="0.0" y="252" width="354" height="15"/>
+                                <rect key="frame" x="0.0" y="178" width="354" height="15"/>
                                 <constraints>
                                     <constraint firstAttribute="height" priority="750" constant="15" id="k5K-qI-XnN"/>
                                 </constraints>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="Ypx-au-SZl">
-                                <rect key="frame" x="0.0" y="267" width="354" height="157"/>
+                                <rect key="frame" x="0.0" y="193" width="354" height="157"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Lfz-rK-i49" userLabel="Spacer">
                                         <rect key="frame" x="0.0" y="0.0" width="354" height="6"/>

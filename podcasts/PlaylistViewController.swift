@@ -51,14 +51,18 @@ class PlaylistViewController: PCViewController, TitleButtonDelegate {
 
     @IBOutlet var noEpisodesDescription: ThemeableLabel! {
         didSet {
-            noEpisodesDescription.text = L10n.episodeFilterNoEpisodesMsg
+            noEpisodesDescription.text = "" // L10n.episodeFilterNoEpisodesMsg
             noEpisodesDescription.style = .primaryText02
         }
     }
 
+    func getNoEpisodesIcon() -> String {
+        "tick"
+    }
+
     @IBOutlet var noEpisodesIcon: ThemeableImageView! {
         didSet {
-            noEpisodesIcon.imageNameFunc = AppTheme.emptyFilterImageName
+            noEpisodesIcon.imageNameFunc = getNoEpisodesIcon
         }
     }
 
@@ -158,7 +162,8 @@ class PlaylistViewController: PCViewController, TitleButtonDelegate {
 
         titleView = TitleViewWithCollapseButton()
         titleView.delegate = self
-        navigationItem.titleView = titleView
+        // navigationItem.titleView = titleView
+        title = filter.playlistName
 
         themeDividerTopAnchor.constant = isNewFilter ? 52 : 0
         titleView.arrowButton.setExpanded(isNewFilter, animated: false)
@@ -173,6 +178,7 @@ class PlaylistViewController: PCViewController, TitleButtonDelegate {
 
     override func viewWillAppear(_ animated: Bool) {
         updateNavTintColor()
+        handleThemeChanged()
         super.viewWillAppear(animated)
 
         titleView.titleLabel.text = filter.playlistName
@@ -406,6 +412,7 @@ class PlaylistViewController: PCViewController, TitleButtonDelegate {
     }
 
     override func handleThemeChanged() {
+        let filterColor = filter.playlistColor()
         tableView.reloadData()
         filterCollectionView.reloadData()
         updateNavTintColor()
@@ -416,7 +423,8 @@ class PlaylistViewController: PCViewController, TitleButtonDelegate {
 
     private func updateNavTintColor() {
         let filterColor = filter.playlistColor()
-        let titleColor = ThemeColor.filterText01(filterColor: filterColor)
+        // let titleColor = ThemeColor.filterText01(filterColor: filterColor)
+        let titleColor = AppTheme.navBarTitleColor()
         let iconColor = ThemeColor.filterIcon01(filterColor: filterColor)
         let backgroundColor = ThemeColor.filterUi01(filterColor: filterColor)
         changeNavTint(titleColor: titleColor, iconsColor: iconColor, backgroundColor: backgroundColor)

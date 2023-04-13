@@ -476,6 +476,8 @@ class PodcastViewController: PCViewController, PodcastActionsDelegate, SyncSigni
 
         podcast?.showArchived = alwaysShowArchived || podcast?.showArchived ?? true
         if alwaysGroupByPlayed { podcast?.episodeGrouping = 2 }
+
+        title = podcast?.title
     }
 
     func loadLocalEpisodes(podcast: Podcast, animated: Bool) {
@@ -484,6 +486,7 @@ class PodcastViewController: PCViewController, PodcastActionsDelegate, SyncSigni
             guard let self = self else { return }
 
 //            self.navTitle = podcast.title
+            self.title = podcast.title
             if self.alwaysGroupByPlayed { podcast.episodeGrouping = 2 }
 
             // add the episode limit placehold if it's needed
@@ -710,7 +713,7 @@ class PodcastViewController: PCViewController, PodcastActionsDelegate, SyncSigni
         tableView().tableFooterView = view
 
         // scroll the search box to the top of the page
-        tableView().scrollToRow(at: IndexPath(row: NSNotFound, section: PodcastViewController.allEpisodesSection), at: .top, animated: true)
+        tableView().scrollToRow(at: IndexPath(row: 1, section: PodcastViewController.allEpisodesSection), at: .top, animated: true)
     }
 
     func folderTapped() {
@@ -1033,10 +1036,10 @@ class PodcastViewController: PCViewController, PodcastActionsDelegate, SyncSigni
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let scrolledToY = scrollView.contentOffset.y
         if scrolledToY > 200, title == nil {
-            title = podcast?.title
+            // title = podcast?.title
             setupNavBar(animated: true)
         } else if scrolledToY < 200, title != nil {
-            title = nil
+            // title = nil
             setupNavBar(animated: true)
         }
     }

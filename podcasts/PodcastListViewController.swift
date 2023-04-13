@@ -80,6 +80,8 @@ class PodcastListViewController: PCViewController, UIGestureRecognizerDelegate, 
         setupSearchBar()
         setupRefreshControl()
 
+        navigationController?.navigationBar.prefersLargeTitles = true
+
         let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(_:)))
         podcastsCollectionView.addGestureRecognizer(longPressGesture)
         longPressGesture.delegate = self
@@ -405,9 +407,9 @@ extension PodcastListViewController {
             return
         }
 
-        refreshControl = PCRefreshControl(scrollView: podcastsCollectionView,
-                                          navBar: navController.navigationBar,
-                                          searchBar: searchController,
-                                          source: .podcastsList)
+//        refreshControl = PCRefreshControl(scrollView: podcastsCollectionView,
+//                                          navBar: navController.navigationBar,
+//                                          searchBar: searchController,
+//                                          source: .podcastsList)
     }
 }
