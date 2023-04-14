@@ -7,11 +7,7 @@ struct UpNextLargeWidgetView: View {
     @State var isPlaying: Bool
 
     var body: some View {
-        if filterName != nil {
-            LargeFilterView(episodes: $episodes, filterName: $filterName)
-        } else {
-            LargeUpNextWidgetView(episodes: $episodes, isPlaying: $isPlaying)
-        }
+        LargeFilterView(episodes: $episodes, filterName: $filterName)
     }
 }
 
@@ -93,44 +89,40 @@ struct LargeFilterView: View {
         }
 
         return AnyView(
-            VStack(alignment: .leading, spacing: 0) {
-                VStack(spacing: 0) {
-                    HStack(alignment: .top) {
-                        if let filterName = filterName {
-                            Text(filterName)
-                                .font(.callout)
-                                .fontWeight(.regular)
-                                .foregroundColor(Color.secondary)
-                                .frame(height: 18)
-                        }
+            HStack(alignment: .center) {
+                VStack(alignment: .leading, spacing: 16) {
+                    EpisodeView.createCompactWhenNecessaryView(episode: episodes.first!)
+                        .frame(minHeight: 40, maxHeight: 56)
+                    if let secondEpisode = episodes[safe: 1] {
+                        EpisodeView.createCompactWhenNecessaryView(episode: secondEpisode)
+                            .frame(minHeight: 40, maxHeight: 56)
+                    } else {
                         Spacer()
-                        Image("logo_red_small")
-                            .frame(width: 28, height: 28)
-                            .unredacted()
+                            .frame(minHeight: 42, maxHeight: 56)
                     }
-                    .frame(height: 32)
-
-                    VStack(alignment: .leading, spacing: 10) {
-                        ForEach(episodes[0 ... min(4, episodes.count - 1)], id: \.self) { episode in
-                            HStack {
-                                EpisodeView.createCompactWhenNecessaryView(episode: episode)
-                                    .frame(minHeight: 42, maxHeight: 56)
-                                Spacer()
-                            }
-                        }
+                    if let thirdEpisode = episodes[safe: 2] {
+                        EpisodeView.createCompactWhenNecessaryView(episode: thirdEpisode)
+                            .frame(minHeight: 40, maxHeight: 56)
+                    } else {
+                        Spacer()
+                            .frame(minHeight: 42, maxHeight: 56)
+                    }
+                    if let fourthEpisode = episodes[safe: 3] {
+                        EpisodeView.createCompactWhenNecessaryView(episode: fourthEpisode)
+                            .frame(minHeight: 40, maxHeight: 56)
+                    } else {
+                        Spacer()
+                            .frame(minHeight: 42, maxHeight: 56)
+                    }
+                    if let fifthEpisode = episodes[safe: 4] {
+                        EpisodeView.createCompactWhenNecessaryView(episode: fifthEpisode)
+                            .frame(minHeight: 40, maxHeight: 56)
+                    } else {
+                        Spacer()
+                            .frame(minHeight: 42, maxHeight: 56)
                     }
                 }.padding(16)
-                    .background(Rectangle().fill(Color.clear)
-                        .lightBackgroundShadow())
-
-                if episodes.count < 5 {
-                    ZStack {
-                        Rectangle()
-                            .fill(darkBackgroundColor)
-                        HungryForMoreView()
-                    }
-                }
-            }
+            }.frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
         )
     }
 }

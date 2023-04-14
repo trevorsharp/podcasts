@@ -30,7 +30,7 @@ struct NowPlayingProvider: TimelineProvider {
     }
 
     private func nowPlayingEntry(from widgetData: WidgetData) -> NowPlayingEntry {
-        let episode = widgetData.nowPlayingEpisode
+        let episode = widgetData.nowPlayingEpisode ?? widgetData.upNextEpisodes?.first ?? widgetData.topFilterEpisodes?.first
         episode?.loadImageData()
 
         return NowPlayingEntry(date: Date(), episode: episode, isPlaying: widgetData.isPlaying)

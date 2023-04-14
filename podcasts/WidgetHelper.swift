@@ -32,7 +32,8 @@ class WidgetHelper {
             if widgets.contains(where: { $0.kind == "Now_Playing_Widget" }) {
                 self.publishAppIcon()
             }
-            if widgets.contains(where: { $0.kind == "Up_Next_Widget" }), PlaybackManager.shared.currentEpisode() == nil, PlaybackManager.shared.queue.upNextCount() == 0 {
+//            if widgets.contains(where: { $0.kind == "Up_Next_Widget" }), PlaybackManager.shared.currentEpisode() == nil, PlaybackManager.shared.queue.upNextCount() == 0 {
+            if widgets.contains(where: { $0.kind == "Up_Next_Widget" }) {
                 self.publishTopFilterInfo()
             }
             WidgetCenter.shared.reloadAllTimelines()
@@ -93,8 +94,8 @@ class WidgetHelper {
             let serializedItems = try JSONEncoder().encode(upNextItems)
             sharedDefaults.set(serializedItems, forKey: SharedConstants.GroupUserDefaults.upNextItems)
             sharedDefaults.set(max(allUpNextPlaylistEpisodes.count - 1, 0), forKey: SharedConstants.GroupUserDefaults.upNextItemsCount)
-            sharedDefaults.removeObject(forKey: SharedConstants.GroupUserDefaults.topFilterItems)
-            sharedDefaults.removeObject(forKey: SharedConstants.GroupUserDefaults.topFilterName)
+//            sharedDefaults.removeObject(forKey: SharedConstants.GroupUserDefaults.topFilterItems)
+//            sharedDefaults.removeObject(forKey: SharedConstants.GroupUserDefaults.topFilterName)
             let playingStatus = PlaybackManager.shared.playing()
             sharedDefaults.set(playingStatus, forKey: SharedConstants.GroupUserDefaults.isPlaying)
 
@@ -126,8 +127,8 @@ class WidgetHelper {
             let serializedItems = try JSONEncoder().encode(filterItems)
             sharedDefaults.set(serializedItems, forKey: SharedConstants.GroupUserDefaults.topFilterItems)
             sharedDefaults.set(filterName, forKey: SharedConstants.GroupUserDefaults.topFilterName)
-            sharedDefaults.set(false, forKey: SharedConstants.GroupUserDefaults.isPlaying)
-            sharedDefaults.removeObject(forKey: SharedConstants.GroupUserDefaults.upNextItems)
+//            sharedDefaults.set(false, forKey: SharedConstants.GroupUserDefaults.isPlaying)
+//            sharedDefaults.removeObject(forKey: SharedConstants.GroupUserDefaults.upNextItems)
             sharedDefaults.synchronize()
         } catch {
             FileLog.shared.addMessage("Unable to encode top filter data  Widget: \(error.localizedDescription)")

@@ -8,11 +8,7 @@ struct UpNextMediumWidgetView: View {
 
     var body: some View {
         if let firstEpisode = episodes.first {
-            if let topFilter = filterName {
-                MediumFilterView(firstEpisode: firstEpisode, secondEpisode: episodes[safe: 1], filterName: topFilter)
-            } else {
-                MediumUpNextView(firstEpisode: firstEpisode, secondEpisode: episodes[safe: 1], isPlaying: isPlaying)
-            }
+            MediumFilterView(firstEpisode: firstEpisode, secondEpisode: episodes[safe: 1], filterName: "")
         } else {
             HungryForMoreView()
         }
@@ -69,32 +65,20 @@ struct MediumFilterView: View {
 
     var body: some View {
         GeometryReader { geometry in
-            VStack(alignment: .leading, spacing: 0) {
-                HStack(alignment: .top) {
-                    Text(filterName)
-                        .font(.callout)
-                        .fontWeight(.regular)
-                        .foregroundColor(Color.secondary)
-                        .frame(height: 18)
-                    Spacer()
-                    Image("logo_red_small")
-                        .frame(width: 28, height: 28)
-                        .unredacted()
-                }
-                .frame(height: 32)
-                EpisodeView.createCompactWhenNecessaryView(episode: firstEpisode)
-                    .frame(minHeight: 40, maxHeight: 56)
-                Spacer().frame(minHeight: 8, maxHeight: 10)
-                if let secondEpisode = secondEpisode {
-                    EpisodeView.createCompactWhenNecessaryView(episode: secondEpisode)
+            HStack(alignment: .center) {
+                VStack(alignment: .leading, spacing: 4) {
+                    EpisodeView.createCompactWhenNecessaryView(episode: firstEpisode)
                         .frame(minHeight: 40, maxHeight: 56)
-                } else {
-                    Spacer()
-                        .frame(minHeight: 42, maxHeight: 56)
-                }
-            }
-            .padding(geometry.size.height > 155 ? 16 : 12)
-            .clearBackground()
+                    Spacer().frame(minHeight: 8, maxHeight: 10)
+                    if let secondEpisode = secondEpisode {
+                        EpisodeView.createCompactWhenNecessaryView(episode: secondEpisode)
+                            .frame(minHeight: 40, maxHeight: 56)
+                    } else {
+                        Spacer()
+                            .frame(minHeight: 42, maxHeight: 56)
+                    }
+                }.padding(geometry.size.height > 155 ? 16 : 12)
+            }.frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
         }
     }
 }

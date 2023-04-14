@@ -8,50 +8,57 @@ struct UpNextProvider: TimelineProvider {
         let widgetData = WidgetData.shared
         widgetData.reload()
 
-        guard let currentEpisode = widgetData.nowPlayingEpisode else {
-            return upNextEntry(episodes: nil, data: widgetData)
-        }
-
-        return upNextEntry(episodes: [currentEpisode], data: widgetData, imageCountToCache: context.family.imageCount)
+        return upNextEntry(data: widgetData, imageCountToCache: context.family.imageCount)
     }
 
     func getSnapshot(in context: Context, completion: @escaping (UpNextEntry) -> Void) {
         let widgetData = WidgetData.shared
         widgetData.reload()
 
-        if let episodes = widgetData.upNextEpisodes {
-            completion(upNextEntry(episodes: episodes, data: widgetData, imageCountToCache: context.family.imageCount))
-        } else {
-            completion(upNextEntry(episodes: nil, data: widgetData))
-        }
+        completion(upNextEntry(data: widgetData, imageCountToCache: context.family.imageCount))
     }
 
     func getTimeline(in context: Context, completion: @escaping (Timeline<Entry>) -> Void) {
         let widgetData = WidgetData.shared
         widgetData.reload()
 
-        if let filterEpisodes = widgetData.topFilterEpisodes, filterEpisodes.count > 0 {
-            let entry = upNextEntry(episodes: filterEpisodes, data: widgetData, imageCountToCache: context.family.imageCount)
-            let timeline = Timeline(entries: [entry], policy: .never)
-            completion(timeline)
-        } else if let upNextEpisodes = widgetData.upNextEpisodes, upNextEpisodes.count > 0 {
-            let entry = upNextEntry(episodes: upNextEpisodes, data: widgetData, imageCountToCache: context.family.imageCount)
-            let timeline = Timeline(entries: [entry], policy: .atEnd)
-            completion(timeline)
-        } else {
-            let timeline = Timeline(entries: [upNextEntry(episodes: nil, data: widgetData)], policy: .never)
-            completion(timeline)
-        }
+        let entry = upNextEntry(data: widgetData, imageCountToCache: context.family.imageCount)
+        let timeline = Timeline(entries: [entry], policy: .never)
+        completion(timeline)
     }
 
-    private func upNextEntry(episodes: [WidgetEpisode]?, data: WidgetData, imageCountToCache: Int = 0) -> UpNextEntry {
-        if let episodes = episodes, episodes.count > 0, imageCountToCache > 0 {
+    private func upNextEntry(data: WidgetData, imageCountToCache: Int = 0) -> UpNextEntry {
+        var episodes: [WidgetEpisode] = []
+
+        if let nowPlayingEpisode = data.nowPlayingEpisode {
+            episodes.append(nowPlayingEpisode)
+        }
+
+        if let upNextEpisodes = data.upNextEpisodes, upNextEpisodes.count > 0 {
+            episodes.append(contentsOf: upNextEpisodes.filter { newEpisode in
+                !episodes.contains { episode in
+                    episode.episodeUuid == newEpisode.episodeUuid
+                }
+            })
+        }
+
+        if let topFilterEpisodes = data.topFilterEpisodes, topFilterEpisodes.count > 0 {
+            episodes.append(contentsOf: topFilterEpisodes.filter { newEpisode in
+                !episodes.contains { episode in
+                    episode.episodeUuid == newEpisode.episodeUuid
+                }
+            })
+        }
+
+        if episodes.count > 0, imageCountToCache > 0 {
             for episode in episodes.prefix(imageCountToCache) {
                 episode.loadImageData()
             }
+
+            return UpNextEntry(date: Date(), episodes: episodes, filterName: data.topFilterName, isPlaying: data.isPlaying, upNextEpisodesCount: episodes.count)
         }
 
-        return UpNextEntry(date: Date(), episodes: episodes, filterName: data.topFilterName, isPlaying: data.isPlaying, upNextEpisodesCount: data.upNextEpisodesCount)
+        return UpNextEntry(date: Date(), episodes: nil, filterName: data.topFilterName, isPlaying: data.isPlaying, upNextEpisodesCount: 0)
     }
 }
 
