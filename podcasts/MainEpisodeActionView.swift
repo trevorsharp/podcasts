@@ -21,6 +21,8 @@ class MainEpisodeActionView: UIView {
     private var circleCenter: CGPoint!
     private var episodeUuid: String?
 
+    var pointerInteraction: UIPointerInteraction?
+
     var enlargementScale: CGFloat = 1 {
         didSet {
             setCenterPoint()
@@ -52,6 +54,7 @@ class MainEpisodeActionView: UIView {
         addGestureRecognizer(tapGesture)
         setCenterPoint()
 
+        pointerInteraction = pointerInteraction ?? UIPointerInteraction(delegate: self)
         enablePointerInteraction()
 
         NotificationCenter.default.addObserver(self, selector: #selector(playbackDidProgress), name: Constants.Notifications.playbackProgress, object: nil)
@@ -123,6 +126,12 @@ class MainEpisodeActionView: UIView {
             state = .play
         } else {
             state = primaryRowActionIsDownload ? .download : .play
+        }
+
+        if state == .play || state == .pause {
+            pointerInteraction?.isEnabled = true
+        } else {
+            pointerInteraction?.isEnabled = false
         }
     }
 

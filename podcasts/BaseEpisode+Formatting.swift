@@ -40,7 +40,7 @@ extension BaseEpisode {
                 return L10n.podcastDownloading("").trimmingCharacters(in: .whitespaces)
             }
         } else if queued() {
-            if sizeInBytes > 0 {
+            if false, sizeInBytes > 0 {
                 let size = SizeFormatter.shared.noDecimalFormat(bytes: sizeInBytes)
                 return L10n.podcastQueued + " • " + size
             } else {
@@ -53,12 +53,16 @@ extension BaseEpisode {
         } else {
             var informationLabelStr = duration > 0 ? displayableTimeLeft() : L10n.unknownDuration
 
-            if includeSize, sizeInBytes > 0 {
+            if false, includeSize, sizeInBytes > 0 {
                 if informationLabelStr.count == 0 {
                     informationLabelStr = SizeFormatter.shared.noDecimalFormat(bytes: sizeInBytes)
                 } else {
                     informationLabelStr += " • \(SizeFormatter.shared.noDecimalFormat(bytes: sizeInBytes))"
                 }
+            }
+
+            if downloaded(pathFinder: DownloadManager.shared) {
+                informationLabelStr += " • \(L10n.statusDownloaded)"
             }
 
             return informationLabelStr

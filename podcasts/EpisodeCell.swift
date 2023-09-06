@@ -257,7 +257,7 @@ class EpisodeCell: ThemeableSwipeCell, MainEpisodeActionViewDelegate {
 
         EpisodeDateHelper.setDate(episode: episode, on: dayName, tintColor: mainTintColor)
 
-        if episode.archived {
+        if false, episode.archived {
             informationLabel.text = L10n.podcastArchived + " • " + episode.displayableInfo(includeSize: false)
         } else if let userEpisode = episode as? UserEpisode {
             informationLabel.text = userEpisode.displayableInfo(includeSize: Settings.primaryRowAction() == .download)
@@ -292,6 +292,15 @@ class EpisodeCell: ThemeableSwipeCell, MainEpisodeActionViewDelegate {
 
         isAccessibilityElement = true
         accessibilityLabel = labelForAccessibility(episode: episode)
+
+        leadingSpacerWidth.constant = hidesArtwork ? 4 : 16
+        videoIndicator.isHidden = true
+        starIndicator.isHidden = true
+        upNextIndicator.isHidden = true
+        statusIndicator.isHidden = true
+        uploadProgressIndicator.isHidden = true
+        uploadStatusIndicator.isHidden = true
+        downloadingIndicator.isHidden = true
     }
 
     private func labelForAccessibility(episode: BaseEpisode?) -> String {

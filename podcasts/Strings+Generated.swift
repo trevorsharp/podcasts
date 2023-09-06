@@ -2992,7 +2992,7 @@ internal enum L10n {
   internal static var tryItNow: String { return L10n.tr("Localizable", "try_it_now") }
   /// Unarchive
   internal static var unarchive: String { return L10n.tr("Localizable", "unarchive") }
-  /// ? m
+  /// Live
   internal static var unknownDuration: String { return L10n.tr("Localizable", "unknown_duration") }
   /// Unstar
   internal static var unstar: String { return L10n.tr("Localizable", "unstar") }

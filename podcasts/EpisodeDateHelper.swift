@@ -36,7 +36,7 @@ struct EpisodeDateHelper {
 
         private static func setRowTitle(dateText: String, episode: Episode, label: UILabel, tintColor: UIColor?, indicatorText: String? = nil) {
             guard let indicatorText = indicatorText, let tintColor = tintColor else {
-                if episode.episodeNumber < 1 {
+                if false, episode.episodeNumber < 1 {
                     label.text = dateText
 
                     return
@@ -44,6 +44,12 @@ struct EpisodeDateHelper {
 
                 let prefix = L10n.seasonEpisodeShorthand(seasonNumber: episode.seasonNumber, episodeNumber: episode.episodeNumber)
                 label.text = "\(prefix) • \(dateText)"
+
+                var suffix = episode.episodeNumber >= 1 ? " • " + L10n.seasonEpisodeShorthand(seasonNumber: episode.seasonNumber, episodeNumber: episode.episodeNumber) : ""
+
+                suffix += episode.videoPodcast() ? " • " + L10n.filterMediaTypeVideo.uppercased() : ""
+
+                label.text = dateText + suffix
 
                 return
             }

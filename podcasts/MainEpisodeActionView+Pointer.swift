@@ -2,7 +2,9 @@ import Foundation
 
 extension MainEpisodeActionView: UIPointerInteractionDelegate {
     func enablePointerInteraction() {
-        addInteraction(UIPointerInteraction(delegate: self))
+        if pointerInteraction != nil {
+            addInteraction(pointerInteraction!)
+        }
     }
 
     func pointerInteraction(_ interaction: UIPointerInteraction, styleFor region: UIPointerRegion) -> UIPointerStyle? {

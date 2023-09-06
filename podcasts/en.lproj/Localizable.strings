@@ -3065,7 +3065,7 @@
 "unarchive" = "Unarchive";
 
 /* A common string used throughout the app. Used to reference an unknown duration '?' is an indicator that the amount of time isn't known and 'm' is a reference for minutes. */
-"unknown_duration" = "? m";
+"unknown_duration" = "Live";
 
 /* A common string used throughout the app. Prompt to un-star the selected item (remove from favorited). */
 "unstar" = "Unstar";
