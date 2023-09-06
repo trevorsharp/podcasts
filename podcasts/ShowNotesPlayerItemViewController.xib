@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -18,7 +18,6 @@
                 <outlet property="publishedDate" destination="l9e-TR-dS5" id="eeD-KU-hob"/>
                 <outlet property="showNotesHolderView" destination="FFU-Ec-vhm" id="hB4-gE-f2H"/>
                 <outlet property="showNotesScrollView" destination="y9m-b5-ldX" id="YfO-yp-Enf"/>
-                <outlet property="showNotesViewHeight" destination="Ti2-N3-QkK" id="CHo-R7-7sR"/>
                 <outlet property="topDivider" destination="A7b-Jf-ShF" id="45m-2W-9ey"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -90,7 +89,7 @@
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FFU-Ec-vhm" userLabel="Show Notes Holder View">
-                            <rect key="frame" x="0.0" y="81" width="414" height="334"/>
+                            <rect key="frame" x="0.0" y="81" width="414" height="654"/>
                             <subviews>
                                 <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="ot2-IP-s1Q">
                                     <rect key="frame" x="197" y="15" width="20" height="20"/>
@@ -98,7 +97,6 @@
                             </subviews>
                             <constraints>
                                 <constraint firstItem="ot2-IP-s1Q" firstAttribute="centerX" secondItem="FFU-Ec-vhm" secondAttribute="centerX" id="Nrx-aI-S1A"/>
-                                <constraint firstAttribute="height" constant="334" id="Ti2-N3-QkK"/>
                                 <constraint firstItem="ot2-IP-s1Q" firstAttribute="top" secondItem="FFU-Ec-vhm" secondAttribute="top" constant="15" id="b2g-HD-ghP"/>
                             </constraints>
                         </view>
@@ -108,6 +106,8 @@
                         <constraint firstItem="FFU-Ec-vhm" firstAttribute="top" secondItem="A7b-Jf-ShF" secondAttribute="bottom" id="4iQ-UN-Khv"/>
                         <constraint firstAttribute="trailing" secondItem="A7b-Jf-ShF" secondAttribute="trailing" constant="23" id="JAG-1a-mJe"/>
                         <constraint firstAttribute="bottom" secondItem="FFU-Ec-vhm" secondAttribute="bottom" id="NoL-Na-gwU"/>
+                        <constraint firstItem="Xv8-s5-lQi" firstAttribute="bottom" secondItem="FFU-Ec-vhm" secondAttribute="bottom" id="Qh7-E3-OUv"/>
+                        <constraint firstItem="FFU-Ec-vhm" firstAttribute="top" secondItem="A7b-Jf-ShF" secondAttribute="bottom" id="U0Z-t5-hRZ"/>
                         <constraint firstItem="rjR-ZU-lLa" firstAttribute="leading" secondItem="y9m-b5-ldX" secondAttribute="leading" id="UUN-dV-1dF"/>
                         <constraint firstAttribute="trailing" secondItem="FFU-Ec-vhm" secondAttribute="trailing" id="c5o-Je-I1j"/>
                         <constraint firstItem="A7b-Jf-ShF" firstAttribute="leading" secondItem="y9m-b5-ldX" secondAttribute="leading" constant="20" id="dvU-Zs-7xV"/>

@@ -5,7 +5,7 @@ import SafariServices
 import UIKit
 import WebKit
 
-class ShowNotesPlayerItemViewController: PlayerItemViewController, SFSafariViewControllerDelegate, WKNavigationDelegate {
+class ShowNotesPlayerItemViewController: PlayerItemViewController, SFSafariViewControllerDelegate, WKNavigationDelegate, UIScrollViewDelegate {
     @IBOutlet var episodeTitle: UILabel!
     @IBOutlet var publishedDate: UILabel!
     @IBOutlet var duration: UILabel!
@@ -62,6 +62,8 @@ class ShowNotesPlayerItemViewController: PlayerItemViewController, SFSafariViewC
         showNotesWebView.isOpaque = false
         showNotesWebView.backgroundColor = UIColor.clear
         showNotesWebView.scrollView.backgroundColor = UIColor.clear
+
+        showNotesWebView.scrollView.delegate = self
     }
 
     deinit {
@@ -232,6 +234,7 @@ class ShowNotesPlayerItemViewController: PlayerItemViewController, SFSafariViewC
         decisionHandler(.cancel)
     }
 
+    /*
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         showNotesWebView.evaluateJavaScript("document.readyState", completionHandler: { [weak self] complete, _ in
             guard let _ = complete else { return }
@@ -249,10 +252,16 @@ class ShowNotesPlayerItemViewController: PlayerItemViewController, SFSafariViewC
             })
         })
     }
+    */
 
     func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
         NotificationCenter.postOnMainThread(notification: Constants.Notifications.closedNonOverlayableWindow)
         safariViewController?.delegate = nil
         safariViewController = nil
+    }
+
+    // MARK: - UIScrollViewDelegate
+    func scrollViewWillBeginZooming(_ scrollView: UIScrollView, with view: UIView?) {
+        scrollView.pinchGestureRecognizer?.isEnabled = false
     }
 }

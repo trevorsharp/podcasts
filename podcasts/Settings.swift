@@ -17,6 +17,7 @@ class Settings: NSObject {
             UserDefaults.standard.set(newValue, forKey: Constants.UserDefaults.openLinksInExternalBrowser)
         }
         get {
+            return true
             if FeatureFlag.newSettingsStorage.enabled {
                 return SettingsStore.appSettings.openLinks
             } else {
