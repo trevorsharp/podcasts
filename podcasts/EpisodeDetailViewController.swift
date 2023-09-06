@@ -7,7 +7,7 @@ import UIKit
 import WebKit
 
 class EpisodeDetailViewController: FakeNavViewController, UIDocumentInteractionControllerDelegate {
-    @IBOutlet var containerScrollView: PagedUIScrollView!
+    @IBOutlet var containerScrollView: PagedUIScrollView? = nil
 
     private var cancellables = Set<AnyCancellable>()
 
@@ -74,9 +74,9 @@ class EpisodeDetailViewController: FakeNavViewController, UIDocumentInteractionC
         }
     }
 
-    @IBOutlet var episodeSpacer: ThemeableLabel! {
+    @IBOutlet var episodeSpacer: ThemeableLabel? = nil {
         didSet {
-            episodeSpacer.style = .primaryText02
+            episodeSpacer?.style = .primaryText02
         }
     }
 
@@ -303,13 +303,15 @@ class EpisodeDetailViewController: FakeNavViewController, UIDocumentInteractionC
     // MARK: - Scroll View Delegate
 
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        return
+
         // If we're not changing pages, then forward the event to the fake nav bar
         guard scrollView == containerScrollView else {
             super.scrollViewDidScroll(scrollView)
             return
         }
 
-        let currentPage = containerScrollView.currentPage
+        let currentPage = containerScrollView?.currentPage ?? 0
 
         // If we're swiping to the first page, then allow the navbar shadow to be shown, or hide it if not
         if currentPage == .details {
@@ -399,7 +401,7 @@ class EpisodeDetailViewController: FakeNavViewController, UIDocumentInteractionC
 
     func updateColors() {
         episodeDate.themeOverride = themeOverride
-        episodeSpacer.themeOverride = themeOverride
+        episodeSpacer?.themeOverride = themeOverride
         episodeInfo.themeOverride = themeOverride
         topDivider.themeOverride = themeOverride
         bottomDivider.themeOverride = themeOverride
@@ -438,6 +440,12 @@ class EpisodeDetailViewController: FakeNavViewController, UIDocumentInteractionC
 
         updateButtonStates()
         updateNavColors(bgColor: bgColor, titleColor: ThemeColor.secondaryText01(for: themeOverride), buttonColor: actionColor)
+
+        archiveButton.isHidden = true
+        playStatusButton.isHidden = true
+        topDivider.isHidden = true
+        bottomDivider.isHidden = true
+        progressView.isHidden = true
     }
 
     @objc private func starTapped(_ sender: UIButton) {
@@ -573,7 +581,7 @@ extension EpisodeDetailViewController: AnalyticsSourceProvider {
 // MARK: - Bookmark Tabs
 private extension EpisodeDetailViewController {
     private func addBookmarksTabIfNeeded() {
-        containerScrollView.addPage(mainScrollView)
+        containerScrollView?.addPage(mainScrollView)
 
         guard let bookmarksView = bookmarksController.view else {
             return
@@ -585,10 +593,10 @@ private extension EpisodeDetailViewController {
         // in viewDidAppear we mark this to false
         bookmarksView.isHidden = true
 
-        containerScrollView.addPage(bookmarksView, padding: .init(top: EpisodeDetailConstants.topPadding, left: 0, bottom: 0, right: 0))
-        containerScrollView.isPagingEnabled = true
-        containerScrollView.isDirectionalLockEnabled = true
-        containerScrollView.delegate = self
+        containerScrollView?.addPage(bookmarksView, padding: .init(top: EpisodeDetailConstants.topPadding, left: 0, bottom: 0, right: 0))
+        containerScrollView?.isPagingEnabled = true
+        containerScrollView?.isDirectionalLockEnabled = true
+        containerScrollView?.delegate = self
 
         mainScrollView.isDirectionalLockEnabled = true
 
@@ -625,8 +633,8 @@ private extension EpisodeDetailViewController {
         self.tabContainerTrailingAnchor = trailingAnchor
 
         let viewModel = EpisodeTabsViewModel(tabs: [
-            .init(title: L10n.episodeDetailsTitle),
-            .init(title: L10n.bookmarks)
+//            .init(title: L10n.episodeDetailsTitle),
+//            .init(title: L10n.bookmarks)
         ])
 
         let controller = ThemedHostingController(rootView: EpisodeDetailTabView(viewModel: viewModel))
@@ -653,7 +661,7 @@ private extension EpisodeDetailViewController {
             return
         }
 
-        containerScrollView.scrollToPage(index)
+        containerScrollView?.scrollToPage(index)
     }
 
     private func didSwitchToTab(_ tab: Tab, animated: Bool = true) {
@@ -683,6 +691,7 @@ private extension EpisodeDetailViewController {
 
         switch currentTab {
         case .details:
+            break
             addRightAction(image: UIImage(named: "podcast-share"), accessibilityLabel: L10n.share, action: #selector(shareTapped(_:)))
             starButton = addRightAction(image: UIImage(named: "star_empty"), accessibilityLabel: L10n.starEpisode, action: #selector(starTapped(_:)))
             updateStar()

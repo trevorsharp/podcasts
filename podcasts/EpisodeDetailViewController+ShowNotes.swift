@@ -14,7 +14,7 @@ extension EpisodeDetailViewController: WKNavigationDelegate, SFSafariViewControl
             showNotesWebView.leadingAnchor.constraint(equalTo: showNotesHolderView.leadingAnchor),
             showNotesWebView.trailingAnchor.constraint(equalTo: showNotesHolderView.trailingAnchor),
             showNotesWebView.bottomAnchor.constraint(equalTo: showNotesHolderView.bottomAnchor),
-            showNotesWebView.topAnchor.constraint(equalTo: showNotesHolderView.topAnchor, constant: 20)
+            showNotesWebView.topAnchor.constraint(equalTo: showNotesHolderView.topAnchor, constant: 55)
         ])
 
         showNotesWebView.allowsLinkPreview = true

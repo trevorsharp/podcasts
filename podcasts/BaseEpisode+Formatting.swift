@@ -25,7 +25,7 @@ extension BaseEpisode {
             }
         }
 
-        return TimeFormatter.shared.multipleUnitFormattedShortTime(time: duration)
+        return duration > 0 ? TimeFormatter.shared.multipleUnitFormattedShortTime(time: duration) : L10n.unknownDuration
     }
 
     func commonDisplayableInfo(includeSize: Bool) -> String {
