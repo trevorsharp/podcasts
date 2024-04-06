@@ -185,7 +185,13 @@ class MainTabBarController: UITabBarController, NavigationProtocol {
                 }
 
                 let podcastController = PodcastViewController(podcast: podcast)
-                navController.pushViewController(podcastController, animated: true)
+                if navController.view.bounds.width < 800 {
+                    navController.pushViewController(podcastController, animated: true)
+                } else {
+                    podcastController.dismissOnCancel = true
+                    let subNavController = SJUIUtils.navController(for: podcastController)
+                    navController.present(subNavController, animated: true)
+                }
             }
         })
     }
@@ -197,6 +203,7 @@ class MainTabBarController: UITabBarController, NavigationProtocol {
             }
 
             navController.popToRootViewController(animated: false)
+
             let podcastController = PodcastViewController(podcastInfo: podcastInfo, existingImage: nil)
             navController.pushViewController(podcastController, animated: true)
         })
@@ -205,7 +212,13 @@ class MainTabBarController: UITabBarController, NavigationProtocol {
     func navigateTo(podcast searchResult: PodcastFolderSearchResult) {
         if let navController = selectedViewController as? UINavigationController {
             let podcastController = PodcastViewController(podcastInfo: PodcastInfo(from: searchResult), existingImage: nil)
-            navController.pushViewController(podcastController, animated: true)
+            if navController.view.bounds.width < 800 {
+                navController.pushViewController(podcastController, animated: true)
+            } else {
+                podcastController.dismissOnCancel = true
+                let subNavController = SJUIUtils.navController(for: podcastController)
+                navController.present(subNavController, animated: true)
+            }
         }
     }
 

@@ -215,6 +215,7 @@ extension PodcastEffectsViewController: UITableViewDataSource, UITableViewDelega
     }
 
     private func tableData() -> [[TableRow]] {
+        return [[.customForPodcast], [.playbackSpeed]]
         let hasTrimSilence = FeatureFlag.newSettingsStorage.enabled ? podcast.settings.trimSilence != .off : podcast.trimSilenceAmount > 0
         if podcast.isEffectsOverridden && hasTrimSilence {
             return [[.customForPodcast], [.playbackSpeed, .trimSilence, .trimSilenceAmount, .volumeBoost]]

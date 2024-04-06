@@ -63,6 +63,7 @@ extension Podcast {
 
     public var autoArchivePlayedAfterTime: TimeInterval {
         get {
+            return 0
             if FeatureFlag.newSettingsStorage.enabled {
                 return settings.autoArchivePlayed.time.rawValue
             } else {
@@ -120,6 +121,7 @@ extension Podcast {
 
     public var isAutoArchiveOverridden: Bool {
         get {
+            return false
             if FeatureFlag.newSettingsStorage.enabled {
                 return settings.autoArchive
             } else {
@@ -137,6 +139,7 @@ extension Podcast {
 
     public var shouldShowArchived: Bool {
         get {
+            return true
             if FeatureFlag.newSettingsStorage.enabled {
                 return settings.showArchived
             } else {

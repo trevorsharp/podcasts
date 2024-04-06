@@ -3,6 +3,8 @@ import PocketCastsUtils
 import UIKit
 
 class PodcastHeadingTableCell: ThemeableCell, SubscribeButtonDelegate, ExpandableLabelDelegate {
+    var removeExpandButton = true
+
     @IBOutlet var podcastImageView: PodcastImageView! {
         didSet {
             let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(podcastImageLongPressed(_:)))
@@ -177,7 +179,7 @@ class PodcastHeadingTableCell: ThemeableCell, SubscribeButtonDelegate, Expandabl
         controller.didMove(toParent: parentController)
 
         tabsViewController = controller
-        bookmarkTabsView.isHidden = false
+        bookmarkTabsView.isHidden = true
     }
 
     func populateFrom(tintColor: UIColor?, delegate: PodcastActionsDelegate, parentController: UIViewController) {
@@ -187,7 +189,7 @@ class PodcastHeadingTableCell: ThemeableCell, SubscribeButtonDelegate, Expandabl
         podcastImageView.setPodcast(uuid: podcast.uuid, size: .page)
 
         let podcastBgColor = ColorManager.backgroundColorForPodcast(podcast)
-        topBackgroundView.backgroundColor = ThemeColor.podcastUi03(podcastColor: podcastBgColor)
+        topBackgroundView.backgroundColor = podcastBgColor
         scrollTopBackgroundVIew.backgroundColor = topBackgroundView.backgroundColor
 
         podcastName.text = podcast.title
@@ -195,6 +197,7 @@ class PodcastHeadingTableCell: ThemeableCell, SubscribeButtonDelegate, Expandabl
         podcastDescription.setTextKeepingExistingAttributes(text: podcast.podcastDescription)
 
         expandButton.tintColor = ThemeColor.contrast03()
+        expandButton.isHidden = removeExpandButton
         link.textColor = tintColor
 
         if podcast.isPaid {
@@ -334,7 +337,7 @@ class PodcastHeadingTableCell: ThemeableCell, SubscribeButtonDelegate, Expandabl
         contentView.removeConstraint(contentViewBottomConstraint)
 
         // When bookmarks are enabled we need to align to the tabs view with different values
-        if let bookmarkTabsView {
+        if false, let bookmarkTabsView {
             if expanded {
                 contentViewBottomConstraint = NSLayoutConstraint(item: bookmarkTabsView, attribute: .top, relatedBy: NSLayoutConstraint.Relation.equal, toItem: extraContentStackView, attribute: .bottom, multiplier: 1, constant: 16)
             } else {
@@ -347,6 +350,15 @@ class PodcastHeadingTableCell: ThemeableCell, SubscribeButtonDelegate, Expandabl
 
         let hasRating = delegate?.podcastRatingViewModel.rating != nil
         ratingView?.isHidden = !hasRating || !expanded
+        ratingView?.isHidden = true
+        topAuthorSpacer.isHidden = true
+        bottomAuthorSpacer.isHidden = true
+        descriptionInfoSpacer.isHidden = true
+        authorView.isHidden = true
+        nextEpisodeView.isHidden = true
+        scheduleView.isHidden = true
+        linkView.isHidden = true
+        roundedBorder.isHidden = true
     }
 
     private func setupButtons() {
@@ -371,7 +383,8 @@ class PodcastHeadingTableCell: ThemeableCell, SubscribeButtonDelegate, Expandabl
     }
 
     private func showFolderButton() -> Bool {
-        SubscriptionHelper.hasActiveSubscription()
+        return false
+//        return SubscriptionHelper.hasActiveSubscription()
     }
 
     @IBAction func manageSupportTapped(_ sender: Any) {
@@ -381,7 +394,7 @@ class PodcastHeadingTableCell: ThemeableCell, SubscribeButtonDelegate, Expandabl
     @IBAction func expandButtonTapped(_ sender: Any) {
         guard let delegate = delegate, expandButton.isEnabled else { return }
 
-        toggleExpanded(delegate: delegate)
+        if !removeExpandButton { toggleExpanded(delegate: delegate) }
     }
 
     @IBAction func settingsTapped(_ sender: Any) {
@@ -474,7 +487,7 @@ class PodcastHeadingTableCell: ThemeableCell, SubscribeButtonDelegate, Expandabl
         } else {
             delegate.subscribe()
             animateToSubscribed()
-            toggleExpanded(delegate: delegate)
+//            toggleExpanded(delegate: delegate)
         }
     }
 

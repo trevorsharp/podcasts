@@ -381,6 +381,7 @@ class Settings: NSObject {
 
     static let autoArchivePlayedAfterKey = "AutoArchivePlayedAfer"
     class func autoArchivePlayedAfter() -> TimeInterval {
+        return 0
         if FeatureFlag.newSettingsStorage.enabled {
             return SettingsStore.appSettings.autoArchivePlayed.time.rawValue
         } else {
@@ -802,6 +803,7 @@ class Settings: NSObject {
 
     static let multiSelectGestureKey = "MultiSelectGestureEnabled"
     class func multiSelectGestureEnabled() -> Bool {
+        return false
         if FeatureFlag.newSettingsStorage.enabled {
             return SettingsStore.appSettings.multiSelectGesture
         } else {

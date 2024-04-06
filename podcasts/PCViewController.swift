@@ -152,7 +152,7 @@ class PCViewController: SimpleNotificationsViewController {
         handleThemeChanged()
     }
 
-    private func setupNavBar(animated: Bool) {
+    func setupNavBar(animated: Bool) {
         guard let navController = navigationController else { return }
 
         let navigationBar = navController.navigationBar

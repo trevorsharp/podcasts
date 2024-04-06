@@ -7,6 +7,7 @@ import UIKit
 import UIDeviceIdentifier
 
 protocol PodcastActionsDelegate: AnyObject {
+    var alwaysShowArchived: Bool { get }
     func isSummaryExpanded() -> Bool
     func setSummaryExpanded(expanded: Bool)
     func isDescriptionExpanded() -> Bool
@@ -28,6 +29,8 @@ protocol PodcastActionsDelegate: AnyObject {
     func toggleShowArchived()
     func showingArchived() -> Bool
     func archiveAllTapped(playedOnly: Bool)
+    func markAllPlayed()
+    func markAllUnplayed()
     func unarchiveAllTapped()
     func downloadAllTapped()
     func queueAllTapped()
@@ -43,7 +46,10 @@ protocol PodcastActionsDelegate: AnyObject {
     func showBookmarks()
 }
 
-class PodcastViewController: FakeNavViewController, PodcastActionsDelegate, SyncSigninDelegate, MultiSelectActionDelegate {
+class PodcastViewController: PCViewController, PodcastActionsDelegate, SyncSigninDelegate, MultiSelectActionDelegate {
+    var alwaysShowArchived = true
+    var alwaysGroupByPlayed = true
+
     var podcast: Podcast?
     var episodeInfo = [ArraySection<String, ListItem>]()
     var uuidsThatMatchSearch = [String]()
@@ -200,8 +206,12 @@ class PodcastViewController: FakeNavViewController, PodcastActionsDelegate, Sync
     init(podcast: Podcast) {
         self.podcast = podcast
 
+        self.podcast?.showArchived = alwaysShowArchived || self.podcast?.showArchived ?? true
+
         // show the expanded view for unsubscribed podcasts, as well as paid podcasts that have expired and you no longer have access to play/download
         summaryExpanded = !podcast.isSubscribed() || (podcast.isPaid && podcast.licensing == PodcastLicensing.deleteEpisodesAfterExpiry.rawValue && (SubscriptionHelper.subscriptionForPodcast(uuid: podcast.uuid)?.isExpired() ?? false))
+
+        summaryExpanded = true
 
         AnalyticsHelper.podcastOpened(uuid: podcast.uuid)
         podcastRatingViewModel.update(podcast: podcast)
@@ -218,10 +228,14 @@ class PodcastViewController: FakeNavViewController, PodcastActionsDelegate, Sync
             summaryExpanded = true
         }
 
+        summaryExpanded = true
+
         if let uuid = podcastInfo.uuid {
             podcastRatingViewModel.update(podcast: podcast)
             AnalyticsHelper.podcastOpened(uuid: uuid)
         }
+
+        self.podcast?.showArchived = alwaysShowArchived || self.podcast?.showArchived ?? true
 
         super.init(nibName: "PodcastViewController", bundle: nil)
     }
@@ -238,17 +252,19 @@ class PodcastViewController: FakeNavViewController, PodcastActionsDelegate, Sync
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        closeTapped = { [weak self] in
-            _ = self?.navigationController?.popViewController(animated: true)
-        }
+//        closeTapped = { [weak self] in
+//            _ = self?.navigationController?.popViewController(animated: true)
+//        }
 
         searchController = EpisodeListSearchController()
         searchController?.podcastDelegate = self
 
         operationQueue.maxConcurrentOperationCount = 1
-        scrollPointToChangeTitle = 38
-        addRightAction(image: UIImage(named: "podcast-share"), accessibilityLabel: L10n.share, action: #selector(shareTapped(_:)))
-        addGoogleCastBtn()
+//        scrollPointToChangeTitle = 38
+
+        customRightBtn = UIBarButtonItem(image: UIImage(named: "podcast-link"), style: .plain, target: self, action: #selector(shareTapped(_:)))
+        customRightBtn?.accessibilityLabel = L10n.share
+
         loadPodcastInfo()
         updateColors()
 
@@ -344,10 +360,10 @@ class PodcastViewController: FakeNavViewController, PodcastActionsDelegate, Sync
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
 
-        guard let window = view.window else { return }
+//        guard let window = view.window else { return }
 
         let multiSelectFooterOffset: CGFloat = isMultiSelectEnabled ? 80 : 0
-        episodesTable.contentInset = UIEdgeInsets(top: navBarHeight(window: window), left: 0, bottom: Constants.Values.miniPlayerOffset + multiSelectFooterOffset, right: 0)
+        episodesTable.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: Constants.Values.miniPlayerOffset + multiSelectFooterOffset, right: 0)
     }
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -379,13 +395,15 @@ class PodcastViewController: FakeNavViewController, PodcastActionsDelegate, Sync
         episodesTable.reloadData()
         if let podcast = podcast {
             let podcastBgColor = ColorManager.backgroundColorForPodcast(podcast)
-            updateNavColors(bgColor: ThemeColor.podcastUi03(podcastColor: podcastBgColor), titleColor: UIColor.white, buttonColor: ThemeColor.contrast01())
+//            updateNavColors(bgColor: ThemeColor.podcastUi03(podcastColor: podcastBgColor), titleColor: UIColor.white, buttonColor: ThemeColor.contrast01())
+            changeNavTint(titleColor: UIColor.white, iconsColor: UIColor.white, backgroundColor: podcastBgColor)
 
             multiSelectHeaderView.backgroundColor = ThemeColor.podcastUi05(podcastColor: podcastBgColor)
             multiSelectCancelBtn.setTitleColor(ThemeColor.contrast01(), for: .normal)
             multiSelectAllBtn.setTitleColor(ThemeColor.contrast01(), for: .normal)
         } else {
-            updateNavColors(bgColor: AppTheme.defaultPodcastBackgroundColor(), titleColor: UIColor.white, buttonColor: ThemeColor.contrast01())
+            changeNavTint(titleColor: UIColor.white, iconsColor: UIColor.white, backgroundColor: AppTheme.defaultPodcastBackgroundColor())
+//            updateNavColors(bgColor: AppTheme.defaultPodcastBackgroundColor(), titleColor: UIColor.white, buttonColor: ThemeColor.contrast01())
         }
     }
 
@@ -424,11 +442,11 @@ class PodcastViewController: FakeNavViewController, PodcastActionsDelegate, Sync
         episodesTable.reloadData()
     }
 
-    @objc private func shareTapped(_ sender: UIButton) {
+    @objc private func shareTapped(_ sender: UIBarButtonItem?) {
         guard let podcast = podcast else { return }
 
-        let sourceRect = sender.superview!.convert(sender.frame, to: view)
-        SharingHelper.shared.shareLinkTo(podcast: podcast, fromController: self, sourceRect: sourceRect, sourceView: view)
+//        let sourceRect = sender.superview!.convert(sender.frame, to: view)
+        SharingHelper.shared.shareLinkTo(podcast: podcast, fromController: self, barButtonItem: sender)
         Analytics.track(.podcastScreenShareTapped)
     }
 
@@ -455,6 +473,9 @@ class PodcastViewController: FakeNavViewController, PodcastActionsDelegate, Sync
         } else if let iTunesId = podcastInfo?.iTunesId {
             loadPodcastInfoFromiTunesId(iTunesId)
         }
+
+        podcast?.showArchived = alwaysShowArchived || podcast?.showArchived ?? true
+        if alwaysGroupByPlayed { podcast?.episodeGrouping = 2 }
     }
 
     func loadLocalEpisodes(podcast: Podcast, animated: Bool) {
@@ -462,7 +483,8 @@ class PodcastViewController: FakeNavViewController, PodcastActionsDelegate, Sync
         let refreshOperation = PodcastEpisodesRefreshOperation(podcast: podcast, uuidsToFilter: uuidsToFilter) { [weak self] newData in
             guard let self = self else { return }
 
-            self.navTitle = podcast.title
+//            self.navTitle = podcast.title
+            if self.alwaysGroupByPlayed { podcast.episodeGrouping = 2 }
 
             // add the episode limit placehold if it's needed
             var finalData = newData
@@ -540,6 +562,9 @@ class PodcastViewController: FakeNavViewController, PodcastActionsDelegate, Sync
                 self.updateSelectAllBtn()
             }
         }
+
+        podcast.showArchived = alwaysShowArchived || podcast.showArchived
+        if alwaysGroupByPlayed { podcast.episodeGrouping = 2 }
 
         operationQueue.addOperation(refreshOperation)
     }
@@ -785,6 +810,50 @@ class PodcastViewController: FakeNavViewController, PodcastActionsDelegate, Sync
         }
     }
 
+    func markAllPlayed() {
+        guard let podcast = podcast else { return }
+
+        DispatchQueue.global().async { [weak self] in
+            guard let allObjects = self?.episodeInfo[safe: 1]?.elements, allObjects.count > 0 else { return }
+
+            var count = 0
+            for object in allObjects {
+                guard let listEpisode = object as? ListEpisode else { continue }
+                if listEpisode.episode.played() { continue }
+
+                EpisodeManager.markAsPlayed(episode: listEpisode.episode, fireNotification: false, userInitiated: false)
+                count += 1
+            }
+
+            DispatchQueue.main.async { [weak self] in
+                guard let strongSelf = self else { return }
+
+                strongSelf.loadLocalEpisodes(podcast: podcast, animated: false)
+            }
+        }
+    }
+
+    func markAllUnplayed() {
+        guard let podcast = podcast else { return }
+
+        DispatchQueue.global().async { [weak self] in
+            guard let allObjects = self?.episodeInfo[safe: 1]?.elements, allObjects.count > 0 else { return }
+
+            var count = 0
+            for object in allObjects {
+                guard let listEpisode = object as? ListEpisode else { continue }
+                EpisodeManager.markAsUnplayed(episode: listEpisode.episode, fireNotification: false, userInitiated: false)
+                count += 1
+            }
+
+            DispatchQueue.main.async { [weak self] in
+                guard let strongSelf = self else { return }
+
+                strongSelf.loadLocalEpisodes(podcast: podcast, animated: false)
+            }
+        }
+    }
+
     func downloadAllTapped() {
         DispatchQueue.global().async { [weak self] in
             guard let self = self, let allObjects = self.episodeInfo[safe: 1]?.elements, allObjects.count > 0 else { return }
@@ -957,6 +1026,19 @@ class PodcastViewController: FakeNavViewController, PodcastActionsDelegate, Sync
 
     func signingProcessCompleted() {
         navigationController?.popToViewController(self, animated: true)
+    }
+
+    // MARK: - ScrollTitleBahavior
+
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let scrolledToY = scrollView.contentOffset.y
+        if scrolledToY > 200, title == nil {
+            title = podcast?.title
+            setupNavBar(animated: true)
+        } else if scrolledToY < 200, title != nil {
+            title = nil
+            setupNavBar(animated: true)
+        }
     }
 }
 

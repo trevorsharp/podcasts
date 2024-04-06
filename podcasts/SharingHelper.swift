@@ -46,7 +46,12 @@ class SharingHelper: NSObject {
     func shareLinkTo(podcast: Podcast, fromController: UIViewController, barButtonItem: UIBarButtonItem?) {
         AnalyticsHelper.sharedPodcast()
 
-        let sharingUrl = podcast.shareURL
+        let sharingUrl = podcast.podcastUrl ?? podcast.shareURL
+
+        openUrl(urlString: sharingUrl)
+
+        return
+
         activityController = UIActivityViewController(activityItems: [URL(string: sharingUrl)!], applicationActivities: nil)
         activityController?.completionWithItemsHandler = { _, _, _, _ in
             NotificationCenter.postOnMainThread(notification: Constants.Notifications.closedNonOverlayableWindow)
@@ -58,6 +63,17 @@ class SharingHelper: NSObject {
             NotificationCenter.postOnMainThread(notification: Constants.Notifications.openingNonOverlayableWindow)
         })
         activityController.popoverPresentationController?.barButtonItem = barButtonItem
+    }
+
+    private func openUrl(urlString: String) {
+        let application = UIApplication.shared
+        if let url = URL(string: urlString) {
+            if application.canOpenURL(url) {
+                application.open(url, options: [:], completionHandler: nil)
+
+                return
+            }
+        }
     }
 
     func shareLinkToPodcastList(name: String, url: String, fromController: UIViewController, barButtonItem: UIBarButtonItem?, completionHandler: (() -> Void)?) {

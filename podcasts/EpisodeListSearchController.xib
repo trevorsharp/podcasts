@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -23,6 +23,7 @@
                 <outlet property="searchIcon" destination="At2-Om-SSW" id="Dhg-wG-eiz"/>
                 <outlet property="searchTextField" destination="YWN-oW-0ZD" id="US3-RQ-T2O"/>
                 <outlet property="showHideArchiveBtn" destination="6fg-N7-SIa" id="aTp-2m-jkB"/>
+                <outlet property="sortButtton" destination="yvq-Bg-sEJ" id="nFc-TS-zyk"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -35,7 +36,7 @@
                     <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wat-Pf-EXJ" userLabel="Rounded Background">
-                            <rect key="frame" x="16" y="10" width="290" height="36"/>
+                            <rect key="frame" x="20" y="10" width="335" height="36"/>
                             <subviews>
                                 <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="eeU-aw-oKZ" customClass="ThemeLoadingIndicator" customModule="podcasts" customModuleProvider="target">
                                     <rect key="frame" x="8" y="8" width="20" height="20"/>
@@ -48,7 +49,7 @@
                                     </constraints>
                                 </imageView>
                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Search Episodes" textAlignment="natural" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YWN-oW-0ZD">
-                                    <rect key="frame" x="36" y="8.5" width="228" height="19.5"/>
+                                    <rect key="frame" x="36" y="8.5" width="273" height="19.5"/>
                                     <color key="backgroundColor" red="0.035672488410000001" green="1" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                     <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="search" enablesReturnKeyAutomatically="YES"/>
@@ -57,7 +58,7 @@
                                     </connections>
                                 </textField>
                                 <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" pointerInteraction="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NUs-aB-3ve" userLabel="Clear Search">
-                                    <rect key="frame" x="268" y="7" width="16" height="22"/>
+                                    <rect key="frame" x="313" y="7" width="16" height="22"/>
                                     <accessibility key="accessibilityConfiguration" label="Clear search"/>
                                     <color key="tintColor" red="0.60835868120000003" green="0.8194983602" blue="0.82352894539999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                     <state key="normal" image="search_cancel"/>
@@ -86,19 +87,6 @@
                                 </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
                         </view>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" pointerInteraction="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0Wl-Qr-Alh" userLabel="Overflow Button" customClass="ThemeSecondaryButton" customModule="podcasts" customModuleProvider="target">
-                            <rect key="frame" x="318" y="10" width="44" height="36"/>
-                            <accessibility key="accessibilityConfiguration" label="Episode Actions"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="36" id="Do7-nr-rk9"/>
-                                <constraint firstAttribute="width" constant="44" id="TV0-gd-tSo"/>
-                            </constraints>
-                            <color key="tintColor" red="0.72156862745098038" green="0.76470588235294112" blue="0.78823529411764703" alpha="1" colorSpace="calibratedRGB"/>
-                            <state key="normal" image="podcast-more-options"/>
-                            <connections>
-                                <action selector="overflowTapped:" destination="-1" eventType="touchUpInside" id="IKL-bQ-mD4"/>
-                            </connections>
-                        </button>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GPT-Sc-fsw" customClass="ThemeDividerView" customModule="podcasts" customModuleProvider="target">
                             <rect key="frame" x="0.0" y="56" width="375" height="1"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -107,28 +95,28 @@
                             </constraints>
                         </view>
                         <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="YwF-Gn-bkb">
-                            <rect key="frame" x="16" y="69" width="228.5" height="18"/>
+                            <rect key="frame" x="24" y="69" width="227" height="18"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="23 episodes " textAlignment="center" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wNf-rq-iBx" customClass="ThemeableLabel" customModule="podcasts" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="0.5" width="83" height="17"/>
+                                    <rect key="frame" x="0.0" y="0.5" width="81.5" height="17"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="•" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HMd-Rg-WEW" customClass="ThemeableLabel" customModule="podcasts" customModuleProvider="target">
-                                    <rect key="frame" x="88" y="0.5" width="6.5" height="17"/>
+                                    <rect key="frame" x="86.5" y="0.5" width="6.5" height="17"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="13 archived" textAlignment="center" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J57-7s-Hfz" customClass="ThemeableLabel" customModule="podcasts" customModuleProvider="target">
-                                    <rect key="frame" x="99.5" y="0.5" width="74" height="17"/>
+                                    <rect key="frame" x="98" y="0.5" width="74" height="17"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lbQ-Z6-M40" customClass="ThemeableLabel" customModule="podcasts" customModuleProvider="target">
-                                    <rect key="frame" x="178.5" y="0.0" width="50" height="18"/>
+                                    <rect key="frame" x="177" y="0.0" width="50" height="18"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
@@ -136,7 +124,7 @@
                             </subviews>
                         </stackView>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="6fg-N7-SIa">
-                            <rect key="frame" x="260" y="69" width="99" height="18"/>
+                            <rect key="frame" x="256" y="69" width="99" height="18"/>
                             <constraints>
                                 <constraint firstAttribute="width" relation="lessThanOrEqual" constant="120" id="XCc-XX-caT"/>
                             </constraints>
@@ -153,27 +141,55 @@
                                 <constraint firstAttribute="height" constant="1" id="hNU-UO-LM5"/>
                             </constraints>
                         </view>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" pointerInteraction="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0Wl-Qr-Alh" userLabel="Overflow Button" customClass="ThemeSecondaryButton" customModule="podcasts" customModuleProvider="target">
+                            <rect key="frame" x="317" y="60" width="44" height="36"/>
+                            <accessibility key="accessibilityConfiguration" label="Episode Actions"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="36" id="Do7-nr-rk9"/>
+                                <constraint firstAttribute="width" constant="44" id="TV0-gd-tSo"/>
+                            </constraints>
+                            <color key="tintColor" red="0.72156862745098038" green="0.76470588235294112" blue="0.78823529411764703" alpha="1" colorSpace="calibratedRGB"/>
+                            <state key="normal" image="podcast-archive-show"/>
+                            <connections>
+                                <action selector="overflowTapped:" destination="-1" eventType="touchUpInside" id="IKL-bQ-mD4"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" pointerInteraction="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yvq-Bg-sEJ" userLabel="Sort Button" customClass="ThemeSecondaryButton" customModule="podcasts" customModuleProvider="target">
+                            <rect key="frame" x="268" y="60" width="44" height="36"/>
+                            <accessibility key="accessibilityConfiguration" label="Episode Actions"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="36" id="6hz-oE-paq"/>
+                                <constraint firstAttribute="width" constant="44" id="g3Z-GD-uAd"/>
+                            </constraints>
+                            <color key="tintColor" red="0.72156862749999995" green="0.76470588240000004" blue="0.78823529410000004" alpha="1" colorSpace="calibratedRGB"/>
+                            <state key="normal" image="podcast-sort"/>
+                            <connections>
+                                <action selector="sortTapped:" destination="-1" eventType="touchUpInside" id="NiB-YT-n1M"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <constraints>
+                        <constraint firstItem="0Wl-Qr-Alh" firstAttribute="centerY" secondItem="YwF-Gn-bkb" secondAttribute="centerY" id="1ZY-Vg-vX4"/>
                         <constraint firstItem="6fg-N7-SIa" firstAttribute="top" relation="greaterThanOrEqual" secondItem="GPT-Sc-fsw" secondAttribute="bottom" constant="12" id="2I8-g9-AUh"/>
+                        <constraint firstAttribute="trailing" secondItem="Wat-Pf-EXJ" secondAttribute="trailing" constant="20" id="61q-Bk-Vdv"/>
                         <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="YwF-Gn-bkb" secondAttribute="bottom" constant="12" id="9Hb-vG-9Wb"/>
-                        <constraint firstAttribute="trailing" secondItem="0Wl-Qr-Alh" secondAttribute="trailing" constant="13" id="9He-fw-EUV"/>
+                        <constraint firstAttribute="trailing" secondItem="0Wl-Qr-Alh" secondAttribute="trailing" constant="14" id="9He-fw-EUV"/>
                         <constraint firstItem="Wat-Pf-EXJ" firstAttribute="top" secondItem="LW5-CL-eLg" secondAttribute="top" constant="10" id="ATB-D4-uQT"/>
                         <constraint firstAttribute="trailing" secondItem="elY-fZ-CTE" secondAttribute="trailing" id="DRe-tp-FxM"/>
                         <constraint firstAttribute="bottom" secondItem="elY-fZ-CTE" secondAttribute="bottom" id="Fto-Fg-wVh"/>
                         <constraint firstItem="elY-fZ-CTE" firstAttribute="leading" secondItem="LW5-CL-eLg" secondAttribute="leading" id="ION-v2-Qrm"/>
                         <constraint firstAttribute="trailing" secondItem="GPT-Sc-fsw" secondAttribute="trailing" id="IPM-XG-F0U"/>
-                        <constraint firstItem="0Wl-Qr-Alh" firstAttribute="centerY" secondItem="Wat-Pf-EXJ" secondAttribute="centerY" id="LXI-wZ-NP6"/>
+                        <constraint firstItem="0Wl-Qr-Alh" firstAttribute="leading" secondItem="yvq-Bg-sEJ" secondAttribute="trailing" constant="5" id="Ivx-6F-1ne"/>
                         <constraint firstItem="YwF-Gn-bkb" firstAttribute="top" relation="greaterThanOrEqual" secondItem="GPT-Sc-fsw" secondAttribute="bottom" constant="12" id="NwM-AJ-8tT"/>
                         <constraint firstItem="YwF-Gn-bkb" firstAttribute="centerY" secondItem="6fg-N7-SIa" secondAttribute="centerY" id="R5k-Il-Vfw"/>
                         <constraint firstItem="elY-fZ-CTE" firstAttribute="top" relation="greaterThanOrEqual" secondItem="6fg-N7-SIa" secondAttribute="bottom" constant="12" id="TPr-w7-jrT"/>
-                        <constraint firstItem="Wat-Pf-EXJ" firstAttribute="leading" secondItem="LW5-CL-eLg" secondAttribute="leading" constant="16" id="TWh-ZP-zKq"/>
-                        <constraint firstItem="YwF-Gn-bkb" firstAttribute="leading" secondItem="LW5-CL-eLg" secondAttribute="leading" constant="16" id="VrV-o8-h8D"/>
-                        <constraint firstItem="0Wl-Qr-Alh" firstAttribute="leading" secondItem="Wat-Pf-EXJ" secondAttribute="trailing" constant="12" id="ZW4-wp-Ue9"/>
+                        <constraint firstItem="Wat-Pf-EXJ" firstAttribute="leading" secondItem="LW5-CL-eLg" secondAttribute="leading" constant="20" id="TWh-ZP-zKq"/>
+                        <constraint firstItem="YwF-Gn-bkb" firstAttribute="leading" secondItem="LW5-CL-eLg" secondAttribute="leading" constant="24" id="VrV-o8-h8D"/>
+                        <constraint firstItem="0Wl-Qr-Alh" firstAttribute="centerY" secondItem="yvq-Bg-sEJ" secondAttribute="centerY" id="iBV-kZ-6jO"/>
                         <constraint firstItem="GPT-Sc-fsw" firstAttribute="leading" secondItem="LW5-CL-eLg" secondAttribute="leading" id="oWm-Lf-zFh"/>
                         <constraint firstItem="6fg-N7-SIa" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="YwF-Gn-bkb" secondAttribute="trailing" constant="5" id="wK9-ln-XKo"/>
                         <constraint firstItem="GPT-Sc-fsw" firstAttribute="top" secondItem="Wat-Pf-EXJ" secondAttribute="bottom" constant="10" id="wP4-yr-nmc"/>
-                        <constraint firstAttribute="trailing" secondItem="6fg-N7-SIa" secondAttribute="trailing" constant="16" id="xXI-vK-AmE"/>
+                        <constraint firstAttribute="trailing" secondItem="6fg-N7-SIa" secondAttribute="trailing" constant="20" id="xXI-vK-AmE"/>
                     </constraints>
                 </view>
             </subviews>
@@ -190,7 +206,8 @@
     </objects>
     <resources>
         <image name="custom_search" width="16" height="16"/>
-        <image name="podcast-more-options" width="36" height="36"/>
+        <image name="podcast-archive-show" width="24" height="24"/>
+        <image name="podcast-sort" width="24" height="24"/>
         <image name="search_cancel" width="16" height="16"/>
     </resources>
 </document>

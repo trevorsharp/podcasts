@@ -53,6 +53,9 @@ class EpisodeListSearchController: SimpleNotificationsViewController, UISearchBa
         }
     }
 
+    @IBOutlet var sortButtton: ThemeSecondaryButton!
+
+
     @IBOutlet var dividerHeightConstraint: NSLayoutConstraint! {
         didSet {
             dividerHeightConstraint.constant = 1 / UIScreen.main.scale
@@ -106,6 +109,8 @@ class EpisodeListSearchController: SimpleNotificationsViewController, UISearchBa
 
         limitLabel?.text = L10n.podcastEpisodeLimitCountFormat(podcast.autoArchiveEpisodeLimitCount.localized())
         archivedInfoLabel?.text = L10n.podcastArchivedCountFormat(archivedCount.localized())
+        archivedInfoLabel?.text = nil
+        episodeInfoSeparatorLabel?.isHidden = true
 
         limitLabel?.isHidden = !hasEpisodeLimit
         archivedInfoLabel?.isHidden = hasEpisodeLimit
@@ -117,6 +122,8 @@ class EpisodeListSearchController: SimpleNotificationsViewController, UISearchBa
                 showHideBtn.layoutIfNeeded()
             }
         }
+
+        if delegate.alwaysShowArchived { showHideArchiveBtn?.isHidden = true }
     }
 
     func episodesDidReload() {
@@ -127,8 +134,22 @@ class EpisodeListSearchController: SimpleNotificationsViewController, UISearchBa
         podcastDelegate?.toggleShowArchived()
     }
 
+    @IBAction func sortTapped(_ sender: Any) {
+        presentSortOptions()
+    }
+
     @IBAction func overflowTapped(_ sender: Any) {
         guard let delegate = podcastDelegate, let podcast = delegate.displayedPodcast() else { return }
+
+        let notPlayedQuery = "SELECT COUNT(*) FROM \(DataManager.episodeTableName) WHERE podcast_id = ? AND playingStatus != \(PlayingStatus.completed.rawValue)"
+        let notPlayedCount = DataManager.sharedManager.count(query: notPlayedQuery, values: [podcast.id])
+        if notPlayedCount > 0 {
+            confirmMarkAllPlayed(episodeCount: notPlayedCount)
+        } else {
+            confirmMarkAllUnplayed(episodeCount: delegate.episodeCount())
+        }
+
+        return
 
         let optionPicker = OptionsPicker(title: nil)
 
@@ -240,6 +261,34 @@ class EpisodeListSearchController: SimpleNotificationsViewController, UISearchBa
         archiveAllConfirm.addDescriptiveActions(title: title, message: L10n.podcastArchivePromptMsg, icon: "options-archiveall", actions: [archiveAllAction])
 
         archiveAllConfirm.show(statusBarStyle: preferredStatusBarStyle)
+    }
+
+    private func confirmMarkAllPlayed(episodeCount: Int) {
+        guard let podcastDelegate = podcastDelegate else { return }
+
+        let markAllPlayedConfirm = OptionsPicker(title: nil)
+        let markAllPlayedAction = OptionAction(label: L10n.markPlayed, icon: nil, action: {
+            podcastDelegate.markAllPlayed()
+        })
+        markAllPlayedAction.destructive = true
+        let title = episodeCount == 1 ? L10n.multiSelectMarkEpisodesPlayedSingular : L10n.multiSelectMarkEpisodesPlayedPluralFormat(episodeCount.localized())
+        markAllPlayedConfirm.addDescriptiveActions(title: title, message: "Are you sure you want to continue?", icon: "episode-markasplayed", actions: [markAllPlayedAction])
+
+        markAllPlayedConfirm.show(statusBarStyle: preferredStatusBarStyle)
+    }
+
+    private func confirmMarkAllUnplayed(episodeCount: Int) {
+        guard let podcastDelegate = podcastDelegate else { return }
+
+        let markAllUnplayedConfirm = OptionsPicker(title: nil)
+        let markAllUnplayedAction = OptionAction(label: L10n.markUnplayedShort, icon: nil, action: {
+            podcastDelegate.markAllUnplayed()
+        })
+        markAllUnplayedAction.destructive = true
+        let title = episodeCount == 1 ? L10n.multiSelectMarkEpisodesUnplayedSingular : L10n.multiSelectMarkEpisodesUnplayedPluralFormat(episodeCount.localized())
+        markAllUnplayedConfirm.addDescriptiveActions(title: title, message: "Are you sure you want to continue?", icon: "episode-markunplayed", actions: [markAllUnplayedAction])
+
+        markAllUnplayedConfirm.show(statusBarStyle: preferredStatusBarStyle)
     }
 
     private func presentSortOptions() {
