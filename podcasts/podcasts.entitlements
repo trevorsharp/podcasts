@@ -4,8 +4,6 @@
 <dict>
 	<key>aps-environment</key>
 	<string>production</string>
-	<key>beta-reports-active</key>
-	<true/>
 	<key>com.apple.developer.applesignin</key>
 	<array>
 		<string>Default</string>
