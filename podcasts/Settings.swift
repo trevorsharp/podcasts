@@ -1059,6 +1059,7 @@ class Settings: NSObject {
             UserDefaults.standard.set(newValue, forKey: Constants.UserDefaults.autoplay)
         }
         get {
+            return false
             if FeatureFlag.newSettingsStorage.enabled {
                 return SettingsStore.appSettings.autoPlayEnabled
             } else {
