@@ -79,6 +79,8 @@ class SettingsViewController: PCViewController, UITableViewDataSource, UITableVi
         let developerSection: [TableRow] = []
         #endif
 
+        return [[.general, .appearance, .siriShortcuts, .opml]]
+
         return [
             developerSection,
             [.pocketCastsPlus],

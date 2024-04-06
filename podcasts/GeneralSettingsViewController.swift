@@ -11,7 +11,7 @@ class GeneralSettingsViewController: UIViewController, UITableViewDelegate, UITa
     let debounce = Debounce(delay: Constants.defaultDebounceTime)
 
     private enum TableRow { case skipForward, skipBack, keepScreenAwake, openPlayer, intelligentPlaybackResumption, defaultRowAction, extraMediaActions, defaultAddToUpNextSwipe, defaultGrouping, defaultArchive, playUpNextOnTap, legacyBluetooth, multiSelectGesture, openLinksInBrowser, publishChapterTitles, autoplay }
-    private var tableData: [[TableRow]] = [[.defaultRowAction, .defaultGrouping, .defaultArchive, .defaultAddToUpNextSwipe, .openLinksInBrowser], [.skipForward, .skipBack, .keepScreenAwake, .openPlayer, .intelligentPlaybackResumption], [.playUpNextOnTap], [.extraMediaActions], [.legacyBluetooth], [.multiSelectGesture], [.publishChapterTitles], [.autoplay]]
+    private var tableData: [[TableRow]] = [[.skipForward, .skipBack, .keepScreenAwake, .intelligentPlaybackResumption]]
 
     @IBOutlet var settingsTable: UITableView! {
         didSet {

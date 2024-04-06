@@ -277,6 +277,8 @@ class AppearanceViewController: SimpleNotificationsViewController, UITableViewDa
             newTableData.append([.plusCallout])
         }
 
+        newTableData = [[.themeOption, .lightTheme, .darkTheme], [.appIcon], [.refreshArtwork, .embeddedArtwork]]
+
         tableData = newTableData
         settingsTable.reloadData()
     }
