@@ -50,7 +50,7 @@ BUILD_CODE_KEY = 'VERSION_LONG'
 BUILD_CODE_FORMATTER = Fastlane::Wpmreleasetoolkit::Versioning::FourPartBuildCodeFormatter.new
 VERSION_FILE = Fastlane::Wpmreleasetoolkit::Versioning::IOSVersionFile.new(xcconfig_path: VERSION_XCCONFIG_PATH)
 
-APP_BUNDLE_IDENTIFIER_APP_STORE = 'au.com.shiftyjelly.podcasts'
+APP_BUNDLE_IDENTIFIER_APP_STORE = 'trevorsharp.podcasts'
 APP_BUNDLE_IDENTIFIER_ENTERPRISE = "#{APP_BUNDLE_IDENTIFIER_APP_STORE}.prototype".freeze
 
 # Keep this in alphabetical case-insensitive order so it's easier to visually compare with the list on the Developers Portal.

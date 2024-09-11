@@ -1,5 +1,5 @@
 {
-    "Simulator Target Bundle": "au.com.shiftyjelly.podcasts.watchkitapp",
+    "Simulator Target Bundle": "trevorsharp.podcasts.watchkitapp",
     "aps": {
         "alert": {
             "body": "Test message",

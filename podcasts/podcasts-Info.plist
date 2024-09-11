@@ -4,7 +4,7 @@
 <dict>
 	<key>BGTaskSchedulerPermittedIdentifiers</key>
 	<array>
-		<string>au.com.shiftyjelly.podcasts.Refresh</string>
+		<string>trevorsharp.podcasts.Refresh</string>
 	</array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
@@ -946,7 +946,7 @@
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLName</key>
-			<string>au.com.shiftyjelly.podcasts</string>
+			<string>trevorsharp.podcasts</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>pktc</string>
