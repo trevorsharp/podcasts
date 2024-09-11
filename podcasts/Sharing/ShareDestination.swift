@@ -93,7 +93,7 @@ enum ShareDestination: Hashable {
     @MainActor
     private func instagramShare(data: Data, type: UTType, url: String) {
         let attributionURL = url
-        let appID = ApiCredentials.instagramAppID
+        let appID = "" // ApiCredentials.instagramAppID
 
         guard let urlScheme = URL(string: "instagram-stories://share?source_application=\(appID)"),
             UIApplication.shared.canOpenURL(urlScheme) else {
