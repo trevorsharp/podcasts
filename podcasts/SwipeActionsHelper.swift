@@ -13,6 +13,9 @@ protocol SwipeHandler: AnyObject {
 enum SwipeActionsHelper {
     static func createLeftActionsForEpisode(_ episode: BaseEpisode, tableView: UITableView, indexPath: IndexPath, swipeHandler: SwipeHandler) -> TableSwipeActions {
         let tableSwipeActions = TableSwipeActions()
+
+        return tableSwipeActions
+
         let storedUuid = episode.uuid
 
         if PlaybackManager.shared.inUpNext(episode: episode) {
@@ -77,7 +80,16 @@ enum SwipeActionsHelper {
 
                 return true
             })
-            tableSwipeActions.addAction(unarchiveAction)
+//            tableSwipeActions.addAction(unarchiveAction)
+            let markUnplayedAction = TableSwipeAction(indexPath: indexPath, title: L10n.markUnplayedShort, removesFromList: false, backgroundColor: ThemeColor.support06(), icon: UIImage(named: "episode-markunplayed"), tableView: tableView, handler: { _ -> Bool in
+                if let loadedEpisode = DataManager.sharedManager.findEpisode(uuid: storedUuid) {
+                    EpisodeManager.markAsUnplayed(episode: loadedEpisode, fireNotification: false)
+                    swipeHandler.actionPerformed(willBeRemoved: willBeRemoved)
+                }
+
+                return true
+            })
+            tableSwipeActions.addAction(markUnplayedAction)
         } else {
             let willBeRemoved = swipeHandler.archivingRemovesFromList()
             let archiveAction = TableSwipeAction(indexPath: indexPath, title: L10n.archive, removesFromList: willBeRemoved, backgroundColor: ThemeColor.support06(), icon: UIImage(named: "list_archive"), tableView: tableView, handler: { _ -> Bool in
@@ -88,7 +100,28 @@ enum SwipeActionsHelper {
 
                 return true
             })
-            tableSwipeActions.addAction(archiveAction)
+//            tableSwipeActions.addAction(archiveAction)
+            let markPlayedAction = TableSwipeAction(indexPath: indexPath, title: L10n.markPlayedShort, removesFromList: willBeRemoved, backgroundColor: ThemeColor.support06(), icon: UIImage(named: "episode-markasplayed"), tableView: tableView, handler: { _ -> Bool in
+                if let loadedEpisode = DataManager.sharedManager.findEpisode(uuid: storedUuid) {
+                    EpisodeManager.markAsPlayed(episode: loadedEpisode, fireNotification: false)
+                    swipeHandler.actionPerformed(willBeRemoved: willBeRemoved)
+                }
+
+                return true
+            })
+            tableSwipeActions.addAction(markPlayedAction)
+
+            if episode.inProgress() {
+                let markUnplayedAction = TableSwipeAction(indexPath: indexPath, title: L10n.markUnplayedShort, removesFromList: false, backgroundColor: ThemeColor.support01(), icon: UIImage(named: "episode-markunplayed"), tableView: tableView, handler: { _ -> Bool in
+                    if let loadedEpisode = DataManager.sharedManager.findEpisode(uuid: storedUuid) {
+                        EpisodeManager.markAsUnplayed(episode: loadedEpisode, fireNotification: false)
+                        swipeHandler.actionPerformed(willBeRemoved: willBeRemoved)
+                    }
+
+                    return true
+                })
+                tableSwipeActions.addAction(markUnplayedAction)
+            }
         }
 
         if let episode = episode as? Episode {
@@ -97,7 +130,7 @@ enum SwipeActionsHelper {
                     Self.performAction(.share, handler: swipeHandler, willBeRemoved: false)
                 return true
             })
-            tableSwipeActions.addAction(shareAction)
+//            tableSwipeActions.addAction(shareAction)
         }
 
         return tableSwipeActions
