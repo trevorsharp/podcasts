@@ -440,6 +440,14 @@ class EpisodeDetailViewController: FakeNavViewController, UIDocumentInteractionC
 
         updateButtonStates()
         updateNavColors(bgColor: bgColor, titleColor: ThemeColor.secondaryText01(for: themeOverride), buttonColor: actionColor)
+
+        archiveButton.isHidden = true
+        playStatusButton.isHidden = true
+        topDivider.isHidden = true
+        bottomDivider.isHidden = true
+        progressView.isHidden = true
+        episodeName.numberOfLines = 3
+        episodeName.lineBreakMode = .byTruncatingTail
     }
 
     @objc private func starTapped(_ sender: UIButton) {
@@ -587,6 +595,7 @@ extension EpisodeDetailViewController: AnalyticsSourceProvider {
 private extension EpisodeDetailViewController {
     private func addBookmarksTabIfNeeded() {
         containerScrollView.addPage(mainScrollView)
+        return;
 
         guard let bookmarksView = bookmarksController.view else {
             return
@@ -693,6 +702,7 @@ private extension EpisodeDetailViewController {
 
     private func updateRightButtons() {
         removeAllButtons()
+        return;
 
         switch currentTab {
         case .details:

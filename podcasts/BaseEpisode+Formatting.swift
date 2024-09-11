@@ -28,7 +28,8 @@ extension BaseEpisode {
             }
         }
 
-        return TimeFormatter.shared.multipleUnitFormattedShortTime(time: duration)
+//        return TimeFormatter.shared.multipleUnitFormattedShortTime(time: duration)
+        return duration > 0 ? TimeFormatter.shared.multipleUnitFormattedShortTime(time: duration) : "Live"
     }
 
     func commonDisplayableInfo(includeSize: Bool) -> String {

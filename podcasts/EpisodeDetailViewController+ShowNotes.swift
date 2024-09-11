@@ -26,6 +26,7 @@ extension EpisodeDetailViewController: WKNavigationDelegate, SFSafariViewControl
         showNotesWebView.scrollView.isScrollEnabled = false
 
         showNotesWebView.scrollView.showsVerticalScrollIndicator = false
+        showNotesWebView.scrollView.delegate = self
     }
 
     func loadShowNotes() {
@@ -129,5 +130,10 @@ extension EpisodeDetailViewController: WKNavigationDelegate, SFSafariViewControl
         let currentTheme = themeOverride ?? Theme.sharedTheme.activeTheme
 
         return ThemeColor.primaryInteractive01(for: currentTheme)
+    }
+
+    // MARK: - UIScrollViewDelegate
+    func scrollViewWillBeginZooming(_ scrollView: UIScrollView, with view: UIView?) {
+        scrollView.pinchGestureRecognizer?.isEnabled = false
     }
 }
