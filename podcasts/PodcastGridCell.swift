@@ -22,14 +22,16 @@ class PodcastGridCell: UICollectionViewCell {
     }
 
     private func setup() {
-        containerView.layer.cornerRadius = 4
+        containerView.layer.cornerRadius = 10
         containerView.layer.masksToBounds = true
 
         shadowView.layer.shadowColor = UIColor.black.cgColor
         shadowView.layer.shadowOffset = CGSize(width: 0, height: 1)
         shadowView.layer.shadowOpacity = 0.1
-        shadowView.layer.shadowRadius = 2
-        shadowView.layer.cornerRadius = 4
+//        shadowView.layer.shadowRadius = 2
+        shadowView.layer.shadowRadius = 5
+//        shadowView.layer.cornerRadius = 4
+        shadowView.layer.cornerRadius = 10
     }
 
     func populateFrom(podcast: Podcast, badgeType: BadgeType, libraryType: LibraryType) {

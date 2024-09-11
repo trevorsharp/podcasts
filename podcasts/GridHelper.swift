@@ -22,7 +22,8 @@ class GridHelper {
 
     // MARK: - UICollectionView layout
 
-    init(spacing: CGFloat = 6) {
+//    init(spacing: CGFloat = 6) {
+    init(spacing: CGFloat = 15) {
         self.spacing = spacing
     }
 
@@ -35,7 +36,8 @@ class GridHelper {
         collectionView.contentSize.width = collectionView.bounds.width - 1
         flowLayout.minimumLineSpacing = spacing
         flowLayout.minimumInteritemSpacing = spacing
-        flowLayout.sectionInset = UIEdgeInsets(top: spacing * 2, left: 0, bottom: 0, right: 0)
+//        flowLayout.sectionInset = UIEdgeInsets(top: spacing * 2, left: 0, bottom: 0, right: 0)
+        flowLayout.sectionInset = UIEdgeInsets(top: spacing, left: 0, bottom: spacing, right: 0)
         flowLayout.growScale = GridHelper.moveScale
         flowLayout.alphaOnPickup = GridHelper.moveAlpha
         flowLayout.growOffset = 0
@@ -64,6 +66,8 @@ class GridHelper {
                 divideBy = gridType == .threeByThree ? 3 : 4
             }
         }
+
+        divideBy = max(3, floor(viewWidth / 150))
 
         let availableWidth = viewWidth - (spacing * (divideBy-1))
         let cellWidth =  availableWidth / divideBy

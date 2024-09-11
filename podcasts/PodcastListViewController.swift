@@ -16,6 +16,7 @@ class PodcastListViewController: PCViewController, UIGestureRecognizerDelegate, 
             addPodcastBtn.buttonTapped = {
                 NavigationManager.sharedManager.navigateTo(NavigationManager.discoverPageKey, data: nil)
             }
+            addPodcastBtn.isHidden = true
         }
     }
 
@@ -29,7 +30,8 @@ class PodcastListViewController: PCViewController, UIGestureRecognizerDelegate, 
     @IBOutlet var noPodcastsMessage: ThemeableLabel! {
         didSet {
             noPodcastsMessage.style = .primaryText02
-            noPodcastsMessage.text = L10n.podcastGridNoPodcastsMsg
+//            noPodcastsMessage.text = L10n.podcastGridNoPodcastsMsg
+            noPodcastsMessage.text = "Search for podcasts or add by URL above"
         }
     }
 
@@ -45,7 +47,8 @@ class PodcastListViewController: PCViewController, UIGestureRecognizerDelegate, 
 
     @IBOutlet var noPodcastsTitle: ThemeableLabel! {
         didSet {
-            noPodcastsTitle.text = L10n.podcastGridNoPodcastsTitle
+//            noPodcastsTitle.text = L10n.podcastGridNoPodcastsTitle
+            noPodcastsTitle.text = "No Podcasts"
         }
     }
 
@@ -82,7 +85,7 @@ class PodcastListViewController: PCViewController, UIGestureRecognizerDelegate, 
         setupRefreshControl()
 
         let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(_:)))
-        podcastsCollectionView.addGestureRecognizer(longPressGesture)
+//        podcastsCollectionView.addGestureRecognizer(longPressGesture)
         longPressGesture.delegate = self
 
         adjustSettingsForGridType()
@@ -221,7 +224,7 @@ class PodcastListViewController: PCViewController, UIGestureRecognizerDelegate, 
         let folderImage = SubscriptionHelper.hasActiveSubscription() ? UIImage(named: "folder-create") : UIImage(named: AppTheme.folderLockedImageName())
         let folderButton = UIBarButtonItem(image: folderImage, style: .plain, target: self, action: #selector(createFolderTapped(_:)))
         folderButton.accessibilityLabel = L10n.folderCreateNew
-        navigationItem.leftBarButtonItem = folderButton
+//        navigationItem.leftBarButtonItem = folderButton
         extraRightButtons = []
     }
 
@@ -232,11 +235,11 @@ class PodcastListViewController: PCViewController, UIGestureRecognizerDelegate, 
         } else {
             // When double-tapping on tab bar, dismiss the search if already active
             // else give focus to the search field
-            if searchController.cancelButtonShowing {
-                searchController.cancelTapped(self)
-            } else {
-                searchController.searchTextField.becomeFirstResponder()
-            }
+//            if searchController.cancelButtonShowing {
+//                searchController.cancelTapped(self)
+//            } else {
+//                searchController.searchTextField.becomeFirstResponder()
+//            }
         }
     }
 

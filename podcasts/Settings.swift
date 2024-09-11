@@ -39,6 +39,7 @@ class Settings: NSObject {
     }
 
     class func libraryType() -> LibraryType {
+        return .threeByThree
 
         if FeatureFlag.newSettingsStorage.enabled {
             return SettingsStore.appSettings.gridLayout
@@ -62,6 +63,8 @@ class Settings: NSObject {
 
     static let badgeKey = "SJBadgeType"
     class func podcastBadgeType() -> BadgeType {
+        return .off
+
         if FeatureFlag.newSettingsStorage.enabled {
             return SettingsStore.appSettings.badges
         }
@@ -206,6 +209,8 @@ class Settings: NSObject {
     // MARK: - Podcast Sort Order
 
     class func homeFolderSortOrder() -> LibrarySort {
+        return .episodeDateNewestToOldest
+
         if FeatureFlag.newSettingsStorage.enabled {
             return SettingsStore.appSettings.gridOrder
         }
