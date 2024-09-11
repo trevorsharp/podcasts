@@ -183,6 +183,7 @@ class Settings: NSObject {
     static let primaryRowActionKey = "SJRowAction"
     private static var cachedPrimaryRowAction: PrimaryRowAction? // we cache this because it's used in lists
     class func primaryRowAction() -> PrimaryRowAction {
+        return .stream
         if FeatureFlag.newSettingsStorage.enabled {
             return SettingsStore.appSettings.rowAction
         } else {

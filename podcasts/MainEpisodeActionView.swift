@@ -41,6 +41,8 @@ class MainEpisodeActionView: UIView {
             setNeedsDisplay()
         }
     }
+    
+    var pointerInteraction: UIPointerInteraction?
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -123,6 +125,12 @@ class MainEpisodeActionView: UIView {
             state = .play
         } else {
             state = primaryRowActionIsDownload ? .download : .play
+        }
+
+        if state == .play || state == .pause {
+            pointerInteraction?.isEnabled = true
+        } else {
+            pointerInteraction?.isEnabled = false
         }
     }
 
