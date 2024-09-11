@@ -6,7 +6,7 @@ import PocketCastsUtils
 import UIKit
 import Kingfisher
 
-class PodcastListViewController: PCViewController, UIGestureRecognizerDelegate, ShareListDelegate {
+class PodcastListViewController: PCViewController, UIGestureRecognizerDelegate, ShareListDelegate, UIDocumentInteractionControllerDelegate {
     let gridHelper = GridHelper()
     var refreshControl: PCRefreshControl?
 
@@ -324,7 +324,7 @@ class PodcastListViewController: PCViewController, UIGestureRecognizerDelegate, 
             self?.showSortOrderOptions()
             Analytics.track(.podcastsListModalOptionTapped, properties: ["option": "sort_by"])
         }
-        optionsPicker.addAction(action: sortAction)
+//        optionsPicker.addAction(action: sortAction)
 
         let largeGridAction = OptionAction(label: L10n.podcastsLargeGrid, icon: "podcastlist_largegrid", selected: Settings.libraryType() == .threeByThree) { [weak self] in
             Settings.setLibraryType(.threeByThree)
@@ -344,14 +344,14 @@ class PodcastListViewController: PCViewController, UIGestureRecognizerDelegate, 
             Analytics.track(.podcastsListModalOptionTapped, properties: ["option": "layout"])
             Analytics.track(.podcastsListLayoutChanged, properties: ["layout": LibraryType.list])
         }
-        optionsPicker.addSegmentedAction(name: L10n.podcastsLayout, icon: "podcastlist_largegrid", actions: [largeGridAction, smallGridAction, listGridAction])
+//        optionsPicker.addSegmentedAction(name: L10n.podcastsLayout, icon: "podcastlist_largegrid", actions: [largeGridAction, smallGridAction, listGridAction])
 
         let badgeType = Settings.podcastBadgeType()
         let badgesAction = OptionAction(label: L10n.podcastsBadges, secondaryLabel: badgeType.description, icon: "badges") { [weak self] in
             self?.showBadgeOptions()
             Analytics.track(.podcastsListModalOptionTapped, properties: ["option": "badges"])
         }
-        optionsPicker.addAction(action: badgesAction)
+//        optionsPicker.addAction(action: badgesAction)
 
         let shareAction = OptionAction(label: L10n.podcastsShare, icon: "podcast-share") {
             let shareController = SharePodcastsViewController()
@@ -360,11 +360,106 @@ class PodcastListViewController: PCViewController, UIGestureRecognizerDelegate, 
             self.present(navController, animated: true, completion: nil)
             Analytics.track(.podcastsListModalOptionTapped, properties: ["option": "share"])
         }
-        optionsPicker.addAction(action: shareAction)
+//        optionsPicker.addAction(action: shareAction)
+
+        if SyncManager.isUserLoggedIn() {
+            let signOutAction = OptionAction(label: L10n.accountSignOut, icon: "profile_tab") { [weak self] in
+                SignOutHelper.signout()
+                self?.navigationController?.popViewController(animated: true)
+            }
+            signOutAction.destructive = true
+            optionsPicker.addAction(action: signOutAction)
+        } else {
+            let signInAction = OptionAction(label: L10n.signIn, icon: "profile_tab") {
+                let signInViewController = SyncSigninViewController()
+                signInViewController.dismissOnCancel = true
+                let navController = SJUIUtils.navController(for: signInViewController)
+                navController.modalPresentationStyle = .popover
+                self.present(navController, animated: true, completion: nil)
+            }
+            optionsPicker.addAction(action: signInAction)
+        }
+
+        let exportPodcastsAction = OptionAction(label: "Export Podcasts", icon: "settings_export_podcasts") { [weak self] in
+            self?.startExport()
+        }
+        optionsPicker.addAction(action: exportPodcastsAction)
+
+        let refreshArtworkAction = OptionAction(label: "Refresh Artwork", icon: "settings_appearance") {
+            DispatchQueue.global(qos: .default).async { () in
+                ImageManager.sharedManager.clearPodcastCache(recacheWhenDone: true)
+            }
+        }
+        optionsPicker.addAction(action: refreshArtworkAction)
 
         optionsPicker.show(statusBarStyle: preferredStatusBarStyle)
 
         Analytics.track(.podcastsListOptionsButtonTapped)
+    }
+
+    // MARK: Export copied from ImportExportViewController
+
+    private var opmlShareController: UIDocumentInteractionController?
+
+    private func startExport() {
+        let podcasts = DataManager.sharedManager.allPodcasts(includeUnsubscribed: false)
+
+        let uuids = podcasts.map(\.uuid)
+
+        MainServerHandler.shared.exportPodcasts(uuids: uuids) { exportResponse in
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else { return }
+
+                guard let exportResponse = exportResponse, exportResponse.success(), let mapping = exportResponse.result else {
+                    self.presentError()
+                    return
+                }
+
+                self.performOpmlExport(podcasts, mappingDictionary: mapping)
+            }
+        }
+    }
+
+    private func performOpmlExport(_ podcasts: [Podcast], mappingDictionary: [String: String]) {
+        let exportXML = AEXMLDocument()
+        let opml = exportXML.addChild(name: "opml", attributes: ["version": "1.0"])
+        let header = opml.addChild(name: "head")
+        _ = header.addChild(name: "title", value: "Pocket Casts Feeds")
+
+        let body = opml.addChild(name: "body")
+        let outline = body.addChild(name: "outline", attributes: ["text": "feeds"])
+        for podcast in podcasts {
+            let podcastTitle = podcast.title ?? ""
+            let urlToUse = mappingDictionary[podcast.uuid] ?? ""
+            _ = outline.addChild(name: "outline", attributes: ["type": "rss", "text": podcastTitle, "xmlUrl": urlToUse])
+        }
+
+        shareOpmlDocument(exportXML)
+    }
+
+    private func shareOpmlDocument(_ document: AEXMLDocument) {
+        let text = document.xmlString
+        let homeDirectory = NSTemporaryDirectory() as NSString
+        let filePath = homeDirectory.appendingPathComponent("podcasts.opml")
+        do {
+            try text.write(toFile: filePath, atomically: true, encoding: String.Encoding.utf8)
+
+            let fileUrl = URL(fileURLWithPath: filePath)
+            opmlShareController = UIDocumentInteractionController(url: fileUrl)
+            opmlShareController?.delegate = self
+
+            opmlShareController?.presentOptionsMenu(from: self.view.frame, in: view, animated: true)
+        } catch {
+            presentError()
+        }
+    }
+
+    func documentInteractionControllerDidDismissOptionsMenu(_ controller: UIDocumentInteractionController) {
+        opmlShareController = nil
+    }
+
+    private func presentError() {
+        SJUIUtils.showAlert(title: L10n.settingsExportError, message: L10n.settingsExportErrorMsg, from: self)
     }
 
     // MARK: - ShareListDelegate
