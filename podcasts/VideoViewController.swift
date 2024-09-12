@@ -122,6 +122,7 @@ class VideoViewController: SimpleNotificationsViewController, AVPictureInPicture
 
         let skipFwdAmount = Settings.skipForwardTime
         skipForwardBtn.skipAmount = skipFwdAmount
+        castButton.isHidden = true
     }
 
     override func viewWillAppear(_ animated: Bool) {
