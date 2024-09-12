@@ -783,7 +783,8 @@ class PlaybackManager: ServerPlaybackDelegate {
         guard let episode = currentEpisode() else { return }
 
         // round it to the nearest 0.1, so we end up with 1.5 not 1.53667346262
-        effects.playbackSpeed = round(effects.playbackSpeed * 10.0) / 10.0
+//        effects.playbackSpeed = round(effects.playbackSpeed * 10.0) / 10.0
+        effects.playbackSpeed = round(effects.playbackSpeed * 4.0) / 4.0
 
         // persist changes
         if effects.isGlobal {
@@ -816,9 +817,11 @@ class PlaybackManager: ServerPlaybackDelegate {
 
     func decreasePlaybackSpeed() {
         let playbackEffects = effects()
-        if playbackEffects.playbackSpeed < 0.6 { return }
+//        if playbackEffects.playbackSpeed < 0.6 { return }
+        if playbackEffects.playbackSpeed <= 1 { return }
 
-        playbackEffects.playbackSpeed = playbackEffects.playbackSpeed - 0.1
+//        playbackEffects.playbackSpeed = playbackEffects.playbackSpeed - 0.1
+        playbackEffects.playbackSpeed = playbackEffects.playbackSpeed - 0.25
         changeEffects(playbackEffects)
     }
 
@@ -831,9 +834,11 @@ class PlaybackManager: ServerPlaybackDelegate {
 
     func increasePlaybackSpeed() {
         let playbackEffects = effects()
-        if playbackEffects.playbackSpeed > 4.9 { return }
+//        if playbackEffects.playbackSpeed > 4.9 { return }
+        if playbackEffects.playbackSpeed >= 2 { return }
 
-        playbackEffects.playbackSpeed = playbackEffects.playbackSpeed + 0.1
+//        playbackEffects.playbackSpeed = playbackEffects.playbackSpeed + 0.1
+        playbackEffects.playbackSpeed = playbackEffects.playbackSpeed + 0.25
         changeEffects(playbackEffects)
     }
 
