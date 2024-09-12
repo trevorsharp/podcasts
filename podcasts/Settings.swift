@@ -17,6 +17,7 @@ class Settings: NSObject {
             UserDefaults.standard.set(newValue, forKey: Constants.UserDefaults.openLinksInExternalBrowser)
         }
         get {
+            return true
             if FeatureFlag.newSettingsStorage.enabled {
                 return SettingsStore.appSettings.openLinks
             } else {
@@ -768,6 +769,7 @@ class Settings: NSObject {
 
     static let multiSelectGestureKey = "MultiSelectGestureEnabled"
     class func multiSelectGestureEnabled() -> Bool {
+        return false
         if FeatureFlag.newSettingsStorage.enabled {
             return SettingsStore.appSettings.multiSelectGesture
         } else {
@@ -1041,6 +1043,7 @@ class Settings: NSObject {
             UserDefaults.standard.set(newValue, forKey: Constants.UserDefaults.autoplay)
         }
         get {
+            return false
             if FeatureFlag.newSettingsStorage.enabled {
                 return SettingsStore.appSettings.autoPlayEnabled
             } else {
@@ -1145,6 +1148,7 @@ class Settings: NSObject {
 
     static var skipBackTime: Int {
         get {
+            return 10
             if FeatureFlag.newSettingsStorage.enabled {
                 return Int(SettingsStore.appSettings.skipBack)
             } else {
@@ -1161,6 +1165,7 @@ class Settings: NSObject {
 
     static var skipForwardTime: Int {
         get {
+            return 30
             if FeatureFlag.newSettingsStorage.enabled {
                 return Int(SettingsStore.appSettings.skipForward)
             } else {

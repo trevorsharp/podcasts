@@ -53,6 +53,7 @@ extension Podcast {
 
     public var podcastSortOrder: PodcastEpisodeSortOrder? {
         get {
+            return .newestToOldest
             if FeatureFlag.newSettingsStorage.enabled {
                 return settings.episodesSortOrder
             } else {
@@ -63,6 +64,7 @@ extension Podcast {
 
     public var autoArchivePlayedAfterTime: TimeInterval {
         get {
+            return 0
             if FeatureFlag.newSettingsStorage.enabled {
                 return settings.autoArchivePlayed.time.rawValue
             } else {
@@ -84,6 +86,7 @@ extension Podcast {
 
     public var autoArchiveInactiveAfterTime: TimeInterval {
         get {
+            return -1
             if FeatureFlag.newSettingsStorage.enabled {
                 return settings.autoArchiveInactive.time.rawValue
             } else {
@@ -103,6 +106,7 @@ extension Podcast {
 
     public var autoArchiveEpisodeLimitCount: Int32 {
         get {
+            return 0
             if FeatureFlag.newSettingsStorage.enabled {
                 return settings.autoArchiveEpisodeLimit
             } else {
@@ -120,6 +124,7 @@ extension Podcast {
 
     public var isAutoArchiveOverridden: Bool {
         get {
+            return true
             if FeatureFlag.newSettingsStorage.enabled {
                 return settings.autoArchive
             } else {
@@ -137,6 +142,7 @@ extension Podcast {
 
     public var shouldShowArchived: Bool {
         get {
+            return true
             if FeatureFlag.newSettingsStorage.enabled {
                 return settings.showArchived
             } else {
@@ -154,6 +160,7 @@ extension Podcast {
 
     public var isPushEnabled: Bool {
         get {
+            return false
             if FeatureFlag.newSettingsStorage.enabled {
                 return settings.notification
             } else {
