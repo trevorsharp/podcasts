@@ -10,6 +10,7 @@ class MiniPlayerViewController: SimpleNotificationsViewController {
 
     var playerOpenState = PlayerOpenState.closed
 
+    @IBOutlet var episodeTitle: ThemeableLabel!
     @IBOutlet var playPauseBtn: PlayPauseButton!
     @IBOutlet var skipBackBtn: UIButton!
     @IBOutlet var skipFwdBtn: UIButton!
@@ -209,6 +210,7 @@ class MiniPlayerViewController: SimpleNotificationsViewController {
         if lastEpisodeUuidImageLoaded != episode.uuid {
             lastEpisodeUuidImageLoaded = episode.uuid
             podcastArtwork.setBaseEpisode(episode: episode, size: .list)
+            episodeTitle.text = episode.title
         }
     }
 
@@ -222,7 +224,8 @@ class MiniPlayerViewController: SimpleNotificationsViewController {
             } else {
                 shouldOpenAutomatically = UserDefaults.standard.bool(forKey: Constants.UserDefaults.openPlayerAutomatically)
             }
-            if shouldOpenAutomatically || episode.videoPodcast(), lastEpisodeUuidAutoOpened != episode.uuid {
+//            if shouldOpenAutomatically || episode.videoPodcast(), lastEpisodeUuidAutoOpened != episode.uuid {
+            if lastEpisodeUuidAutoOpened != episode.uuid {
                 lastEpisodeUuidAutoOpened = episode.uuid
 
                 // we called show mini player above, which might have spent time animating itself into view, so give that time to finish
@@ -315,6 +318,14 @@ class MiniPlayerViewController: SimpleNotificationsViewController {
         upNextBtn.iconColor = iconColor
 
         playPauseBtn.isPlaying = PlaybackManager.shared.playing()
+
+        upNextBtn.isHidden = true
+        skipBackBtn.isHidden = true
+        skipFwdBtn.isHidden = true
+        episodeTitle.textColor = ThemeColor.podcastIcon03(podcastColor: actionColor)
+        episodeTitle.font = UIFont.systemFont(ofSize: 16, weight: .medium)
+        episodeTitle.numberOfLines = 1
+        episodeTitle.lineBreakMode = .byTruncatingTail
     }
 
     private func podcastForEpisode(_ episode: BaseEpisode?) -> Podcast? {
