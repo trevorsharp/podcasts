@@ -20,7 +20,7 @@ extension PodcastViewController: UITableViewDataSource, UITableViewDelegate {
 
     func registerLongPress() {
         let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(tableLongPressed(_:)))
-        episodesTable.addGestureRecognizer(longPressRecognizer)
+//        episodesTable.addGestureRecognizer(longPressRecognizer)
     }
 
     @objc private func tableLongPressed(_ sender: UILongPressGestureRecognizer) {

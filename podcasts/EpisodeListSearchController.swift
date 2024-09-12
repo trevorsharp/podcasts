@@ -117,6 +117,12 @@ class EpisodeListSearchController: SimpleNotificationsViewController, UISearchBa
                 showHideBtn.layoutIfNeeded()
             }
         }
+
+        archivedInfoLabel.isHidden = true
+        episodeInfoSeparatorLabel.isHidden = true
+        showHideArchiveBtn.isHidden = true
+        roundedBackgroundView.isHidden = true
+        overflowButton.setImage(UIImage(named: "podcast-archive-show"), for: .normal)
     }
 
     func episodesDidReload() {
@@ -129,6 +135,16 @@ class EpisodeListSearchController: SimpleNotificationsViewController, UISearchBa
 
     @IBAction func overflowTapped(_ sender: Any) {
         guard let delegate = podcastDelegate, let podcast = delegate.displayedPodcast() else { return }
+
+        let notPlayedQuery = "SELECT COUNT(*) FROM \(DataManager.episodeTableName) WHERE podcast_id = ? AND playingStatus != \(PlayingStatus.completed.rawValue)"
+        let notPlayedCount = DataManager.sharedManager.count(query: notPlayedQuery, values: [podcast.id])
+        if notPlayedCount > 0 {
+            confirmMarkAllAsPlayed(episodeCount: notPlayedCount)
+        } else {
+            confirmMarkAllAsUnplayed(episodeCount: delegate.episodeCount())
+        }
+
+        return;
 
         let optionPicker = OptionsPicker(title: nil)
 
@@ -221,6 +237,34 @@ class EpisodeListSearchController: SimpleNotificationsViewController, UISearchBa
         optionPicker.show(statusBarStyle: preferredStatusBarStyle)
         Analytics.track(.podcastScreenOptionsTapped)
     }
+    
+    private func confirmMarkAllAsPlayed(episodeCount: Int) {
+         guard let podcastDelegate = podcastDelegate else { return }
+
+         let markAllPlayedConfirm = OptionsPicker(title: nil)
+         let markAllPlayedAction = OptionAction(label: L10n.markPlayed, icon: nil, action: {
+             podcastDelegate.markAllAsPlayed()
+         })
+         markAllPlayedAction.destructive = true
+         let title = episodeCount == 1 ? L10n.multiSelectMarkEpisodesPlayedSingular : L10n.multiSelectMarkEpisodesPlayedPluralFormat(episodeCount.localized())
+         markAllPlayedConfirm.addDescriptiveActions(title: title, message: "Are you sure you want to continue?", icon: "episode-markasplayed", actions: [markAllPlayedAction])
+
+         markAllPlayedConfirm.show(statusBarStyle: preferredStatusBarStyle)
+     }
+
+     private func confirmMarkAllAsUnplayed(episodeCount: Int) {
+         guard let podcastDelegate = podcastDelegate else { return }
+
+         let markAllUnplayedConfirm = OptionsPicker(title: nil)
+         let markAllUnplayedAction = OptionAction(label: L10n.markUnplayedShort, icon: nil, action: {
+             podcastDelegate.markAllAsUnplayed()
+         })
+         markAllUnplayedAction.destructive = true
+         let title = episodeCount == 1 ? L10n.multiSelectMarkEpisodesUnplayedSingular : L10n.multiSelectMarkEpisodesUnplayedPluralFormat(episodeCount.localized())
+         markAllUnplayedConfirm.addDescriptiveActions(title: title, message: "Are you sure you want to continue?", icon: "episode-markunplayed", actions: [markAllUnplayedAction])
+
+         markAllUnplayedConfirm.show(statusBarStyle: preferredStatusBarStyle)
+     }
 
     private func performUnarchiveAll() {
         guard let podcastDelegate = podcastDelegate else { return }

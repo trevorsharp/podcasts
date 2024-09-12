@@ -41,6 +41,8 @@ protocol PodcastActionsDelegate: AnyObject {
     var ratingView: UIView { get }
 
     func showBookmarks()
+    func markAllAsPlayed()
+    func markAllAsUnplayed()
 }
 
 class PodcastViewController: FakeNavViewController, PodcastActionsDelegate, SyncSigninDelegate, MultiSelectActionDelegate {
@@ -195,7 +197,8 @@ class PodcastViewController: FakeNavViewController, PodcastActionsDelegate, Sync
         self.podcast = podcast
 
         // show the expanded view for unsubscribed podcasts, as well as paid podcasts that have expired and you no longer have access to play/download
-        summaryExpanded = !podcast.isSubscribed() || (podcast.isPaid && podcast.licensing == PodcastLicensing.deleteEpisodesAfterExpiry.rawValue && (SubscriptionHelper.subscriptionForPodcast(uuid: podcast.uuid)?.isExpired() ?? false))
+//        summaryExpanded = !podcast.isSubscribed() || (podcast.isPaid && podcast.licensing == PodcastLicensing.deleteEpisodesAfterExpiry.rawValue && (SubscriptionHelper.subscriptionForPodcast(uuid: podcast.uuid)?.isExpired() ?? false))
+        summaryExpanded = true
 
         AnalyticsHelper.podcastOpened(uuid: podcast.uuid)
         podcastRatingViewModel.update(podcast: podcast)
@@ -206,7 +209,8 @@ class PodcastViewController: FakeNavViewController, PodcastActionsDelegate, Sync
     init(podcastInfo: PodcastInfo, existingImage: UIImage?) {
         if let uuid = podcastInfo.uuid, let existingPodcast = DataManager.sharedManager.findPodcast(uuid: uuid, includeUnsubscribed: true) {
             podcast = existingPodcast
-            summaryExpanded = !existingPodcast.isSubscribed()
+//            summaryExpanded = !existingPodcast.isSubscribed()
+            summaryExpanded = true
         } else {
             self.podcastInfo = podcastInfo
             summaryExpanded = true
@@ -241,8 +245,9 @@ class PodcastViewController: FakeNavViewController, PodcastActionsDelegate, Sync
 
         operationQueue.maxConcurrentOperationCount = 1
         scrollPointToChangeTitle = 38
-        addRightAction(image: UIImage(named: "podcast-share"), accessibilityLabel: L10n.share, action: #selector(shareTapped(_:)))
-        addGoogleCastBtn()
+//        addRightAction(image: UIImage(named: "podcast-share"), accessibilityLabel: L10n.share, action: #selector(shareTapped(_:)))
+        addRightAction(image: UIImage(named: "podcast-link"), accessibilityLabel: L10n.share, action: #selector(shareTapped(_:)))
+//        addGoogleCastBtn()
         loadPodcastInfo()
         updateColors()
 
@@ -928,6 +933,50 @@ class PodcastViewController: FakeNavViewController, PodcastActionsDelegate, Sync
 
         let controller = BookmarksPodcastListController(podcast: podcast)
         present(controller, animated: true)
+    }
+
+    func markAllAsPlayed() {
+        guard let podcast = podcast else { return }
+
+        DispatchQueue.global().async { [weak self] in
+            guard let allObjects = self?.episodeInfo[safe: 1]?.elements, allObjects.count > 0 else { return }
+
+            var count = 0
+            for object in allObjects {
+                guard let listEpisode = object as? ListEpisode else { continue }
+                if listEpisode.episode.played() { continue }
+
+                EpisodeManager.markAsPlayed(episode: listEpisode.episode, fireNotification: false, userInitiated: false)
+                count += 1
+            }
+
+            DispatchQueue.main.async { [weak self] in
+                guard let strongSelf = self else { return }
+
+                strongSelf.loadLocalEpisodes(podcast: podcast, animated: false)
+            }
+        }
+    }
+
+    func markAllAsUnplayed() {
+        guard let podcast = podcast else { return }
+
+        DispatchQueue.global().async { [weak self] in
+            guard let allObjects = self?.episodeInfo[safe: 1]?.elements, allObjects.count > 0 else { return }
+
+            var count = 0
+            for object in allObjects {
+                guard let listEpisode = object as? ListEpisode else { continue }
+                EpisodeManager.markAsUnplayed(episode: listEpisode.episode, fireNotification: false, userInitiated: false)
+                count += 1
+            }
+
+            DispatchQueue.main.async { [weak self] in
+                guard let strongSelf = self else { return }
+
+                strongSelf.loadLocalEpisodes(podcast: podcast, animated: false)
+            }
+        }
     }
 
     // MARK: - Long press actions

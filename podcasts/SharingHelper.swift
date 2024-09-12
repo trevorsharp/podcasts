@@ -9,6 +9,10 @@ class SharingHelper: NSObject {
     func shareLinkTo(podcast: Podcast, fromController: UIViewController, fromSource: AnalyticsSource, sourceRect: CGRect, sourceView: UIView) {
         AnalyticsHelper.sharedPodcast()
 
+        openUrl(url: podcast.podcastUrl)
+
+        return;
+
         if FeatureFlag.newSharing.enabled {
             SharingModal.show(option: .podcast(podcast), from: fromSource, in: fromController)
         } else {
@@ -50,6 +54,10 @@ class SharingHelper: NSObject {
 
     func shareLinkTo(podcast: Podcast, fromController: UIViewController, fromSource: AnalyticsSource, barButtonItem: UIBarButtonItem?) {
         AnalyticsHelper.sharedPodcast()
+
+        openUrl(url: podcast.podcastUrl)
+
+        return;
 
         if FeatureFlag.newSharing.enabled {
             SharingModal.show(option: .podcast(podcast), from: fromSource, in: fromController)
@@ -146,6 +154,17 @@ class SharingHelper: NSObject {
             NotificationCenter.postOnMainThread(notification: Constants.Notifications.closedNonOverlayableWindow)
         }
         return activityController
+    }
+
+    private func openUrl(url: String?) {
+        if let urlString = url {
+            let application = UIApplication.shared
+            if let fullUrl = URL(string: urlString) {
+                if application.canOpenURL(fullUrl) {
+                    application.open(fullUrl, options: [:], completionHandler: nil)
+                }
+            }
+        }
     }
 }
 

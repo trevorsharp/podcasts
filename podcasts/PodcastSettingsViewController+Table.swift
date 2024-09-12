@@ -367,6 +367,7 @@ extension PodcastSettingsViewController: UITableViewDataSource, UITableViewDeleg
     }
 
     private func tableData() -> [[TableRow]] {
+        return [[.autoDownload, .playbackEffects, .skipFirst, .skipLast]]
         var data: [[TableRow]] = [[.autoDownload, .notifications], [.upNext], [.playbackEffects, .skipFirst, .skipLast], [.autoArchive]]
 
         if podcast.refreshAvailable {
