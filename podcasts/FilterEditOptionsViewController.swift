@@ -234,7 +234,7 @@ class FilterEditOptionsViewController: PCViewController, UITableViewDelegate, UI
     private func tableData() -> [[FilterEditOptionsViewController.TableRow]] {
         var data = filterToEdit.autoDownloadEpisodes ? FilterEditOptionsViewController.tableDataAutoDownloadEnabled : FilterEditOptionsViewController.tableDataAutoDownloadDisabled
 
-        data.append([.siriShortcut])
+//        data.append([.siriShortcut])
 
         return data
     }

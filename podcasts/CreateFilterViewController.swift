@@ -27,7 +27,11 @@ class CreateFilterViewController: PCViewController, UITextFieldDelegate, UIScrol
     private enum TableRow: Int { case filterName, color, icon }
     private static let tableData: [[TableRow]] = [[.filterName], [.color, .icon]]
 
-    private var filterNameTextField: UITextField!
+    private var filterNameTextField: UITextField! {
+        didSet {
+            filterNameTextField.placeholder = "Playlist Name"
+        }
+    }
 
     init(filter: EpisodeFilter, delegate: FilterCreatedDelegate?) {
         filterToEdit = filter

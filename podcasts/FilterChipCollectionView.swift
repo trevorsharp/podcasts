@@ -17,7 +17,8 @@ class FilterChipCollectionView: UICollectionView, UICollectionViewDelegate, UICo
     private static let chipCellIdentifier = "EpisodeFilterChipCell"
 
     private enum ChipType: Int { case podcast, episode, downloadStatus, mediaType, releaseDate, starred, duration }
-    private static let chipData: [ChipType] = [.podcast, .episode, .releaseDate, .duration, .downloadStatus, .mediaType, .starred]
+//    private static let chipData: [ChipType] = [.podcast, .episode, .releaseDate, .duration, .downloadStatus, .mediaType, .starred]
+    private static let chipData: [ChipType] = [.podcast, .episode, .releaseDate, .duration, .downloadStatus, .mediaType]
     override func awakeFromNib() {
         super.awakeFromNib()
         registerCollectionViewCell()

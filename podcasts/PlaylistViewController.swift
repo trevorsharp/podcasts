@@ -23,8 +23,8 @@ class PlaylistViewController: PCViewController, TitleButtonDelegate {
     @IBOutlet var tableView: UITableView! {
         didSet {
             registerCells()
-            registerLongPress()
-            tableView.allowsMultipleSelectionDuringEditing = true
+//            registerLongPress()
+//            tableView.allowsMultipleSelectionDuringEditing = true
         }
     }
 
@@ -45,12 +45,14 @@ class PlaylistViewController: PCViewController, TitleButtonDelegate {
     @IBOutlet var noEpisodesTitle: ThemeableLabel! {
         didSet {
             noEpisodesTitle.text = L10n.episodeFilterNoEpisodesTitle
+            noEpisodesTitle.font = UIFont.boldSystemFont(ofSize: 18.0)
         }
     }
 
     @IBOutlet var noEpisodesDescription: ThemeableLabel! {
         didSet {
-            noEpisodesDescription.text = L10n.episodeFilterNoEpisodesMsg
+//            noEpisodesDescription.text = L10n.episodeFilterNoEpisodesMsg
+            noEpisodesDescription.text = ""
             noEpisodesDescription.style = .primaryText02
         }
     }
@@ -58,6 +60,7 @@ class PlaylistViewController: PCViewController, TitleButtonDelegate {
     @IBOutlet var noEpisodesIcon: ThemeableImageView! {
         didSet {
             noEpisodesIcon.imageNameFunc = AppTheme.emptyFilterImageName
+            noEpisodesIcon.isHidden = true
         }
     }
 
@@ -145,7 +148,8 @@ class PlaylistViewController: PCViewController, TitleButtonDelegate {
     // MARK: - View Methods
 
     override func viewDidLoad() {
-        supportsGoogleCast = true
+//        supportsGoogleCast = true
+        supportsGoogleCast = false
         super.customRightBtn = UIBarButtonItem(image: UIImage(named: "more"), style: .plain, target: self, action: #selector(moreTapped))
         super.customRightBtn?.accessibilityLabel = L10n.accessibilitySortAndOptions
 
@@ -168,7 +172,9 @@ class PlaylistViewController: PCViewController, TitleButtonDelegate {
 
         titleView = TitleViewWithCollapseButton()
         titleView.delegate = self
-        navigationItem.titleView = titleView
+//        navigationItem.titleView = titleView
+        navigationItem.titleView = nil
+        title = filter.playlistName
 
         themeDividerTopAnchor.constant = isNewFilter ? 52 : 0
         titleView.arrowButton.setExpanded(isNewFilter, animated: false)
@@ -231,9 +237,12 @@ class PlaylistViewController: PCViewController, TitleButtonDelegate {
     }
 
     func setupNavBar() {
-        navigationItem.titleView = isMultiSelectEnabled ? nil : titleView
-        title = isMultiSelectEnabled ? filter.playlistName : nil
-        supportsGoogleCast = isMultiSelectEnabled ? false : true
+//        navigationItem.titleView = isMultiSelectEnabled ? nil : titleView
+//        title = isMultiSelectEnabled ? filter.playlistName : nil
+//        supportsGoogleCast = isMultiSelectEnabled ? false : true
+        navigationItem.titleView = nil
+        title = filter.playlistName
+        supportsGoogleCast = false
         super.customRightBtn = isMultiSelectEnabled ? UIBarButtonItem(title: L10n.cancel, style: .plain, target: self, action: #selector(cancelTapped)) : UIBarButtonItem(image: UIImage(named: "more"), style: .plain, target: self, action: #selector(moreTapped))
         super.customRightBtn?.accessibilityLabel = isMultiSelectEnabled ? L10n.accessibilityCancelMultiselect : L10n.accessibilitySortAndOptions
 
@@ -314,7 +323,7 @@ class PlaylistViewController: PCViewController, TitleButtonDelegate {
             Analytics.track(.filterOptionsModalOptionTapped, properties: ["option": "select_episodes"])
             self?.isMultiSelectEnabled = true
         }
-        optionsPicker.addAction(action: MultiSelectAction)
+//        optionsPicker.addAction(action: MultiSelectAction)
 
         let currentSort = PlaylistSort(rawValue: filter.sortType)?.description ?? ""
         let sortAction = OptionAction(label: L10n.sortBy, secondaryLabel: currentSort, icon: "podcastlist_sort") {

@@ -35,11 +35,24 @@ extension PlaylistsViewController: UITableViewDelegate, UITableViewDataSource {
                     if cell.tag != indexPath.row { return }
 
                     cell.episodeCount?.text = "\(count)"
+                    
+                    if count == 0 {
+                        cell.episodeCount?.text = "No Episodes"
+                    } else if count == 1 {
+                        cell.episodeCount?.text = "\(count) Episode"
+                    } else {
+                        cell.episodeCount?.text = "\(count) Episodes"
+                    }
                 }
             }
         }
 
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
+    {
+        90
     }
 
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {

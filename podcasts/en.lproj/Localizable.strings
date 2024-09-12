@@ -14,7 +14,7 @@
 "accessibility_dismiss" = "Dismiss";
 
 /* An accessibility label to direct the user tap to get access to filter details. */
-"accessibility_hide_filter_details" = "Tap to hide filter details";
+"accessibility_hide_filter_details" = "Tap to hide playlist details";
 
 /* Accessibility hint to inform the user how to star (favorite) for an episode. */
 "accessibility_hint_star" = "Double tap to star episode";
@@ -47,7 +47,7 @@
 "accessibility_select_episode" = "Select Episode";
 
 /* An accessibility label to direct the user tap to get access to filter details. */
-"accessibility_show_filter_details" = "Tap to show filter details";
+"accessibility_show_filter_details" = "Tap to show playlist details";
 
 /* An accessibility hint to prompt the user to tap to open their account details or sign in. */
 "accessibility_sign_in" = "Tap to view or setup account";
@@ -278,10 +278,10 @@
 "auto_download_first" = "Auto Download First";
 
 /* Subtitle for the auto download setting. This is displayed when the option is turned off. */
-"auto_download_off_subtitle" = "Enable to auto download episodes in this filter";
+"auto_download_off_subtitle" = "Enable to auto download episodes in this playlist";
 
 /* Subtitle for the auto download setting. This is displayed when the option is turned on. '%1$@' is a placeholder for the number of episodes, this will be more than one. */
-"auto_download_on_plural_format" = "The first %1$@ episodes in this filter will be automatically downloaded";
+"auto_download_on_plural_format" = "The first %1$@ episodes in this playlist will be automatically downloaded";
 
 /* Provides hint text to auto download the a the first of a configurable amount of episodes. Accompanied by a label indicating how many episodes will be auto downloaded. */
 "auto_download_prompt_first" = "First";
@@ -416,7 +416,7 @@
 "create_account_find_out_more_plus" = "Find out more about Pocket Casts Plus";
 
 /* Title for the screen where a user starts creating a filter */
-"create_filter" = "Create Filter";
+"create_filter" = "Create Playlist";
 
 /* An indicator that the current episode is a user generated episode */
 "custom_episode" = "Custom Episode";
@@ -824,7 +824,7 @@
 "episode_count_plural_format" = "%1$@ episodes";
 
 /* Message shown when you have no episodes in an episode filter */
-"episode_filter_no_episodes_msg" = "Either it's time to celebrate completing this list, or edit your filter settings to get some more.";
+"episode_filter_no_episodes_msg" = "Either it's time to celebrate completing this list, or edit your playlist settings to get some more.";
 
 /* Title shown when you have no episodes in an episode filter */
 "episode_filter_no_episodes_title" = "No Episodes";
@@ -947,7 +947,7 @@
 "filter_choose_podcasts" = "Choose Podcasts";
 
 /* Used on the screen to create a new filter. Provides a prompt to continue refining the filter selections. */
-"filter_create_add_more" = "Add more criteria to finish refining your filter.";
+"filter_create_add_more" = "Add more criteria to finish refining your playlist.";
 
 /* Used on the screen to create a new filter. The section header for the list of options to use with the filter. */
 "filter_create_filter_by" = "FILTER BY";
@@ -962,7 +962,7 @@
 "filter_create_no_episodes_description_explanation" = "The criteria you selected doesn’t match any current episodes in your subscriptions";
 
 /* Used on the screen to create a new filter. The prompt about what they can do in order to make sure their filter returns results. */
-"filter_create_no_episodes_description_prompt" = "Choose different criteria, or save this filter if you think it will match episodes in the future.";
+"filter_create_no_episodes_description_prompt" = "Choose different criteria, or save this playlist if you think it will match episodes in the future.";
 
 /* Used on the screen to create a new filter. The section that shows a preview of what podcast episodes will be included in the filter. */
 "filter_create_preview" = "PREVIEW";
@@ -971,10 +971,10 @@
 "filter_create_podcasts_all_podcasts" = "All Podcasts";
 
 /* Used on the screen to create a new filter. Title for the button to save the filter. */
-"filter_create_save" = "Save Filter";
+"filter_create_save" = "Save Playlist";
 
 /* Title for the screen where a user can set the initial details for a new filter. */
-"filter_details" = "Filter Details";
+"filter_details" = "Playlist Details";
 
 /* Hint text above the sections for the user to select the filter color and icon. */
 "filter_details_color_icon" = "COLOUR & ICON";
@@ -1022,7 +1022,7 @@
 "filter_option_episode_duration_error_title" = "Yes, But No";
 
 /* Menu prompt to open the Filter options. Also used for the title of the filter options screen. */
-"filter_options" = "Filter Options";
+"filter_options" = "Playlist Options";
 
 /* Title for filter options related to release date settings. */
 "filter_release_date" = "Release Date";
@@ -1046,19 +1046,19 @@
 "filter_release_date_last_week" = "Last week";
 
 /* Prompt to save the changes to an existing filter. */
-"filter_update" = "Update Filter";
+"filter_update" = "Update Playlist";
 
 /* A common string used throughout the app. Filter option for the default setting on multiple filters. */
 "filter_value_all" = "All";
 
 /* A common string used throughout the app. Often refers to the Filters screen. */
-"filters" = "Filters";
+"filters" = "Playlists";
 
 /* Button title for adding a new filter. */
-"filters_new_filter_button" = "+ New Filter";
+"filters_new_filter_button" = "+ New Playlist";
 
 /* A placeholder title for a newly created filter. */
-"filters_default_new_filter" = "New Filter";
+"filters_default_new_filter" = "New Playlist";
 
 /* The title for the auto generated 'New Release' filter. */
 "filters_default_new_releases" = "New Releases";
@@ -2261,13 +2261,13 @@
 "settings_auto_download" = "Auto Download";
 
 /* Label indicating the number of selected filters. '%1$@' is a placeholder for the number of filters selected. */
-"settings_auto_downloads_filters_selected_format" = "%1$@ filters selected";
+"settings_auto_downloads_filters_selected_format" = "%1$@ playlists selected";
 
 /* Label indicating the number of selected filters. This is the singular form for an accompanying plural option. */
-"settings_auto_downloads_filters_selected_singular" = "1 filter selected";
+"settings_auto_downloads_filters_selected_singular" = "1 playlist selected";
 
 /* Label indicating no filters have been selected. */
-"settings_auto_downloads_no_filters_selected" = "No Filters Selected";
+"settings_auto_downloads_no_filters_selected" = "No Playlists Selected";
 
 /* Label indicating no podcasts have been selected. */
 "settings_auto_downloads_no_podcasts_selected" = "No Podcasts Selected";
@@ -2279,7 +2279,7 @@
 "settings_auto_downloads_podcasts_selected_singular" = "1 podcast selected";
 
 /* Subtitle explaining the toggle to auto download the top episodes of a filter. */
-"settings_auto_downloads_subtitle_filters" = "Download the top episodes in a filter.";
+"settings_auto_downloads_subtitle_filters" = "Download the top episodes in a playlist.";
 
 /* Subtitle explaining the toggle to auto download New Episodes. */
 "settings_auto_downloads_subtitle_new_episodes" = "Download new episodes when they are released.";
@@ -2507,10 +2507,10 @@
 "settings_import_export" = "Import / Export";
 
 /* Informs the user that the current podcast is included in one filter. '%1$@' is a placeholder for the number of filters this podcast is included in. */
-"settings_in_filters_plural_format" = "Included In %1$@ Filters";
+"settings_in_filters_plural_format" = "Included In %1$@ Playlists";
 
 /* Informs the user that the current podcast is included in one filter. This is the singular form of an accompanying plural string. */
-"settings_in_filters_singular" = "Included In 1 Filter";
+"settings_in_filters_singular" = "Included In 1 Playlist";
 
 /* Setting section header. Indicates that the options in this section will appear in the menu vs an action bar. */
 "settings_in_menu" = "IN MENU";
@@ -2519,13 +2519,13 @@
 "settings_inactive_episodes_msg" = "Inactive episodes are episodes you haven't played or downloaded in the time you specify above. Downloads are removed when the episode is archived.";
 
 /* Informs the user that the current podcast isn't included in any filters. */
-"settings_not_in_filters" = "Not Included In Any Filters";
+"settings_not_in_filters" = "Not Included In Any Playlists";
 
 /* A common string used throughout the app. Refers to the Notifications settings menu. */
 "settings_notifications" = "Notifications";
 
 /* App badge choice to have the badge reflect the filter count */
-"settings_notifications_filter_count" = "Filter count";
+"settings_notifications_filter_count" = "Playlist count";
 
 /* Subtitle explaining what notifications to expect when you enable notifications. */
 "settings_notifications_subtitle" = "Notifies you when a new episode is available. Also useful for improving the reliability of auto downloads.";
@@ -2543,13 +2543,13 @@
 "settings_queue_position" = "Position in Queue";
 
 /* Prompt to select a filter */
-"settings_select_filter_singular" = "Select Filter";
+"settings_select_filter_singular" = "Select Playlist";
 
 /* Prompt to select filters */
-"settings_select_filters_plural" = "Select Filters";
+"settings_select_filters_plural" = "Select Playlists";
 
 /* Option for the filter Siri Shortcut. This sets the app to open the filter when the shortcut is triggered. */
-"settings_shortcuts_filter_open_filter" = "Open Filter";
+"settings_shortcuts_filter_open_filter" = "Open Playlist";
 
 /* Option for the filter Siri Shortcut. This sets the filter to play all episodes in the filter when the shortcut is triggered. */
 "settings_shortcuts_filter_play_all_episodes" = "Play all episodes";
@@ -2573,7 +2573,7 @@
 "settings_siri_shortcuts_enabled" = "Enabled shortcuts";
 
 /* Option to create a Siri Shortcut to a specific filter. */
-"settings_siri_shortcuts_specific_filter" = "Shortcut to a specific filter";
+"settings_siri_shortcuts_specific_filter" = "Shortcut to a specific playlist";
 
 /* Option to create a Siri Shortcut to a specific podcast. */
 "settings_siri_shortcuts_specific_podcast" = "Shortcut to a specific podcast";
@@ -2690,7 +2690,7 @@
 "settings_status_account_service" = "Account Service";
 
 /* Description for the Account Service check. */
-"settings_status_account_service_description" = "The service used to store episode progress, subscriptions, filters, etc.";
+"settings_status_account_service_description" = "The service used to store episode progress, subscriptions, playlists, etc.";
 
 /* Title for the service being checked, in this case, the Pocket Cast's Discover & Search. */
 "settings_status_discover" = "Discover & Search";
@@ -3152,7 +3152,7 @@
 "watch_no_episodes" = "No Episodes";
 
 /* Label in the Apple Watch app informing the user that they haven't configured any of their filters. */
-"watch_no_filters" = "No Filters";
+"watch_no_filters" = "No Playlists";
 
 /* Label in the Apple Watch app informing the user that they haven't subscribed to podcasts. */
 "watch_no_podcasts" = "No Podcasts";

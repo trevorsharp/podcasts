@@ -55,7 +55,7 @@ class PlaylistsViewController: PCViewController, FilterCreatedDelegate {
 
         loadingIndicator = ThemeLoadingIndicator()
         insetAdjuster.setupInsetAdjustmentsForMiniPlayer(scrollView: filtersTable)
-        setupNewFilterButton()
+//        setupNewFilterButton()
         handleThemeChanged()
     }
 
@@ -94,6 +94,8 @@ class PlaylistsViewController: PCViewController, FilterCreatedDelegate {
         filtersTable.reloadData() // this is needed to ensure the cell re-arrange controls are tinted correctly
         customRightBtn = UIBarButtonItem(barButtonSystemItem: filtersTable.isEditing ? .done : .edit, target: self, action: #selector(editTapped))
         refreshRightButtons()
+
+        navigationItem.leftBarButtonItem = filtersTable.isEditing ? UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNewFilter)) : nil
 
         Analytics.track(.filterListEditButtonToggled, properties: ["editing": filtersTable.isEditing])
     }
