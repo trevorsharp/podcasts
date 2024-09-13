@@ -11,6 +11,9 @@ class VideoPlayerView: UIView {
     var player: AVPlayer? {
         didSet {
             playerLayer.player = player
+            if let group = playerLayer.player?.currentItem?.asset.mediaSelectionGroup(forMediaCharacteristic: .legible) {
+                playerLayer.player?.currentItem?.select(nil, in: group)
+            }
         }
     }
 

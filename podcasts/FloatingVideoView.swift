@@ -9,6 +9,9 @@ class FloatingVideoView: UIView {
     var player: AVPlayer? {
         didSet {
             videoView.player = player
+            if let group = videoView.player?.currentItem?.asset.mediaSelectionGroup(forMediaCharacteristic: .legible) {
+                videoView.player?.currentItem?.select(nil, in: group)
+            }
         }
     }
 
