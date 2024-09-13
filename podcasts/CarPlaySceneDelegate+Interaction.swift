@@ -101,6 +101,11 @@ extension CarPlaySceneDelegate {
     }
 
     func speedTapped() {
+        let effects = PlaybackManager.shared.effects()
+        effects.toggleDefinedSpeedInterval()
+        PlaybackManager.shared.changeEffects(effects)
+        return
+
         let currentSpeed = PlaybackManager.shared.effects().playbackSpeed
 
         var speedItems = [CPListItem]()

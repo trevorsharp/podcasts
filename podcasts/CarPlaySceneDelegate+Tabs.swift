@@ -29,7 +29,7 @@ extension CarPlaySceneDelegate {
         // the podcast tab is always what CarPlay opens first, however it doesn't show the Now Playing tab unless something is actively playing
         // so with that in mind if the user has something in Up Next and Pocket Casts is paused, help them find their now playing stuff by adding that as a section here
         let upNextEpisodes = PlaybackManager.shared.allEpisodesInQueue(includeNowPlaying: true)
-        if upNextEpisodes.count > 0 {
+        if false, upNextEpisodes.count > 0 {
             let truncatedList = Array(upNextEpisodes.prefix(8))
             let imageRowItem = createUpNextImageItem(episodes: truncatedList)
 
@@ -68,7 +68,8 @@ extension CarPlaySceneDelegate {
     }
 
     func createFiltersTab() -> CPListTemplate {
-        return CarPlayListData.template(title: L10n.filters, emptyTitle: L10n.watchNoFilters, image: UIImage(named: "car_tab_filters")) { [weak self] in
+//        return CarPlayListData.template(title: L10n.filters, emptyTitle: L10n.watchNoFilters, image: UIImage(named: "car_tab_filters")) { [weak self] in
+        return CarPlayListData.template(title: L10n.filters, emptyTitle: L10n.watchNoFilters, image: UIImage(named: "car_upnext")) { [weak self] in
             guard let self else { return nil }
             return self.filterTabSections
         }
