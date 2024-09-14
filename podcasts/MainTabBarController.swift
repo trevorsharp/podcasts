@@ -66,7 +66,8 @@ class MainTabBarController: UITabBarController, NavigationProtocol {
 
         displayEndOfYearBadgeIfNeeded()
 
-        viewControllers = vcsInTab.map { SJUIUtils.navController(for: $0) }
+//        viewControllers = vcsInTab.map { SJUIUtils.navController(for: $0) }
+        viewControllers = [podcastsController, filtersViewController].map { SJUIUtils.navController(for: $0) }
         selectedIndex = UserDefaults.standard.integer(forKey: Constants.UserDefaults.lastTabOpened)
 
         // Track the initial tab opened event
@@ -95,19 +96,20 @@ class MainTabBarController: UITabBarController, NavigationProtocol {
         super.viewDidAppear(animated)
 
         fireSystemThemeMayHaveChanged()
-        checkSubscriptionStatusChanged()
-        checkPromotionFinishedAcknowledged()
-        checkWhatsNewAcknowledged()
 
-        // Show any app launch announcements/prompts only once
-        if !viewDidAppearBefore {
-            showWhatsNewIfNeeded()
-            showEndOfYearPromptIfNeeded()
-
-            viewDidAppearBefore = true
-        }
-
-        showInitialOnboardingIfNeeded()
+//        checkSubscriptionStatusChanged()
+//        checkPromotionFinishedAcknowledged()
+//        checkWhatsNewAcknowledged()
+//
+//        // Show any app launch announcements/prompts only once
+//        if !viewDidAppearBefore {
+//            showWhatsNewIfNeeded()
+//            showEndOfYearPromptIfNeeded()
+//
+//            viewDidAppearBefore = true
+//        }
+//
+//        showInitialOnboardingIfNeeded()
 
         updateDatabaseIndexes()
     }
