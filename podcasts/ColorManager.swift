@@ -43,6 +43,8 @@ class ColorManager {
 
     class func darkThemeTintColorForPodcastUuid(_ uuid: String, completion: @escaping ((UIColor) -> Void)) {
         CacheServerHandler.shared.loadPodcastColors(podcastUuid: uuid, allowCachedVersion: true, completion: { _, _, darkThemeTint in
+            completion(UIColor(hex: "#FFFFFF"))
+            return;
             guard let darkThemeTint = darkThemeTint else {
                 completion(ColorManager.sharedManager.defaultDarkTintColor)
 
@@ -54,10 +56,12 @@ class ColorManager {
     }
 
     class func lightThemeTintForPodcast(_ podcast: Podcast, defaultColor: UIColor? = nil) -> UIColor {
+        return UIColor(hex: "#1E1F1E")
         ColorManager.sharedManager.lightThemeTintForPodcast(podcast, defaultColor: defaultColor)
     }
 
     class func darkThemeTintForPodcast(_ podcast: Podcast, defaultColor: UIColor? = nil) -> UIColor {
+        return UIColor(hex: "#FFFFFF")
         ColorManager.sharedManager.darkThemeTintForPodcast(podcast, defaultColor: defaultColor)
     }
 

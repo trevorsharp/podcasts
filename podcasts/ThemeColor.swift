@@ -513,11 +513,13 @@ struct ThemeColor {
     }
 
     static func podcastUi03Light(podcastColor: UIColor) -> UIColor {
-        UIColor.calculateColor(orgColor: UIColor(hex: "#000000"), overlayColor: podcastColor.withAlphaComponent(0.35))
+//        UIColor.calculateColor(orgColor: UIColor(hex: "#000000"), overlayColor: podcastColor.withAlphaComponent(0.35))
+        podcastColor
     }
 
     static func podcastUi03Dark(podcastColor: UIColor) -> UIColor {
-        UIColor.calculateColor(orgColor: UIColor(hex: "#000000"), overlayColor: podcastColor.withAlphaComponent(0.3))
+//        UIColor.calculateColor(orgColor: UIColor(hex: "#000000"), overlayColor: podcastColor.withAlphaComponent(0.3))
+        customPodcastColor(podcastColor: podcastColor)
     }
 
     static func podcastUi03ExtraDark(podcastColor: UIColor) -> UIColor {
@@ -1652,12 +1654,19 @@ struct ThemeColor {
     private static let support10Rosé = UIColor(hex: "#FF4FE2")
     private static let support10ContrastLight = UIColor(hex: "#FEB700")
     private static let support10ContrastDark = UIColor(hex: "#F5CA5B")
+    static func customPodcastColor(podcastColor: UIColor) -> UIColor {
+        var brightness: CGFloat = 0
+        podcastColor.getHue(nil, saturation: nil, brightness: &brightness, alpha: nil)
+        return UIColor.calculateColor(orgColor: UIColor(hex: "#1a1b1d"), overlayColor: podcastColor.withAlphaComponent(max(0.15, 1 - brightness)))
+    }
     static func playerBackground01Light(podcastColor: UIColor) -> UIColor {
-        UIColor.calculateColor(orgColor: UIColor(hex: "#000000"), overlayColor: podcastColor.withAlphaComponent(0.2))
+//        UIColor.calculateColor(orgColor: UIColor(hex: "#000000"), overlayColor: podcastColor.withAlphaComponent(0.2))
+        customPodcastColor(podcastColor: podcastColor)
     }
 
     static func playerBackground01Dark(podcastColor: UIColor) -> UIColor {
-        UIColor.calculateColor(orgColor: UIColor(hex: "#000000"), overlayColor: podcastColor.withAlphaComponent(0.2))
+//        UIColor.calculateColor(orgColor: UIColor(hex: "#000000"), overlayColor: podcastColor.withAlphaComponent(0.2))
+        customPodcastColor(podcastColor: podcastColor)
     }
 
     static func playerBackground01ExtraDark(podcastColor: UIColor) -> UIColor { UIColor(hex: "#000000") }
@@ -4944,6 +4953,7 @@ struct ThemeColor {
     }
 
     static func playerBackground02(podcastColor: UIColor, for theme: Theme.ThemeType? = nil) -> UIColor {
+        return playerBackground01(podcastColor: podcastColor, for: theme)
         let theme = theme ?? Theme.sharedTheme.activeTheme
         switch theme {
         case .light:
