@@ -5,7 +5,7 @@ import SafariServices
 import UIKit
 import WebKit
 
-class ShowNotesPlayerItemViewController: PlayerItemViewController, SFSafariViewControllerDelegate, WKNavigationDelegate {
+class ShowNotesPlayerItemViewController: PlayerItemViewController, SFSafariViewControllerDelegate, WKNavigationDelegate, UIScrollViewDelegate {
     @IBOutlet var episodeTitle: UILabel!
     @IBOutlet var publishedDate: UILabel!
     @IBOutlet var duration: UILabel!
@@ -62,6 +62,7 @@ class ShowNotesPlayerItemViewController: PlayerItemViewController, SFSafariViewC
         showNotesWebView.isOpaque = false
         showNotesWebView.backgroundColor = UIColor.clear
         showNotesWebView.scrollView.backgroundColor = UIColor.clear
+        showNotesWebView.scrollView.delegate = self
     }
 
     deinit {
@@ -99,7 +100,8 @@ class ShowNotesPlayerItemViewController: PlayerItemViewController, SFSafariViewC
         guard let episode = PlaybackManager.shared.currentEpisode() as? Episode else { return }
         self.episode = episode
         let pubDate = DateFormatHelper.sharedHelper.longLocalizedFormat(episode.publishedDate)
-        publishedDate.text = pubDate
+//        publishedDate.text = pubDate
+        publishedDate.text = pubDate + " • " + TimeFormatter.shared.minutesHoursFormatted(time: episode.duration)
         duration.text = TimeFormatter.shared.minutesFormatted(time: episode.duration)
 
         // everything below here is expensive to do every single update, so limit it to when the episode changes
@@ -118,6 +120,9 @@ class ShowNotesPlayerItemViewController: PlayerItemViewController, SFSafariViewC
         durationImageView.tintColor = ThemeColor.playerContrast02()
         duration.textColor = AppTheme.colorForStyle(.playerContrast02)
         publishedDate.textColor = AppTheme.colorForStyle(.playerContrast02)
+        duration.isHidden = true
+        dateImageView.isHidden = true
+        durationImageView.isHidden = true
     }
 
     // MARK: - Show Notes
@@ -252,5 +257,10 @@ class ShowNotesPlayerItemViewController: PlayerItemViewController, SFSafariViewC
         NotificationCenter.postOnMainThread(notification: Constants.Notifications.closedNonOverlayableWindow)
         safariViewController?.delegate = nil
         safariViewController = nil
+    }
+
+    // MARK: - UIScrollViewDelegate
+    func scrollViewWillBeginZooming(_ scrollView: UIScrollView, with view: UIView?) {
+        scrollView.pinchGestureRecognizer?.isEnabled = false
     }
 }

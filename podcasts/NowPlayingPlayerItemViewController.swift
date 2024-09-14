@@ -38,6 +38,8 @@ class NowPlayingPlayerItemViewController: PlayerItemViewController {
     @IBOutlet var episodeName: ThemeableLabel! {
         didSet {
             episodeName.style = .playerContrast01
+            episodeName.numberOfLines = 1
+            episodeName.lineBreakMode = .byTruncatingTail
         }
     }
 
@@ -116,6 +118,7 @@ class NowPlayingPlayerItemViewController: PlayerItemViewController {
     @IBOutlet var shelfBg: ThemeableView! {
         didSet {
             shelfBg.style = .playerContrast06
+            shelfBg.layer.backgroundColor = CGColor(gray: 1, alpha: 0.05)
         }
     }
 
@@ -285,6 +288,7 @@ class NowPlayingPlayerItemViewController: PlayerItemViewController {
     }
 
     @objc private func imageTapped() {
+        return
         guard let artwork = episodeImage.image else { return }
 
         let agrume = Agrume(image: artwork, background: .blurred(.regular))

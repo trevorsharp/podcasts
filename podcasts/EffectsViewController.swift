@@ -7,7 +7,8 @@ class EffectsViewController: SimpleNotificationsViewController {
     @IBOutlet var headingLbl: ThemeableLabel! {
         didSet {
             headingLbl.style = .playerContrast02
-            headingLbl.text = L10n.playbackEffects.localizedUppercase
+//            headingLbl.text = L10n.playbackEffects.localizedUppercase
+            headingLbl.text = "PLAYBACK SPEED"
         }
     }
 
@@ -183,6 +184,8 @@ class EffectsViewController: SimpleNotificationsViewController {
         } else {
             preferredContentSize = computedSize
         }
+
+        preferredContentSize = CGSize(width: min(Constants.Values.maxWidthForPopups, UIScreen.main.bounds.width - 50), height: computedSize.height)
     }
 
     override func viewDidAppear(_ animated: Bool) {

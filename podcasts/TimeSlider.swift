@@ -29,7 +29,8 @@ class TimeSlider: UIView {
         }
     }
 
-    var popupColor = UIColor(white: 1.0, alpha: 0.25)
+//    var popupColor = UIColor(white: 1.0, alpha: 0.25)
+    var popupColor = UIColor(white: 1.0, alpha: 0)
     var popupTextColor = UIColor.white
 
     var topOffset = 20 as CGFloat

@@ -13,6 +13,8 @@ class FloatingVideoView: UIView {
     }
 
     private var videoHeightConstraint: NSLayoutConstraint!
+    private var videoWidthConstraint: NSLayoutConstraint!
+    private var videoSize: CGSize?
     private var videoHeightSet = false
     private var lastWidthLayedOut: CGFloat = 0
 
@@ -30,6 +32,7 @@ class FloatingVideoView: UIView {
 
     override func layoutSubviews() {
         super.layoutSubviews()
+        updateVideoConstraints()
 
         if lastWidthLayedOut == bounds.width { return }
 
@@ -41,6 +44,13 @@ class FloatingVideoView: UIView {
         backgroundColor = UIColor.clear
 
         videoView.videoSizeKnown = { [weak self] videoSize in
+            guard let strongSelf = self else { return }
+
+            strongSelf.videoSize = videoSize
+            strongSelf.updateVideoConstraints()
+
+            return
+
             guard let strongSelf = self, !strongSelf.videoHeightSet else { return }
 
             strongSelf.videoHeightSet = true
@@ -59,25 +69,45 @@ class FloatingVideoView: UIView {
         shadowView.layer.shadowRadius = 8
         shadowView.layer.cornerRadius = 8
         shadowView.layer.masksToBounds = false
-        shadowView.backgroundColor = UIColor.black.withAlphaComponent(0.1)
+//        shadowView.backgroundColor = UIColor.black.withAlphaComponent(0.1)
 
         // setup video view
         videoView.translatesAutoresizingMaskIntoConstraints = false
         videoView.clipsToBounds = true
         videoView.layer.cornerRadius = 8
         videoView.layer.masksToBounds = true
-        videoView.backgroundColor = UIColor.clear
 
         addSubview(shadowView)
         addSubview(videoView)
 
         videoHeightConstraint = videoView.heightAnchor.constraint(equalToConstant: bounds.height)
+        videoWidthConstraint = videoView.widthAnchor.constraint(equalToConstant: bounds.width)
         NSLayoutConstraint.activate([
-            videoView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            videoView.trailingAnchor.constraint(equalTo: trailingAnchor),
+//            videoView.leadingAnchor.constraint(equalTo: leadingAnchor),
+//            videoView.trailingAnchor.constraint(equalTo: trailingAnchor),
             videoView.centerYAnchor.constraint(equalTo: centerYAnchor),
-            videoHeightConstraint
+            videoHeightConstraint,
+            videoWidthConstraint,
+            videoView.centerXAnchor.constraint(equalTo: centerXAnchor),
         ])
         shadowView.anchorToAllSidesOf(view: videoView)
+    }
+
+    private func updateVideoConstraints() {
+        guard let videoSize = self.videoSize else { return }
+
+        let viewportWidth = bounds.width
+        let viewportHeight = bounds.height
+
+        let viewportAspectRatio = viewportWidth / viewportHeight
+        let videoAspectRatio = videoSize.width / videoSize.height
+
+        if videoAspectRatio > viewportAspectRatio {
+            videoWidthConstraint.constant = viewportWidth
+            videoHeightConstraint.constant = viewportWidth / videoAspectRatio
+        } else {
+            videoHeightConstraint.constant = viewportHeight
+            videoWidthConstraint.constant = viewportHeight * videoAspectRatio
+        }
     }
 }

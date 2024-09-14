@@ -67,7 +67,7 @@ extension PlayerContainerViewController {
             addTab(chaptersItem, previousTab: &previousTab)
         }
 
-        if shouldShowBookmarks {
+        if false, shouldShowBookmarks {
             showingBookmarks = true
             tabsView.tabs += [.bookmarks]
 

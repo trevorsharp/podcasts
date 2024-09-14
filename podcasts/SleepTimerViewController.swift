@@ -249,6 +249,7 @@ class SleepTimerViewController: SimpleNotificationsViewController {
         let resultSize = view.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
         let newSize = CGSize(width: min(Constants.Values.maxWidthForPopups, view.frame.size.width), height: resultSize.height)
         preferredContentSize = newSize
+        preferredContentSize = CGSize(width: min(Constants.Values.maxWidthForPopups, UIScreen.main.bounds.width - 50), height: resultSize.height)
     }
 
     private func updateCustomSleepTime() {
